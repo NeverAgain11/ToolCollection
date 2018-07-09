@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ToolCollection_Example' do
+  pod 'ToolCollection', :path => '../'
+
+  target 'ToolCollection_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
