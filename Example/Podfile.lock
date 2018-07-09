@@ -1,0 +1,16 @@
+PODS:
+  - ToolCollection (0.1.0)
+
+DEPENDENCIES:
+  - ToolCollection (from `../`)
+
+EXTERNAL SOURCES:
+  ToolCollection:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ToolCollection: 3a03ca0ffccfe990686e3cce068414d8634b402f
+
+PODFILE CHECKSUM: ab3f8464f570160169a93a5ea3989985da6c0444
+
+COCOAPODS: 1.5.3
