@@ -15,6 +15,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let layout = UICollectionViewLeftAlignedLayout()
+        print(layout.description)
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
