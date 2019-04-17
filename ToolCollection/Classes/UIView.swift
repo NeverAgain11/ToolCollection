@@ -8,51 +8,53 @@
 
 import UIKit
 
-public extension UIView {
+extension UIView: NamespaceWrappable {}
+
+public extension TypeWrapperProtocol where WrappedType == UIView {
     
     var x: CGFloat {
         set {
-            var frame = self.frame
+            var frame = wrappedValue.frame
             frame.origin.x = newValue
-            self.frame = frame
+            wrappedValue.frame = frame
         }
         get {
-            return self.frame.origin.x
+            return wrappedValue.frame.origin.x
         }
     }
     
     var y: CGFloat {
         set {
-            var frame = self.frame
+            var frame = wrappedValue.frame
             frame.origin.y = newValue
-            self.frame = frame
+            wrappedValue.frame = frame
         }
         get {
-            return self.frame.origin.y
+            return wrappedValue.frame.origin.y
         }
     }
     
     var left: CGFloat {
         set {
-            self.frame = CGRect(x: newValue, y: self.top, width: self.width, height: self.height)
+            wrappedValue.frame = CGRect(x: newValue, y: self.top, width: self.width, height: self.height)
         }
         get {
-            return self.frame.origin.x
+            return wrappedValue.frame.origin.x
         }
     }
     
     var top: CGFloat {
         set {
-            self.frame = CGRect(x: self.left, y: newValue, width: self.width, height: self.height)
+            wrappedValue.frame = CGRect(x: self.left, y: newValue, width: self.width, height: self.height)
         }
         get {
-            return self.frame.origin.y
+            return wrappedValue.frame.origin.y
         }
     }
     
     var right: CGFloat {
         set {
-            self.frame = CGRect(x: newValue - self.width, y: self.top, width: self.width, height: self.height)
+            wrappedValue.frame = CGRect(x: newValue - self.width, y: self.top, width: self.width, height: self.height)
         }
         get {
             return self.left + self.width
@@ -61,7 +63,7 @@ public extension UIView {
     
     var bottom: CGFloat {
         set {
-            self.frame = CGRect(x: self.left, y: newValue - self.height, width: self.width, height: self.height)
+            wrappedValue.frame = CGRect(x: self.left, y: newValue - self.height, width: self.width, height: self.height)
         }
         get {
             return self.top + self.height
@@ -70,41 +72,41 @@ public extension UIView {
     
     var centerX: CGFloat {
         set {
-            var center = self.center
+            var center = wrappedValue.center
             center.x = newValue
-            self.center = center
+            wrappedValue.center = center
         }
         get {
-            return self.center.x
+            return wrappedValue.center.x
         }
     }
     
     var centerY: CGFloat {
         set {
-            var center = self.center
+            var center = wrappedValue.center
             center.y = newValue
-            self.center = center
+            wrappedValue.center = center
         }
         get {
-            return self.center.y
+            return wrappedValue.center.y
         }
     }
     
     var width: CGFloat {
         set {
-            self.frame.size = CGSize(width: newValue, height: self.frame.height)
+            wrappedValue.frame.size = CGSize(width: newValue, height: wrappedValue.frame.height)
         }
         get {
-            return self.bounds.size.width
+            return wrappedValue.bounds.size.width
         }
     }
     
     var height: CGFloat {
         set {
-            self.frame = CGRect(origin: self.frame.origin, size: CGSize(width: self.width, height: newValue))
+            wrappedValue.frame = CGRect(origin: wrappedValue.frame.origin, size: CGSize(width: self.width, height: newValue))
         }
         get {
-            return self.bounds.size.height
+            return wrappedValue.bounds.size.height
         }
     }
     
@@ -118,10 +120,10 @@ public extension UIView {
     
     var size: CGSize {
         set {
-            self.frame.size = newValue
+            wrappedValue.frame.size = newValue
         }
         get {
-            return self.frame.size
+            return wrappedValue.frame.size
         }
     }
 }
