@@ -228,6 +228,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -287,7 +288,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ToolCollection/ToolCollection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -296,7 +297,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D990B836D3E0380E7A4B6BCD /* [CP] Check Pods Manifest.lock */ = {
@@ -417,7 +418,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -463,7 +464,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

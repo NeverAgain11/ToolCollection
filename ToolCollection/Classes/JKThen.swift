@@ -26,9 +26,9 @@ import CoreGraphics
 import UIKit.UIGeometry
 #endif
 
-public protocol Then {}
+public protocol JKThen {}
 
-extension Then where Self: Any {
+extension JKThen where Self: Any {
     
     /// Makes it available to set properties with closures just after initializing and copying the value types.
     ///
@@ -55,13 +55,13 @@ extension Then where Self: Any {
     
 }
 
-extension Then where Self: AnyObject {
+extension JKThen where Self: AnyObject {
     
     /// Makes it available to set properties with closures just after initializing.
     ///
     ///     let label = UILabel().then {
-    ///       $0.textAlignment = .Center
-    ///       $0.textColor = UIColor.blackColor()
+    ///       $0.textAlignment = .center
+    ///       $0.textColor = UIColor.black
     ///       $0.text = "Hello, World!"
     ///     }
     public func then(_ block: (Self) throws -> Void) rethrows -> Self {
@@ -71,15 +71,15 @@ extension Then where Self: AnyObject {
     
 }
 
-extension NSObject: Then {}
+extension NSObject: JKThen {}
 
-extension CGPoint: Then {}
-extension CGRect: Then {}
-extension CGSize: Then {}
-extension CGVector: Then {}
+extension CGPoint: JKThen {}
+extension CGRect: JKThen {}
+extension CGSize: JKThen {}
+extension CGVector: JKThen {}
 
 #if os(iOS) || os(tvOS)
-extension UIEdgeInsets: Then {}
-extension UIOffset: Then {}
-extension UIRectEdge: Then {}
+extension UIEdgeInsets: JKThen {}
+extension UIOffset: JKThen {}
+extension UIRectEdge: JKThen {}
 #endif

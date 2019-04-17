@@ -15,17 +15,30 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let layout = UICollectionViewLeftAlignedLayout()
-        print(layout.description)
+//        let code = NSLocale.current.regionCode ?? ""
+//        let regionName = NSLocale.current.localizedString(forRegionCode: code) ?? ""
         
+        let timer = SwiftCountDownTimer(interval: .fromSeconds(10), times: 1, queue: .main) { (_, time) in
+            print(time)
+        }
+        timer.start()
+        
+        let countryArray = NSLocale.isoCountryCodes
+        for counrtyCode in countryArray {
+            let locale = Locale(identifier: "zh_Hans_CN")
+            
+            let displayName = locale.localizedString(forRegionCode: counrtyCode) ?? ""
+            print(displayName, " :", counrtyCode)
+        }
         
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    let japanServer = ["JP"]
+    
+    let chinaServer = ["CN"]
+    
+    let europeServer = ["GB"]
+    
 }
 

@@ -1,5 +1,5 @@
 PODS:
-  - ToolCollection (0.1.0)
+  - ToolCollection (0.1.1)
 
 DEPENDENCIES:
   - ToolCollection (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ToolCollection: a68aba6998d3e3e9980d12c0cfb3b2e7c957088a
+  ToolCollection: 1d33e9fd66b1e6a99a4f2f03798e64e203010fb1
 
 PODFILE CHECKSUM: ab3f8464f570160169a93a5ea3989985da6c0444
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.0.beta.3
