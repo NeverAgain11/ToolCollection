@@ -36,7 +36,7 @@ public extension Reactive where Base: AnyObject {
     }
 }
 
-extension ObservableType {
+public extension ObservableType {
     
     func withPrevious() -> Observable<(Element?, Element)> {
         return scan([], accumulator: { (previous, current) in

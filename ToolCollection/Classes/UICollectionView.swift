@@ -9,7 +9,7 @@
 import Foundation
 import DifferenceKit
 
-extension UICollectionView {
+public extension UICollectionView {
     func reload(oldIDs: [String], newIDs: [String]) {
         let change = StagedChangeset(source: oldIDs, target: newIDs)
         

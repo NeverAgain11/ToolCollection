@@ -9,9 +9,9 @@
 import Foundation
 import MMKV
 
-let defaults = PreferenceManager(mmapID: "default.mmkv")
+public let defaults = PreferenceManager(mmapID: "default.mmkv")
 
-final class PreferenceKey<T>: BaseKey {
+final public class PreferenceKey<T>: BaseKey {
     let defaultValue: T?
     
     init(_ key: String, defaultValue: T? = nil) {
@@ -25,10 +25,10 @@ final class PreferenceKey<T>: BaseKey {
     }
 }
 
-class BaseKey: RawRepresentable, Hashable {
-    let rawValue: String
+public class BaseKey: RawRepresentable, Hashable {
+    public let rawValue: String
     
-    required init!(rawValue: String) {
+    required public init!(rawValue: String) {
         self.rawValue = rawValue
     }
     
@@ -36,12 +36,12 @@ class BaseKey: RawRepresentable, Hashable {
         self.init(rawValue: key)
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(self.rawValue)
     }
 }
 
-final class PreferenceManager {
+final public class PreferenceManager {
     static let shared = PreferenceManager(mmapID: "default.mmkv")
     private let mmkv: MMKV
     
@@ -52,7 +52,7 @@ final class PreferenceManager {
     
 }
 
-extension PreferenceManager {
+public extension PreferenceManager {
     
     subscript(key: PreferenceKey<String>) -> String? {
         get { return mmkv.string(forKey: key.rawValue, defaultValue: key.defaultValue) }

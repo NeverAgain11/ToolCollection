@@ -9,11 +9,11 @@
 import Foundation
 import YHListKit
 
-class YHCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollectionViewSectionHeaderFooter {
+public class YHCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollectionViewSectionHeaderFooter {
     
-    var cellModel: YHCollectionViewCellModel?
+    public var cellModel: YHCollectionViewCellModel?
     
-    var sectionModel: YHCollectionViewSectionModel? {
+    public var sectionModel: YHCollectionViewSectionModel? {
         didSet {
             guard let model = sectionModel?.headerModel else { return }
             updateUI(model)
@@ -30,17 +30,17 @@ class YHCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollection
         fatalError("init(coder:) has not been implemented")
     }
     
-    func willDisplay() {
+    public func willDisplay() {
         if let model = cellModel {
             updateUI(model.dataModel)
         }
     }
     
-    func updateUI(_ data: Any) {
+    public func updateUI(_ data: Any) {
         
     }
     
-    func setupUI() {
+    public func setupUI() {
         
     }
     
