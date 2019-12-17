@@ -42,5 +42,10 @@ class ViewController: UIViewController {
     
     let europeServer = ["GB"]
     
+    func textasd() {
+//        let cellModel = JKCollectionCellModel<YHCollectionCell>()
+        
+        
+    }
 }
 

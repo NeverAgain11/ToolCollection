@@ -9,22 +9,22 @@
 import Foundation
 import YHListKit
 
-public class JKCollectionCellModel<T>: YHCollectionViewCellModel where T: UICollectionViewCell {
+open class JKCollectionCellModel<T>: YHCollectionViewCellModel where T: UICollectionViewCell {
     
-    override init() {
+    override public init() {
         super.init()
         
         cellClass = T.self
     }
     
-    func willDisplayCell(_ closure: @escaping ((T, IndexPath) -> Void)) {
+    open func willDisplayCell(_ closure: @escaping ((T, IndexPath) -> Void)) {
         didDequeueCell = { cell, indexPath in
             guard let cell = cell as? T else { return }
             closure(cell, indexPath)
         }
     }
     
-    func didSelect(_ closure: @escaping ((UICollectionView, IndexPath) -> Void)) {
+    open func didSelect(_ closure: @escaping ((UICollectionView, IndexPath) -> Void)) {
         didSelectItem = closure
     }
 }
