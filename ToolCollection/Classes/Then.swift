@@ -26,9 +26,9 @@ import CoreGraphics
 import UIKit.UIGeometry
 #endif
 
-public protocol JKThen {}
+public protocol Then {}
 
-extension JKThen where Self: Any {
+extension Then where Self: Any {
     
     /// Makes it available to set properties with closures just after initializing and copying the value types.
     ///
@@ -55,7 +55,7 @@ extension JKThen where Self: Any {
     
 }
 
-extension JKThen where Self: AnyObject {
+extension Then where Self: AnyObject {
     
     /// Makes it available to set properties with closures just after initializing.
     ///
@@ -71,15 +71,15 @@ extension JKThen where Self: AnyObject {
     
 }
 
-extension NSObject: JKThen {}
+extension NSObject: Then {}
 
-extension CGPoint: JKThen {}
-extension CGRect: JKThen {}
-extension CGSize: JKThen {}
-extension CGVector: JKThen {}
+extension CGPoint: Then {}
+extension CGRect: Then {}
+extension CGSize: Then {}
+extension CGVector: Then {}
 
 #if os(iOS) || os(tvOS)
-extension UIEdgeInsets: JKThen {}
-extension UIOffset: JKThen {}
-extension UIRectEdge: JKThen {}
+extension UIEdgeInsets: Then {}
+extension UIOffset: Then {}
+extension UIRectEdge: Then {}
 #endif
