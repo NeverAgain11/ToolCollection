@@ -85,7 +85,7 @@ public class SwiftTimer {
                 handler(strongSelf)
             }
         }
-        
+
     }
 }
 
@@ -102,7 +102,7 @@ public extension SwiftTimer {
         if let item = workItems[identifier] {
             item.cancel()
         }
-        
+
         let item = DispatchWorkItem {
             handler();
             workItems.removeValue(forKey: identifier)

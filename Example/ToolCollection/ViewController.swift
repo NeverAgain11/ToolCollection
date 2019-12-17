@@ -18,21 +18,21 @@ class ViewController: UIViewController {
 //        let code = NSLocale.current.regionCode ?? ""
 //        let regionName = NSLocale.current.localizedString(forRegionCode: code) ?? ""
         
-        let timer = SwiftCountDownTimer(interval: .fromSeconds(10), times: 1, queue: .main) { (_, time) in
-            print(time)
-        }
-        timer.start()
+//        let timer = SwiftCountDownTimer(interval: .fromSeconds(10), times: 1, queue: .main) { (_, time) in
+//            print(time)
+//        }
+//        timer.start()
+//
+//        let countryArray = NSLocale.isoCountryCodes
+//        for counrtyCode in countryArray {
+//            let locale = Locale(identifier: "zh_Hans_CN")
+//
+//            let displayName = locale.localizedString(forRegionCode: counrtyCode) ?? ""
+//            print(displayName, " :", counrtyCode)
+//        }
         
-        let countryArray = NSLocale.isoCountryCodes
-        for counrtyCode in countryArray {
-            let locale = Locale(identifier: "zh_Hans_CN")
-            
-            let displayName = locale.localizedString(forRegionCode: counrtyCode) ?? ""
-            print(displayName, " :", counrtyCode)
-        }
         
-        
-        
+        textasd()
         
     }
 
@@ -45,8 +45,29 @@ class ViewController: UIViewController {
     func textasd() {
 //        let cellModel = JKCollectionCellModel<YHCollectionCell>()
         
+        print(DemoPropertyWrapper.int32)
         
+        print(DemoPropertyWrapper.str)
+        
+        DemoPropertyWrapper.int32 = 110
+        
+        print(DemoPropertyWrapper.int32)
+        
+        DemoPropertyWrapper.str = "lll"
+        
+        print(DemoPropertyWrapper.str)
+        
+        DemoPropertyWrapper.str = "lllppp"
+        
+        print(DemoPropertyWrapper.str)
         
     }
 }
 
+struct DemoPropertyWrapper {
+    @MMKVProperty(key: "int32", defaultValue: 43)
+    static var int32: Int32
+    
+    @OptionalMMKVProperty(key: "str")
+    static var str: String
+}
