@@ -46,6 +46,7 @@ class ViewController: UIViewController {
 //        let cellModel = JKCollectionCellModel<YHCollectionCell>()
         
         
+        
     }
 }
 

@@ -14,12 +14,12 @@ public let defaults = PreferenceManager(mmapID: "default.mmkv")
 final public class PreferenceKey<T>: BaseKey {
     let defaultValue: T?
     
-    init(_ key: String, defaultValue: T? = nil) {
+    public init(_ key: String, defaultValue: T? = nil) {
         self.defaultValue = defaultValue
         super.init(rawValue: key)
     }
     
-    required init!(rawValue: String) {
+    required public init!(rawValue: String) {
         defaultValue = nil
         super.init(rawValue: rawValue)
     }
@@ -43,11 +43,12 @@ public class BaseKey: RawRepresentable, Hashable {
 
 final public class PreferenceManager {
     static let shared = PreferenceManager(mmapID: "default.mmkv")
-    private let mmkv: MMKV
+    public let mmkv: MMKV
     
-    init(mmapID: String, relativePath: String? = nil) {
+    public init(mmapID: String, relativePath: String? = nil) {
         let path = relativePath ?? NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
         mmkv = MMKV(mmapID: mmapID, relativePath: path)!
+        
     }
     
 }
