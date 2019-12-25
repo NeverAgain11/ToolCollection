@@ -45,21 +45,16 @@ class ViewController: UIViewController {
     func textasd() {
 //        let cellModel = JKCollectionCellModel<YHCollectionCell>()
         
-        print(DemoPropertyWrapper.int32)
+        print(DemoPropertyWrapper.int)
+        DemoPropertyWrapper.int = 110
+        print(DemoPropertyWrapper.int)
         
-        print(DemoPropertyWrapper.str)
+        print(DemoPropertyWrapper.optionalInt)
+        DemoPropertyWrapper.optionalInt = 120
+        print(DemoPropertyWrapper.optionalInt)
+        DemoPropertyWrapper.optionalInt = 140
+        print(DemoPropertyWrapper.optionalInt)
         
-        DemoPropertyWrapper.int32 = 110
-        
-        print(DemoPropertyWrapper.int32)
-        
-        DemoPropertyWrapper.str = "lll"
-        
-        print(DemoPropertyWrapper.str)
-        
-        DemoPropertyWrapper.str = "lllppp"
-        
-        print(DemoPropertyWrapper.str)
         
     }
 }
@@ -69,5 +64,11 @@ struct DemoPropertyWrapper {
     static var int32: Int32
     
     @OptionalMMKVProperty(key: "str")
-    static var str: String
+    static var str: String?
+    
+    @OptionalMMKVProperty(key: "optionalInt")
+    static var optionalInt: Int?
+    
+    @MMKVProperty(key: "int", defaultValue: 1)
+    static var int: Int
 }

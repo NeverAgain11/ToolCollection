@@ -37,6 +37,8 @@ public class OptionalMMKVProperty<T> {
                 return self.mmkv.int32(forKey: self.key, defaultValue: self.defaultValue as? Int32 ?? 0) as? T;
             case is UInt32.Type:
                 return self.mmkv.uint32(forKey: self.key, defaultValue: self.defaultValue as? UInt32 ?? 0) as? T;
+            case is Int.Type:
+                return Int(self.mmkv.int64(forKey: self.key, defaultValue: Int64(self.defaultValue as? Int ?? 0))) as? T;
             case is Int64.Type:
                 return self.mmkv.int64(forKey: self.key, defaultValue: self.defaultValue as? Int64 ?? 0) as? T;
             case is UInt64.Type:
@@ -69,6 +71,8 @@ public class OptionalMMKVProperty<T> {
                 self.mmkv.set(uint, forKey: self.key)
             case let int64 as Int64:
                 self.mmkv.set(int64, forKey: self.key)
+            case let int as Int:
+                self.mmkv.set(Int64(int), forKey: self.key)
             case let uint64 as UInt64:
                 self.mmkv.set(uint64, forKey: self.key)
             case let float as Float:
@@ -114,6 +118,8 @@ public class MMKVProperty<T> {
                 return self.mmkv.int32(forKey: self.key, defaultValue: self.defaultValue as! Int32) as! T
             case is UInt32.Type:
                 return self.mmkv.uint32(forKey: self.key, defaultValue: self.defaultValue as! UInt32) as! T
+            case is Int.Type:
+                return Int(self.mmkv.int64(forKey: self.key, defaultValue: Int64(self.defaultValue as! Int))) as! T;
             case is Int64.Type:
                 return self.mmkv.int64(forKey: self.key, defaultValue: self.defaultValue as! Int64) as! T
             case is UInt64.Type:
@@ -144,6 +150,8 @@ public class MMKVProperty<T> {
                 self.mmkv.set(int, forKey: self.key)
             case let uint as UInt32:
                 self.mmkv.set(uint, forKey: self.key)
+            case let int as Int:
+                self.mmkv.set(Int64(int), forKey: self.key)
             case let int64 as Int64:
                 self.mmkv.set(int64, forKey: self.key)
             case let uint64 as UInt64:
