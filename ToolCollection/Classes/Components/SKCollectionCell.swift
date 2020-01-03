@@ -9,7 +9,7 @@
 import Foundation
 import YHListKit
 
-open class YHCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollectionViewSectionHeaderFooter {
+open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollectionViewSectionHeaderFooter {
     
     public var cellModel: YHCollectionViewCellModel?
     

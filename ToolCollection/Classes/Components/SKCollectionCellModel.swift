@@ -9,7 +9,7 @@
 import Foundation
 import YHListKit
 
-open class JKCollectionCellModel<T>: YHCollectionViewCellModel where T: UICollectionViewCell {
+open class SKCollectionCellModel<T>: YHCollectionViewCellModel where T: UICollectionViewCell {
     
     override public init() {
         super.init()
