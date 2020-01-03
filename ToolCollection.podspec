@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ToolCollection'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = '工具集合'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5'
   s.requires_arc = true
   
-  s.source_files = 'ToolCollection/Classes/*'
+  s.source_files = 'ToolCollection/Classes/**/*'
   
   # s.resource_bundles = {
   #   'ToolCollection' => ['ToolCollection/Assets/*.png']
