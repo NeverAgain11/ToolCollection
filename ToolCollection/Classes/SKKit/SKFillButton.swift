@@ -104,7 +104,7 @@ open class SKFillButton: SKButton {
         if self.cornerRadius != SKFillButtonCornerRadiusAdjustsBounds {
             self.layer.cornerRadius = self.cornerRadius
         } else {
-            self.layer.cornerRadius = flat(self.bounds.height / 2)
+            self.layer.cornerRadius = self.bounds.height / 2
         }
     }
 }

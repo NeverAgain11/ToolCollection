@@ -106,7 +106,7 @@ open class SKGhostButton: SKButton {
         if cornerRadius != SKGhostButtonCornerRadiusAdjustsBounds {
             layer.cornerRadius = cornerRadius
         } else {
-            layer.cornerRadius = flat(bounds.height / 2)
+            layer.cornerRadius = bounds.height / 2
         }
     }
 }
