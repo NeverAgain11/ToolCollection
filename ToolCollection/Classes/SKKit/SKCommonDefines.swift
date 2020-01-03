@@ -9,6 +9,18 @@ import Foundation
 
 let ScreenScale = UIScreen.main.scale
 
+/// MARK: - 方法-C对象、结构操作
+public func ReplaceMethod(_ _class: AnyClass, _ _originSelector: Selector, _ _newSelector: Selector) {
+    let oriMethod = class_getInstanceMethod(_class, _originSelector)
+    let newMethod = class_getInstanceMethod(_class, _newSelector)
+    let isAddedMethod = class_addMethod(_class, _originSelector, method_getImplementation(newMethod!), method_getTypeEncoding(newMethod!))
+    if isAddedMethod {
+        class_replaceMethod(_class, _newSelector, method_getImplementation(oriMethod!), method_getTypeEncoding(oriMethod!))
+    } else {
+        method_exchangeImplementations(oriMethod!, newMethod!)
+    }
+}
+
 /// MARK: - CGFloat
 
 /**

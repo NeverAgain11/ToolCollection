@@ -13,6 +13,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .white
         // Do any additional setup after loading the view, typically from a nib.
         
 //        let code = NSLocale.current.regionCode ?? ""
@@ -75,6 +77,7 @@ class ViewController: UIViewController {
         button.ghostColor = .cyan
         button.frame = .init(x: 0, y: 0, width: 70, height: 30)
         button.setTitle("ghost", for: .normal)
+        button.addTarget(self, action: #selector(secondButtonTapped), for: .touchUpInside)
         view.addSubview(button)
         
         var point = UIScreen.main.bounds.center
@@ -87,7 +90,7 @@ class ViewController: UIViewController {
         let button = SKLinkButton(title: "underLine", image: nil)
 //        button.underlineColor = .darkText
         button.setTitleColor(.darkText, for: .normal)
-//        button.contentEdgeInsets = .init(top: 5, left: 20, bottom: 5, right: 20)
+        button.addTarget(self, action: #selector(thirdButtonTapped), for: .touchUpInside)
         button.setTitle("ghost", for: .normal)
         view.addSubview(button)
         
@@ -95,6 +98,16 @@ class ViewController: UIViewController {
         var point = UIScreen.main.bounds.center
         point.y = point.y + 150
         button.center = point
+    }
+    
+    @objc func secondButtonTapped() {
+        let vc = SecondViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func thirdButtonTapped() {
+        let vc = ThirdViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

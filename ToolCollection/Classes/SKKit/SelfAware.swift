@@ -11,6 +11,10 @@ public protocol SKSelfAware: class {
     static func awake()
 }
 
+public protocol SelfAware2: class {
+    static func awake2()
+}
+
 class NothingToSeeHere {
     
     static func harmlessFunction() {
@@ -20,6 +24,7 @@ class NothingToSeeHere {
         objc_getClassList(autoreleasingTypes, Int32(typeCount))
         for index in 0 ..< typeCount {
             (types[index] as? SKSelfAware.Type)?.awake()
+            (types[index] as? SelfAware2.Type)?.awake2()
         }
         
         types.deallocate()
