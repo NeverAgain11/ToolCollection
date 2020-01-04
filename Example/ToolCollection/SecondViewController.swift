@@ -51,7 +51,7 @@ private extension SecondViewController {
         title = "canPop"
         view.backgroundColor = .white
     }
-
+    
     func setupData() {
         
     }
