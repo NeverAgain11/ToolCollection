@@ -7,6 +7,9 @@
 
 import Foundation
 
-class SKHelper: NSObject {
+public class SKHelper: NSObject {
+    static let pixelOne: CGFloat = {
+        return 1 / UIScreen.main.scale
+    }()
     
 }
