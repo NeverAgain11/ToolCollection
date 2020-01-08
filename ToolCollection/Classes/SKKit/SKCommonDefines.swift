@@ -78,12 +78,12 @@ extension CGFloat {
 
 // MARK: - CGSize
 
-extension CGSize {
-
+public extension CGSize {
+    
     //    static var max: CGSize {
     //        return CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
     //    }
-
+    
     /// 返回一个x/y为0的CGRect
     var rect: CGRect {
         return CGRect(origin: .zero, size: self)
@@ -309,7 +309,7 @@ public extension CGRect {
 }
 
 // MARK: - UIEdgeInsets
-extension UIEdgeInsets {
+public extension UIEdgeInsets {
     /// 获取UIEdgeInsets在水平方向上的值
     var horizontalValue: CGFloat {
         return left + right
