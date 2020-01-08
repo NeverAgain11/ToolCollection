@@ -24,7 +24,7 @@ DEPENDENCIES:
   - ToolCollection (from `../`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/CocoaPods/Specs:
     - DifferenceKit
     - MMKV
     - RxCocoa
