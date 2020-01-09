@@ -77,7 +77,7 @@ open class SKButton: UIButton {
         }
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         didInitialized()
         

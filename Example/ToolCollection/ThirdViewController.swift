@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ToolCollection
 
 class ThirdViewController: UIViewController {
     
@@ -52,7 +53,10 @@ private extension ThirdViewController {
     }
 
     func setupData() {
-    
+//        let manager = Typist.shared
+        
+//        let label = UILabel()
+        
     }
 }
 

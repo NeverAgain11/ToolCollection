@@ -9,6 +9,29 @@ import Foundation
 
 let ScreenScale = UIScreen.main.scale
 
+/// 是否横竖屏，用户界面横屏了才会返回true
+let IS_LANDSCAPE = UIApplication.shared.statusBarOrientation.isLandscape
+/// 屏幕宽度，跟横竖屏无关
+let DEVICE_WIDTH = IS_LANDSCAPE ? UIScreen.main.bounds.height : UIScreen.main.bounds.width
+
+/// 屏幕高度，跟横竖屏无关
+let DEVICE_HEIGHT = IS_LANDSCAPE ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
+
+let UIFontMake: (CGFloat) -> UIFont = { UIFont.systemFont(ofSize: $0) }
+let UIFontBoldMake: (CGFloat) -> UIFont = { UIFont.boldSystemFont(ofSize: $0) }
+
+
+/// MARK: - 动画
+extension UIView.AnimationOptions {
+    static var curveOut: UIView.AnimationOptions {
+        return UIView.AnimationOptions(rawValue: 7 << 16)
+    }
+    
+    static var curveIn: UIView.AnimationOptions {
+        return UIView.AnimationOptions(rawValue: 8 << 16)
+    }
+}
+
 /// MARK: - 方法-C对象、结构操作
 public func ReplaceMethod(_ _class: AnyClass, _ _originSelector: Selector, _ _newSelector: Selector) {
     let oriMethod = class_getInstanceMethod(_class, _originSelector)

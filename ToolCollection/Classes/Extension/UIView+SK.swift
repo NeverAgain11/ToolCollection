@@ -8,12 +8,13 @@
 import Foundation
 
 extension UIView: SKKitCompatible {}
+extension UILabel: SKKitCompatible {}
 
-public extension SKKit where Base == UIView {
+public extension UIView {
     
     /// 性能较差
-    func image() -> UIImage? {
-        let view = self.base
+    public func sk_snapshotLayerImage() -> UIImage? {
+        let view = self
         // 如果可以用新方式，则建议使用新方式，性能上好很多
         var resultImage: UIImage?
         // 第二个参数是不透明度，这里默认设置为YES，不用出来alpha通道的事情，可以提高性能
@@ -28,8 +29,8 @@ public extension SKKit where Base == UIView {
     }
     
     /// 界面要已经render完，否则截到得图将会是empty
-    func image(afterScreenUpdates: Bool) -> UIImage? {
-        let view = self.base
+    public func sk_snapshotImage(afterScreenUpdates: Bool) -> UIImage? {
+        let view = self
         var resultImage: UIImage?
         UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
         
@@ -38,4 +39,9 @@ public extension SKKit where Base == UIView {
         UIGraphicsEndImageContext()
         return resultImage
     }
+    
+}
+
+public extension SKKit where Base == UIView {
+    
 }

@@ -12,7 +12,7 @@ extension UIImage: SKKitCompatible {}
 public extension SKKit where Base == UIImage {
     
     /// 将文字渲染成图片，最终图片和文字一样大
-    static func image(attributedString: NSAttributedString) -> UIImage? {
+    static public func image(attributedString: NSAttributedString) -> UIImage? {
         
         let stringSize = attributedString.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.sizeCeil
         UIGraphicsBeginImageContextWithOptions(stringSize, false, 0)
