@@ -9,8 +9,6 @@
 import Foundation
 import DifferenceKit
 
-extension UICollectionView: SKKitCompatible {}
-
 extension String: Differentiable {}
 
 public extension UICollectionView {

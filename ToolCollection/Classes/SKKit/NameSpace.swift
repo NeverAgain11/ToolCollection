@@ -23,7 +23,7 @@ public protocol SKKitCompatible {
 
 // 协议的扩展
 public extension SKKitCompatible {
-    public var sk: SKKit<Self>{
+    var sk: SKKit<Self>{
         get { return SKKit(self) }
     }
 }

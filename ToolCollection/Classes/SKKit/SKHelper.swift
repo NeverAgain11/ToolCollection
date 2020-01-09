@@ -8,11 +8,11 @@
 import Foundation
 
 public extension SKHelper {
-    static public let pixelOne: CGFloat = {
+    static let pixelOne: CGFloat = {
         return 1 / UIScreen.main.scale
     }()
     
-    static public let isSimulator: Bool = {
+    static let isSimulator: Bool = {
         #if targetEnvironment(simulator)
             return true
         #else
@@ -20,7 +20,7 @@ public extension SKHelper {
         #endif
     }()
     
-    static public let isIPad: Bool = {
+    static let isIPad: Bool = {
         // [[[UIDevice currentDevice] model] isEqualToString:@"iPad"] 无法判断模拟器，改为以下方式
         return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad
     }()
@@ -53,7 +53,7 @@ public extension SKHelper {
 
 public extension SKHelper {
     
-    static public let is65InchScreen: Bool = {
+    static let is65InchScreen: Bool = {
         if CGSize(width: DEVICE_WIDTH, height: DEVICE_HEIGHT) != screenSizeFor65Inch {
             return false
         }
@@ -64,7 +64,7 @@ public extension SKHelper {
         return true
     }()
     
-    static public let is61InchScreen: Bool = {
+    static let is61InchScreen: Bool = {
         if CGSize(width: DEVICE_WIDTH, height: DEVICE_HEIGHT) != screenSizeFor61Inch {
             return false
         }
@@ -75,19 +75,19 @@ public extension SKHelper {
         return true
     }()
     
-    static public let is58InchScreen: Bool = {
+    static let is58InchScreen: Bool = {
         return CGSize(width: DEVICE_WIDTH, height: DEVICE_HEIGHT) == screenSizeFor58Inch
     }()
     
-    static public let is55InchScreen: Bool = {
+    static let is55InchScreen: Bool = {
         return CGSize(width: DEVICE_WIDTH, height: DEVICE_HEIGHT) == screenSizeFor55Inch
     }()
     
-    static public let is47InchScreen: Bool = {
+    static let is47InchScreen: Bool = {
         return CGSize(width: DEVICE_WIDTH, height: DEVICE_HEIGHT) == screenSizeFor47Inch
     }()
     
-    static public let is40InchScreen: Bool = {
+    static let is40InchScreen: Bool = {
         return CGSize(width: DEVICE_WIDTH, height: DEVICE_HEIGHT) == screenSizeFor40Inch
     }()
     

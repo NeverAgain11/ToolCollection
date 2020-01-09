@@ -35,7 +35,7 @@ open class SKLabel: UILabel {
     override open func drawText(in rect: CGRect) {
         var drawRect = rect.inset(by: contentEdgeInsets)
         if numberOfLines == 1 {
-            drawRect.setHeight(drawRect.height + contentEdgeInsets.top * 2)
+            drawRect = drawRect.setHeight(drawRect.height + contentEdgeInsets.top * 2)
         }
         super.drawText(in: drawRect)
     }

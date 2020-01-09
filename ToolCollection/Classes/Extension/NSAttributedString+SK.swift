@@ -8,14 +8,13 @@
 import Foundation
 
 extension NSAttributedString: SKKitCompatible {}
-extension NSMutableAttributedString: SKKitCompatible {}
 
 public extension SKKit where Base == NSAttributedString {
     func image() -> UIImage? {
         let attributedString = self.base
         let stringSize = attributedString.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.sizeCeil
         UIGraphicsBeginImageContextWithOptions(stringSize, false, 0)
-        guard let context  = UIGraphicsGetCurrentContext() else { return nil }
+        guard UIGraphicsGetCurrentContext() != nil else { return nil }
         
         attributedString.draw(in: stringSize.rect)
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()

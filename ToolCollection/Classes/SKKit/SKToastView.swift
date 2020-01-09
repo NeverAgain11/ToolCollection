@@ -286,18 +286,18 @@ open class SKToastView: UIView {
         _maskView.frame = bounds
         
         let contentWidth = parentView.bounds.width
-        var contentHeight = parentView.bounds.height
+        let contentHeight = parentView.bounds.height
         
         let limitWidth = contentWidth - marginInsets.horizontalValue
         let  limitHeight = contentHeight - marginInsets.verticalValue
         
-//        if QMUIKeyboardManager.isKeyboardVisible {
-//            // 处理键盘相关逻辑，当键盘在显示的时候，内容高度会减去键盘的高度以使 Toast 居中
-//            let keyboardFrame = QMUIKeyboardManager.currentKeyboardFrame
+        if SKHelper.isKeyboardVisible {
+            // 处理键盘相关逻辑，当键盘在显示的时候，内容高度会减去键盘的高度以使 Toast 居中
+//            let keyboardFrame = SKHelper.lastKeyboardHeight
 //            let parentViewRect = QMUIKeyboardManager.keyboardWindow?.convert(parentView.frame, from: parentView.superview) ?? .zero
 //            let overlapRect = keyboardFrame.intersection(parentViewRect).flatted
 //            contentHeight -= overlapRect.height
-//        }
+        }
         
         if let contentView = contentView {
             let contentViewSize = contentView.sizeThatFits(CGSize(width: limitWidth, height: limitHeight))

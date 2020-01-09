@@ -131,7 +131,7 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         if gestureRecognizer == interactivePopGestureRecognizer {
             if let originGestureDelegate = objc_getAssociatedObject(self, &AssociatedKeys.originGestureDelegateKey) as? UIGestureRecognizerDelegate {
                 // 先判断要不要强制开启手势返回
-                if viewControllers.count > 1, interactivePopGestureRecognizer?.isEnabled ?? false, let viewController =  topViewController as? UINavigationControllerHoldBackHandlerProtocol,  viewController.forceEnableInterativePopGestureRecognizer != nil, viewController.forceEnableInterativePopGestureRecognizer!() {
+                if viewControllers.count > 1, interactivePopGestureRecognizer?.isEnabled ?? false, let viewController = topViewController as? UINavigationControllerHoldBackHandlerProtocol,  viewController.forceEnableInterativePopGestureRecognizer != nil, viewController.forceEnableInterativePopGestureRecognizer!() {
                     return true
                 }
 

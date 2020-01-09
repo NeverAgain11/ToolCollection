@@ -8,12 +8,11 @@
 import Foundation
 
 extension UIView: SKKitCompatible {}
-extension UILabel: SKKitCompatible {}
 
 public extension UIView {
     
     /// 性能较差
-    public func sk_snapshotLayerImage() -> UIImage? {
+    func sk_snapshotLayerImage() -> UIImage? {
         let view = self
         // 如果可以用新方式，则建议使用新方式，性能上好很多
         var resultImage: UIImage?
@@ -29,7 +28,7 @@ public extension UIView {
     }
     
     /// 界面要已经render完，否则截到得图将会是empty
-    public func sk_snapshotImage(afterScreenUpdates: Bool) -> UIImage? {
+    func sk_snapshotImage(afterScreenUpdates: Bool) -> UIImage? {
         let view = self
         var resultImage: UIImage?
         UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
