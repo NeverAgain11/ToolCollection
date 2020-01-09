@@ -40,7 +40,7 @@ class ThirdViewController: UIViewController {
         
     }
     
-    func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool {
+    override func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool {
         print("byPopGesture", byPopGesture)
         return false
     }

@@ -10,10 +10,10 @@ import UIKit
 
 @objc public protocol UINavigationControllerHoldBackHandlerProtocol: NSObjectProtocol {
     /// 是否可以`popViewController`，可以在这个返回里面做一些业务的判断，比如点击返回按钮的时候，如果输入框里面的文本没有满足条件的则可以弹alert并且返回NO
-    @objc optional func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool
+    @objc func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool
     
     /// 当自定义了`leftBarButtonItem`按钮之后，系统的手势返回就失效了。可以通过`forceEnableInteractivePopGestureRecognizer`来决定要不要把那个手势返回强制加回来。当 interactivePopGestureRecognizer.enabled = NO 或者当前`UINavigationController`堆栈的viewControllers小于2的时候此方法无效。
-    @objc optional func forceEnableInterativePopGestureRecognizer() -> Bool
+    @objc func forceEnableInterativePopGestureRecognizer() -> Bool
 }
 
 extension UINavigationController: SKSelfAware {
@@ -98,7 +98,7 @@ extension UINavigationController {
     private func canPopViewController(_ viewController: UIViewController?) -> Bool {
         var canPop = true
         
-        if let vc = viewController as? UINavigationControllerHoldBackHandlerProtocol, let canPopViewController = vc.shouldPopViewControllerByBackButtonOrPopGesture?(self.isPoppingByGesture), !canPopViewController {
+        if let vc = viewController, !vc.shouldPopViewControllerByBackButtonOrPopGesture(self.isPoppingByGesture) {
             canPop = false
         }
         
@@ -131,10 +131,10 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         if gestureRecognizer == interactivePopGestureRecognizer {
             if let originGestureDelegate = objc_getAssociatedObject(self, &AssociatedKeys.originGestureDelegateKey) as? UIGestureRecognizerDelegate {
                 // 先判断要不要强制开启手势返回
-                if viewControllers.count > 1, interactivePopGestureRecognizer?.isEnabled ?? false, let viewController = topViewController as? UINavigationControllerHoldBackHandlerProtocol,  viewController.forceEnableInterativePopGestureRecognizer != nil, viewController.forceEnableInterativePopGestureRecognizer!() {
+                if viewControllers.count > 1, gestureRecognizer.isEnabled, let viewController = topViewController,  viewController.forceEnableInterativePopGestureRecognizer() {
                     return true
                 }
-
+                
                 // 调用默认实现
                 return originGestureDelegate.gestureRecognizer?(gestureRecognizer, shouldReceive: touch) ?? false
             }
@@ -162,4 +162,12 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     }
 }
 
-extension UIViewController: UINavigationControllerHoldBackHandlerProtocol {}
+extension UIViewController: UINavigationControllerHoldBackHandlerProtocol {
+    open func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool {
+        return true
+    }
+    
+    open func forceEnableInterativePopGestureRecognizer() -> Bool {
+        return false
+    }
+}

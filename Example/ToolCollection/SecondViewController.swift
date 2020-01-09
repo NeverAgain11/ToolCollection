@@ -40,7 +40,7 @@ class SecondViewController: UIViewController {
         
     }
     
-    func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool {
+    override func shouldPopViewControllerByBackButtonOrPopGesture(_ byPopGesture: Bool) -> Bool {
         print("byPopGesture", byPopGesture)
         return true
     }
