@@ -12,7 +12,7 @@ PODS:
   - RxRelay (5.0.0):
     - RxSwift (~> 5)
   - RxSwift (5.0.0)
-  - ToolCollection (0.2.3):
+  - ToolCollection (0.2.5):
     - DifferenceKit
     - MMKV
     - RxCocoa (~> 5)
@@ -24,7 +24,7 @@ DEPENDENCIES:
   - ToolCollection (from `../`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/CocoaPods/Specs:
     - DifferenceKit
     - MMKV
     - RxCocoa
@@ -42,7 +42,7 @@ SPEC CHECKSUMS:
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
-  ToolCollection: e637f91c4ff0b6fc60421e7d33e069411e86df92
+  ToolCollection: 611322cb311019e03b08f5381d91b5145bb7139b
   YHListKit-flow: 2ca9c8992c73d29360d55ef2e5a6caa0b532d57a
 
 PODFILE CHECKSUM: 458a691499bb173867991671fe9d56066bea347f
