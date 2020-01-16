@@ -55,7 +55,25 @@ open class SKButton: UIButton {
             }
         }
     }
-
+    
+    @IBInspectable public var disableBackgroundColor: UIColor? {
+        didSet {
+            if disableBackgroundColor != nil {
+                // 只要开启了highlightedBackgroundColor，就默认不需要alpha的高亮
+                adjustsButtonWhenDisabled = false
+            }
+        }
+    }
+    
+    @IBInspectable public var disableBorderColor: UIColor? {
+        didSet {
+            if disableBorderColor != nil {
+                // 只要开启了highlightedBorderColor，就默认不需要alpha的高亮
+                adjustsButtonWhenDisabled = false
+            }
+        }
+    }
+    
     /**
      * 设置按钮里图标和文字的相对位置，默认为SKButtonImagePositionLeft<br/>
      * 可配合imageEdgeInsets、titleEdgeInsets、contentHorizontalAlignment、contentVerticalAlignment使用
@@ -97,8 +115,10 @@ open class SKButton: UIButton {
         didInitialized()
     }
     
-    private var highlightedBackgroundLayer = CALayer()
+    private lazy var highlightedBackgroundLayer = CALayer()
     private var originBorderColor: UIColor?
+    
+    private lazy var disableBackgroundLayer = CALayer()
     
     func didInitialized() {
 
@@ -106,7 +126,7 @@ open class SKButton: UIButton {
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
         adjustsButtonWhenHighlighted = true
-        adjustsButtonWhenDisabled = true
+        adjustsButtonWhenDisabled = false
         
         // 图片默认在按钮左边，与系统UIButton保持一致
         imagePosition = .left
@@ -442,6 +462,8 @@ open class SKButton: UIButton {
     
     override open var isEnabled: Bool {
         didSet {
+            
+            guard adjustsButtonWhenDisabled else { return }
             if !isEnabled && adjustsButtonWhenDisabled {
                 alpha = 0.5
             } else {
@@ -464,6 +486,21 @@ open class SKButton: UIButton {
         
         if let highlightedBorderColor = highlightedBorderColor {
             layer.borderColor = isHighlighted ? highlightedBorderColor.cgColor : originBorderColor?.cgColor
+        }
+    }
+    
+    fileprivate func adjustsButtonDisable() {
+        guard let disableBackgroundColor = disableBackgroundColor else { return }
+
+        disableBackgroundLayer.qmui_removeDefaultAnimations()
+        layer.insertSublayer(disableBackgroundLayer, at: 0)
+        
+        disableBackgroundLayer.frame = bounds
+        disableBackgroundLayer.cornerRadius = layer.cornerRadius
+        disableBackgroundLayer.backgroundColor = isEnabled ? disableBackgroundColor.cgColor : UIColor.clear.cgColor
+        
+        if let disableBorderColor = disableBorderColor {
+            layer.borderColor = isEnabled ? disableBorderColor.cgColor : originBorderColor?.cgColor
         }
     }
     
