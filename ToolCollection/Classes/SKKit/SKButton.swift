@@ -462,7 +462,7 @@ open class SKButton: UIButton {
     
     override open var isEnabled: Bool {
         didSet {
-            
+            adjustsButtonDisable()
             guard adjustsButtonWhenDisabled else { return }
             if !isEnabled && adjustsButtonWhenDisabled {
                 alpha = 0.5
