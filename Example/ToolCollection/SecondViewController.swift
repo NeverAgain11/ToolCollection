@@ -46,6 +46,10 @@ class SecondViewController: UIViewController {
         print("byPopGesture", byPopGesture)
         return true
     }
+    
+    override func responseEvent(_ event: SKEvent) {
+        
+    }
 }
 
 private extension SecondViewController {
