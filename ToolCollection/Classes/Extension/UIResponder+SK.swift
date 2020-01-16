@@ -14,7 +14,7 @@ public class SKEvent: NSObject {
     
     public let identifier: Any
     
-    init(sender: UIResponder, info: [String: Any], identifier: Any) {
+    public init(sender: UIResponder, info: [String: Any], identifier: Any) {
         self.sender = sender
         self.info = info
         self.identifier = identifier
