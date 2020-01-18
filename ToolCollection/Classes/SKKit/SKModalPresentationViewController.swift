@@ -182,7 +182,7 @@ open class SKModalPresentationViewController: UIViewController {
     
     /// 是否以 addSubview 的方式显示，建议在显示之后才使用，否则可能不准确。
     private var isShownInSubviewMode: Bool {
-        return !isShownInPresentedMode && view.superview != nil
+        return !isShownInWindowMode && !isShownInPresentedMode && view.superview != nil
     }
     
     /// 如果用 showInView 的方式显示浮层，则在浮层所在的父界面被 pop（或 push 到下一个界面）时，会自动触发 viewWillDisappear:，导致浮层被隐藏，为了保证走到 viewWillDisappear: 一定是手动调用 hide 的，就加了这个标志位
@@ -285,7 +285,7 @@ open class SKModalPresentationViewController: UIViewController {
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         dimmingView?.frame = view.bounds
-
+        
         let contentViewFrame = contentViewFrameForShowing
         if let layoutClosure = layoutClosure {
             layoutClosure(view.bounds, keyboardHeight, contentViewFrame)
@@ -293,12 +293,12 @@ open class SKModalPresentationViewController: UIViewController {
             contentView?.frame = contentViewFrame
         }
     }
-
+    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         var _animated = animated
-
+        
         if containerWindow != nil {
             // 只有使用showWithAnimated:completion:显示出来的浮层，才需要修改之前就记住的animated的值
             _animated = appearAnimated
@@ -363,6 +363,11 @@ open class SKModalPresentationViewController: UIViewController {
         }
     }
     
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
     override open func viewWillDisappear(_ animated: Bool) {
         if hasAlreadyViewWillDisappear {
             return
@@ -404,7 +409,11 @@ open class SKModalPresentationViewController: UIViewController {
             if self.isShownInWindowMode {
                 // 恢复 keyWindow 之前做一下检查，避免这个问题 https://github.com/QMUI/QMUI_iOS/issues/90
                 if UIApplication.shared.keyWindow == self.containerWindow {
-                    self.previousKeyWindow?.makeKey()
+                    if self.previousKeyWindow?.isHidden == true {
+                        UIApplication.shared.delegate?.window??.makeKey()
+                    } else {
+                        self.previousKeyWindow?.makeKey()
+                    }
                 }
                 self.containerWindow?.isHidden = true
                 self.containerWindow?.rootViewController = nil
@@ -483,7 +492,7 @@ open class SKModalPresentationViewController: UIViewController {
         }
         
         if isShownInWindowMode {
-            hide(true, completion: { [weak self] _ in
+            hide(animated: true, completion: { [weak self] _ in
                 self?.didHideByDimmingViewTappedClosure?()
             })
         } else if isShownInPresentedMode {
@@ -542,7 +551,7 @@ open class SKModalPresentationViewController: UIViewController {
      *  @param animated    是否以动画的形式显示
      *  @param completion  显示动画结束后的回调
      */
-    public func show(_ animated: Bool, completion: ((Bool) -> Void)?) {
+    public func show(animated: Bool, completion: ((Bool) -> Void)? = nil) {
         // makeKeyAndVisible 导致的 viewWillAppear: 必定 animated 是 NO 的，所以这里用额外的变量保存这个 animated 的值
         appearAnimated = animated
         appearCompletionClosure = completion
@@ -555,6 +564,8 @@ open class SKModalPresentationViewController: UIViewController {
         
         containerWindow?.rootViewController = self
         containerWindow?.makeKeyAndVisible()
+        
+        beginAppearanceTransition(true, animated: animated)
     }
 
     private func hidingAnimation(_ completion: ((Bool) -> Void)?) {
@@ -592,10 +603,10 @@ open class SKModalPresentationViewController: UIViewController {
      *  @param completion  隐藏动画结束后的回调
      *  @warning 这里的`completion`只会在你显式调用`hideWithAnimated:completion:`方法来隐藏浮层时会被调用，如果你通过点击`dimmingView`来触发`hideWithAnimated:completion:`，则completion是不会被调用的，那种情况下如果你要在浮层隐藏后做一些事情，请使用`delegate`提供的`didHideModalPresentationViewController:`方法。
      */
-    public func hide(_ animated: Bool, completion: ((Bool) -> Void)?) {
+    public func hide(animated: Bool, completion: ((Bool) -> Void)? = nil) {
         disappearAnimated = animated
         disappearCompletionClosure = completion
-
+        
         let shouldHide = delegate?.shouldHide?(modalPresentationViewController: self) ?? true
 
         if !shouldHide {
@@ -738,7 +749,7 @@ extension SKModalPresentationViewController {
                 if let delegate = modalViewController?.delegate {
                     delegate.requestHideAllModalPresentationViewController?()
                 } else {
-                    modalViewController!.hide(false, completion: nil)
+                    modalViewController?.hide(animated: false, completion: nil)
                 }
             } else {
                 // 只要有一个modalViewController正在显示但却无法被隐藏，就返回NO
