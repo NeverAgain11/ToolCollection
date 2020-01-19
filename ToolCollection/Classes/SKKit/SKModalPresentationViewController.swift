@@ -12,6 +12,11 @@
     case slide // 从下往上升起
 }
 
+public enum SKModalVerticalAlignment: Int {
+    case top
+    case bottom
+}
+
 @objc public protocol SKModalPresentationContentViewControllerProtocol {
     /**
      *  当浮层以 UIViewController 的形式展示（而非 UIView），并且使用 modalController 提供的默认布局时，则可通过这个方法告诉 modalController 当前浮层期望的大小
@@ -111,11 +116,14 @@ open class SKModalPresentationViewController: UIViewController {
      */
     @objc public dynamic var contentViewMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
+    ///
+    public var verticalAlignment = SKModalVerticalAlignment.top
+    
     /**
      *  限制`contentView`布局时的最大宽度，默认为iPhone 6竖屏下的屏幕宽度减去`contentViewMargins`在水平方向的值，也即浮层在iPhone 6 Plus或iPad上的宽度以iPhone 6上的宽度为准。
      *  @warning 当设置了`layoutBlock`属性时，此属性不生效
      */
-    public var maximumContentViewWidth: CGFloat = SKHelper.screenSizeFor47Inch.width - UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20).horizontalValue
+    public var maximumContentViewWidth: CGFloat = DEVICE_WIDTH - UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20).horizontalValue
 
     /**
      *  背景遮罩，默认为一个普通的`UIView`，背景色为`UIColorMask`，可设置为自己的view，注意`dimmingView`的大小将会盖满整个控件。
@@ -662,10 +670,20 @@ open class SKModalPresentationViewController: UIViewController {
         }
         contentViewSize.width = min(contentViewLimitSize.width, contentViewSize.width)
         contentViewSize.height = min(contentViewLimitSize.height, contentViewSize.height)
-        var contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width) + contentViewMargins.left,
+        
+        var contentViewFrame: CGRect
+        if verticalAlignment == .top {
+            contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width) + contentViewMargins.left,
                                       y: contentViewContainerSize.height.center(contentViewSize.height) + contentViewMargins.top,
                                       width: contentViewSize.width,
                                       height: contentViewSize.height)
+        }
+        else {
+            contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width) + contentViewMargins.left,
+                                      y: view.bounds.height - contentViewSize.height - contentViewMargins.bottom,
+                                      width: contentViewSize.width,
+                                      height: contentViewSize.height)
+        }
 
         // showingAnimation、hidingAnimation里会通过设置contentView的transform来做动画，所以可能在showing的过程中设置了transform后，系统触发viewDidLayoutSubviews，在viewDidLayoutSubviews里计算的frame又是最终状态的frame，与showing时的transform冲突，导致动画过程中浮层跳动或者位置错误，所以为了保证layout时计算出来的frame与showing/hiding时计算的frame一致，这里给frame应用了transform。但这种处理方法也有局限：如果你在showingAnimation/hidingAnimation里对contentView.frame的更改不是通过修改transform而是直接修改frame来得到结果，那么这里这句CGRectApplyAffineTransform就没用了，viewDidLayoutSubviews里算出来的frame依然会和showingAnimation/hidingAnimation冲突。
         contentViewFrame = contentViewFrame.applying(contentView!.transform)
