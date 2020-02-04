@@ -21,12 +21,21 @@ public extension String {
         return uniqueString
     }
     
-    var creationTimestamp: Int? {
+    var modificationTimestamp: Int? {
         var stat1 = stat()
         if stat((self as NSString).fileSystemRepresentation, &stat1) != 0 {
             return nil
         } else {
             return stat1.st_ctimespec.tv_sec
+        }
+    }
+    
+    var creationTimestamp: Int? {
+        var stat1 = stat()
+        if stat((self as NSString).fileSystemRepresentation, &stat1) != 0 {
+            return nil
+        } else {
+            return stat1.st_birthtimespec.tv_sec
         }
     }
     
