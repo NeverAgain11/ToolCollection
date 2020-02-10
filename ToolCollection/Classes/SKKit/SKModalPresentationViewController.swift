@@ -111,10 +111,10 @@ open class SKModalPresentationViewController: UIViewController {
     }
 
     /**
-     *  设置`contentView`布局时与外容器的间距，默认为(20, 20, 20, 20)
+     *  设置`contentView`布局时与外容器的间距
      *  @warning 当设置了`layoutBlock`属性时，此属性不生效
      */
-    @objc public dynamic var contentViewMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    @objc public dynamic var contentViewMargins = UIEdgeInsets.zero
     
     ///
     public var verticalAlignment = SKModalVerticalAlignment.top
@@ -123,7 +123,7 @@ open class SKModalPresentationViewController: UIViewController {
      *  限制`contentView`布局时的最大宽度，默认为iPhone 6竖屏下的屏幕宽度减去`contentViewMargins`在水平方向的值，也即浮层在iPhone 6 Plus或iPad上的宽度以iPhone 6上的宽度为准。
      *  @warning 当设置了`layoutBlock`属性时，此属性不生效
      */
-    public var maximumContentViewWidth: CGFloat = DEVICE_WIDTH - UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20).horizontalValue
+    public var maximumContentViewWidth: CGFloat = DEVICE_WIDTH
 
     /**
      *  背景遮罩，默认为一个普通的`UIView`，背景色为`UIColorMask`，可设置为自己的view，注意`dimmingView`的大小将会盖满整个控件。
@@ -258,8 +258,6 @@ open class SKModalPresentationViewController: UIViewController {
     
     private func didInitialized() {
         animationStyle = .fade
-        contentViewMargins = UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20)
-        maximumContentViewWidth = SKHelper.screenSizeFor47Inch.width - contentViewMargins.horizontalValue
         
         modalTransitionStyle = .crossDissolve
         modalPresentationStyle = .custom
