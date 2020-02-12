@@ -92,6 +92,7 @@ public class OptionalMMKVProperty<T> {
 
 @propertyWrapper
 public class MMKVProperty<T> {
+    
     let key: String
     let defaultValue: T
     let mmkv: MMKV
@@ -172,9 +173,12 @@ public class MMKVProperty<T> {
 }
 
 extension MMKV {
+    
+    public static var skRelativePath: String? = nil
+    
     class func customMMKV(mmkvID: String? = nil) -> MMKV {
         if let mmkvID = mmkvID {
-            return MMKV.init(mmapID: mmkvID)!
+            return MMKV(mmapID: mmkvID, relativePath: MMKV.skRelativePath)!
         } else {
             return MMKV.default()
         }
