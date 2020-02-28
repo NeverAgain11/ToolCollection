@@ -17,8 +17,15 @@ open class SKCollectionCellModel<T>: YHCollectionViewCellModel where T: UICollec
         cellClass = T.self
     }
     
-    open func willDisplayCell(_ closure: @escaping ((T, IndexPath) -> Void)) {
+    open func didDequeueCell(_ closure: @escaping ((T, IndexPath) -> Void)) {
         didDequeueCell = { cell, indexPath in
+            guard let cell = cell as? T else { return }
+            closure(cell, indexPath)
+        }
+    }
+    
+    open func willDisplayCell(_ closure: @escaping ((T, IndexPath) -> Void)) {
+        willDisplayCell = { cell, indexPath in
             guard let cell = cell as? T else { return }
             closure(cell, indexPath)
         }
