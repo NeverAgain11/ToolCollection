@@ -50,11 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
-extension AppDelegate: SKSelfAware {
-    static func awake() {
-        print("awake once")
-    }
-    
-    
-}
+//
+//extension AppDelegate: SKSelfAware {
+//    static func awake() {
+//        print("awake once")
+//    }
+//    
+//    
+//}
