@@ -16,7 +16,7 @@ import UIKit
     @objc func forceEnableInterativePopGestureRecognizer() -> Bool
 }
 
-extension UINavigationController: SKSelfAware {
+extension UINavigationController {
     public static func awake() {
         let clazz = UINavigationController.self
         
