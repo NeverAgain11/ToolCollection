@@ -39,6 +39,17 @@ public extension String {
         }
     }
     
+    // 格式化： 调用 ByteCountFormatter.string(fromByteCount: size, countStyle: .decimal)
+    /// 文件大小 Byte
+    var size: Int64? {
+        var stat1 = stat()
+        if stat((self as NSString).fileSystemRepresentation, &stat1) != 0 {
+            return nil
+        } else {
+            return stat1.st_size
+        }
+    }
+    
     func width(height: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(
