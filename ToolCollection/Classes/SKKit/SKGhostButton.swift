@@ -109,4 +109,10 @@ open class SKGhostButton: SKButton {
             layer.cornerRadius = bounds.height / 2
         }
     }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        layer.borderColor = ghostColor.cgColor
+    }
 }

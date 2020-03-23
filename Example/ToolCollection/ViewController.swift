@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MMKV
 import ToolCollection
 
 class ViewController: UIViewController {
@@ -32,7 +33,6 @@ class ViewController: UIViewController {
 //            let displayName = locale.localizedString(forRegionCode: counrtyCode) ?? ""
 //            print(displayName, " :", counrtyCode)
 //        }
-        
         
         testButton()
         textGhostButton()
