@@ -243,9 +243,9 @@ extension LayoutConstraint{
     }
 }
 
-extension LayoutConstraint: Hashable{
+extension LayoutConstraint: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(self)
+        hasher.combine(ObjectIdentifier(self))
     }
     
     public static func ==(lhs: LayoutConstraint, rhs: LayoutConstraint) -> Bool {

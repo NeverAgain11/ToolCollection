@@ -136,11 +136,11 @@
 		028EA93F2428C2AA004FF665 /* PandaExample */ = {
 			isa = PBXGroup;
 			children = (
+				028EA9402428C2B9004FF665 /* vender */,
+				028EA9582428C2B9004FF665 /* WeiBo */,
 				02CF5CAA2428C4E100677186 /* PandaDemo-Bridging-Header.h */,
 				028EA9572428C2B9004FF665 /* Helper.swift */,
 				028EA9562428C2B9004FF665 /* KingfishedNode.swift */,
-				028EA9402428C2B9004FF665 /* vender */,
-				028EA9582428C2B9004FF665 /* WeiBo */,
 			);
 			name = PandaExample;
 			sourceTree = "<group>";
@@ -299,9 +299,9 @@
 		607FACD21AFB9204008FA782 /* Example for ToolCollection */ = {
 			isa = PBXGroup;
 			children = (
-				028EA93F2428C2AA004FF665 /* PandaExample */,
 				04EAAF6423BF8DF700E3332A /* Global */,
 				04EAAF6323BF8DF000E3332A /* Controller */,
+				028EA93F2428C2AA004FF665 /* PandaExample */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
