@@ -35,7 +35,7 @@ import UIKit
 
 public typealias ControlAction = (ControlNode,UIControl.Event) -> ()
 
-open class ControlNode: ViewNode{
+open class ControlNode: ViewNode {
     
     open var enabled = true
     
@@ -54,7 +54,7 @@ open class ControlNode: ViewNode{
     
     private lazy var eventActionTable = [UIControl.Event: ControlAction]()
     
-    private var hitRect: CGRect{
+    private var hitRect: CGRect {
         // As mentioned in AsyncDisplayKit,UIControl has extra space when touch moving
         return bounds.inset(by: hitTestSlop).insetBy(dx: -70, dy: -70)
     }
@@ -65,38 +65,38 @@ open class ControlNode: ViewNode{
     }
     
     // subclass override point.determin where to start track touch
-    open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool{
+    open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         return true
     }
     
-    open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool{
+    open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         return true
     }
     
     // touch is sometimes nil if cancelTracking calls through to this.
-    open func endTracking(_ touch: UITouch?, with event: UIEvent?){
+    open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         
     }
     
     // event may be nil if cancelled for non-event reasons, e.g. removed from window
-    open func cancelTracking(with event: UIEvent?){
+    open func cancelTracking(with event: UIEvent?) {
         touchCancelTracking(with: event)
     }
     
-    open func addAction(for controlEvents: UIControl.Event, action: @escaping ControlAction){
+    open func addAction(for controlEvents: UIControl.Event, action: @escaping ControlAction) {
         let events: [UIControl.Event] = [.touchDown,.touchCancel,.touchUpInside,.touchUpOutside,.touchDragInside,.touchDragOutside]
-        for event in events{
-            if controlEvents.contains(event){
+        for event in events {
+            if controlEvents.contains(event) {
                 eventActionTable[event] = action
             }
         }
         updateUserInteraction()
     }
     
-    open func removeAction(for controlEvents: UIControl.Event){
+    open func removeAction(for controlEvents: UIControl.Event) {
         let events: [UIControl.Event] = [.touchDown,.touchCancel,.touchUpInside,.touchUpOutside,.touchDragInside,.touchDragOutside]
-        for event in events{
-            if controlEvents.contains(event){
+        for event in events {
+            if controlEvents.contains(event) {
                 eventActionTable.removeValue(forKey: event)
             }
         }
@@ -104,7 +104,7 @@ open class ControlNode: ViewNode{
     }
     
     // send all actions associated with events
-    open func sendActions(for controlEvents: UIControl.Event, with event:UIEvent? = nil){
+    open func sendActions(for controlEvents: UIControl.Event, with event:UIEvent? = nil) {
         eventActionTable[controlEvents]?(self,controlEvents)
     }
     
@@ -113,19 +113,19 @@ open class ControlNode: ViewNode{
     }
     
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !enabled{
+        if !enabled {
             return
         }
         
-        if let touch = touches.first{
-            if !beginTracking(touch, with: event){
+        if let touch = touches.first {
+            if !beginTracking(touch, with: event) {
                 return
             }
         }
         
-        if touches.count > 1 && tracking{
+        if touches.count > 1 && tracking {
             touchCancelTracking(with: event)
-        }else{
+        } else {
             tracking = true
             highlighted = true
             touchInside = true
@@ -134,15 +134,15 @@ open class ControlNode: ViewNode{
     }
     
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !enabled{
+        if !enabled {
             return
         }
         
-        guard let touch = touches.first else{
+        guard let touch = touches.first else {
             tracking = false
             return
         }
-        if !tracking || !continueTracking(touch, with: event){
+        if !tracking || !continueTracking(touch, with: event) {
             tracking = false
             return
         }
@@ -153,11 +153,11 @@ open class ControlNode: ViewNode{
     }
     
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !enabled{
+        if !enabled {
             return
         }
         
-        if !tracking{
+        if !tracking {
             return
         }
         
@@ -165,7 +165,7 @@ open class ControlNode: ViewNode{
         highlighted = false
         touchInside = false
         
-        guard let touch = touches.first else{
+        guard let touch = touches.first else {
             return
         }
         
@@ -178,27 +178,27 @@ open class ControlNode: ViewNode{
     }
     
     override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !enabled{
+        if !enabled {
             return
         }
         cancelTracking(with: event)
     }
     
-    private func touchCancelTracking(with event:UIEvent?){
+    private func touchCancelTracking(with event:UIEvent?) {
         tracking = false
         highlighted = false
         touchInside = false
         sendActions(for: .touchCancel, with: event)
     }
     
-    private func updateUserInteraction(){
+    private func updateUserInteraction() {
         userInteractionEnabled = eventActionTable.count > 0
     }
     
 }
 
 
-extension UIControl.Event: Hashable{
+extension UIControl.Event: Hashable {
     public var hashValue: Int {
         return Int(rawValue)
     }

@@ -32,7 +32,7 @@
 
 //import Cassowary
 
-final class LayoutProperty{
+final class LayoutProperty {
     
     let x = Variable()
     let y = Variable()
@@ -41,8 +41,8 @@ final class LayoutProperty{
     
     weak var solver: SimplexSolver?
     
-    var frame: CGRect{
-        guard let solver = solver else{
+    var frame: CGRect {
+        guard let solver = solver else {
             return .zero
         }
         let minX = solver.valueFor(x)
@@ -52,7 +52,7 @@ final class LayoutProperty{
         return CGRect(x: minX ?? 0, y: minY ?? 0, width: w ?? 0, height: h ?? 0)
     }
     
-    func expressionFor(attribue: LayoutAttribute) -> Expression{
+    func expressionFor(attribue: LayoutAttribute) -> Expression {
         switch attribue {
         case .left:
             return Expression(x)

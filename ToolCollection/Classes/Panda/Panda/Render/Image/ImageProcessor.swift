@@ -24,7 +24,7 @@ public struct RoundImageProcessor: ImageProcessor {
     public func process(image: UIImage) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
         defer { UIGraphicsEndImageContext() }
-        guard let context = UIGraphicsGetCurrentContext() else{
+        guard let context = UIGraphicsGetCurrentContext() else {
             return image
         }
         

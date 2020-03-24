@@ -37,9 +37,9 @@
 /// LayoutManager hold and handle all the properties needed for layout
 /// like SimplexSolver, LayoutProperty ...
 /// so that the class conform to LayoutItem does not need to provide those properties
-final public class LayoutManager{
+final public class LayoutManager {
     
-    public init(_ item: Layoutable){
+    public init(_ item: Layoutable) {
         self.item = item
     }
     
@@ -84,19 +84,19 @@ final public class LayoutManager{
     let positionConstraints = PositionConstraints()
     
     /// whether this item should constrainted by rect translated constraints
-    var isRectConstrainted: Bool{
+    var isRectConstrainted: Bool {
         return translateRectIntoConstraints && !pinedConstraints.isEmpty
     }
     
-    var isConstraintValidRect: Bool{
+    var isConstraintValidRect: Bool {
         return solver != nil && !translateRectIntoConstraints
     }
     
-    var sizeNeedsUpdate: Bool{
+    var sizeNeedsUpdate: Bool {
         return layoutNeedsUpdate && !translateRectIntoConstraints
     }
     
-    func addConstraintsTo(_ solver: SimplexSolver){
+    func addConstraintsTo(_ solver: SimplexSolver) {
         
         // maybe need optiomize
         // find a better way to manager constraint cycle
@@ -108,8 +108,8 @@ final public class LayoutManager{
     }
     
     /// add new constraints to current solver
-    func updateConstraint(){
-        if let solver = self.solver{
+    func updateConstraint() {
+        if let solver = self.solver {
             newlyAddedConstraints.forEach {
                 $0.addToSolver(solver)
                 installedConstraints.insert($0)
@@ -118,46 +118,46 @@ final public class LayoutManager{
         }
     }
     
-    func addConstraint(_ constraint: LayoutConstraint){
+    func addConstraint(_ constraint: LayoutConstraint) {
         newlyAddedConstraints.insert(constraint)
     }
     
-    func removeConstraint(_ constraint: LayoutConstraint){
+    func removeConstraint(_ constraint: LayoutConstraint) {
         newlyAddedConstraints.remove(constraint)
         installedConstraints.remove(constraint)
     }
     
-    func updateSize(_ size: CGSize){
+    func updateSize(_ size: CGSize) {
         guard let item = item else { return }
         contentSizeConstraints.updateSize(size, node: item)
     }
     
-    func updateRect(_ rect: CGRect){
+    func updateRect(_ rect: CGRect) {
         guard let item = item else { return }
         sizeConstraints.updateSize(rect.size, node: item)
         positionConstraints.updateOrigin(rect.origin, node: item)
     }
     
     /// final caculated rect for this item
-    var layoutRect: CGRect{
+    var layoutRect: CGRect {
         return variable.frame
     }
 }
 
-final class ContentSizeConstraints{
+final class ContentSizeConstraints {
     
-    class Axis{
-        var huggingPriorty = LayoutPriority.medium{
-            didSet{
-                if let hugging = hugging{
+    class Axis {
+        var huggingPriorty = LayoutPriority.medium {
+            didSet {
+                if let hugging = hugging {
                     hugging.priority = huggingPriorty
                 }
             }
         }
         
-        var compressionPriorty = LayoutPriority.strong{
-            didSet{
-                if let compression = compression{
+        var compressionPriorty = LayoutPriority.strong {
+            didSet {
+                if let compression = compression {
                     compression.priority = compressionPriorty
                 }
             }
@@ -171,29 +171,29 @@ final class ContentSizeConstraints{
     var yAxis = Axis()
     
     /// update content size Constraint
-    func updateSize(_ size: CGSize,node: Layoutable){
+    func updateSize(_ size: CGSize,node: Layoutable) {
         
-        if size.width != InvalidIntrinsicMetric{
+        if size.width != InvalidIntrinsicMetric {
             if let width = xAxis.hugging,
-                let widthCompression = xAxis.compression{
+                let widthCompression = xAxis.compression {
                 
                 widthCompression.constant = size.width
                 width.constant = size.width
                 
-            }else{
+            } else {
                 xAxis.compression = node.width >= size.width ~ xAxis.compressionPriorty
                 xAxis.hugging =  node.width <= size.width ~ xAxis.huggingPriorty
             }
         }
         
-        if size.height != InvalidIntrinsicMetric{
+        if size.height != InvalidIntrinsicMetric {
             if let height = yAxis.hugging,
-                let heightCompression = yAxis.compression{
+                let heightCompression = yAxis.compression {
                 
                 heightCompression.constant = size.height
                 height.constant = size.height
                 
-            }else{
+            } else {
                 yAxis.compression = node.height >= size.height ~ yAxis.compressionPriorty
                 yAxis.hugging =  node.height <= size.height ~ yAxis.huggingPriorty
             }
@@ -201,50 +201,50 @@ final class ContentSizeConstraints{
     }
 }
 
-final class SizeConstraints{
+final class SizeConstraints {
     
     var width: LayoutConstraint?
     var height: LayoutConstraint?
     
     /// update content size Constraint
-    func updateSize(_ size: CGSize,node: Layoutable, priority: LayoutPriority = .strong){
+    func updateSize(_ size: CGSize,node: Layoutable, priority: LayoutPriority = .strong) {
         
-        if size.width != InvalidIntrinsicMetric{
-            if let width = width{
+        if size.width != InvalidIntrinsicMetric {
+            if let width = width {
                 width.constant = size.width
-            }else{
+            } else {
                 width =  node.width == size.width ~ priority
             }
         }
         
-        if size.height != InvalidIntrinsicMetric{
-            if let height = height{
+        if size.height != InvalidIntrinsicMetric {
+            if let height = height {
                 height.constant = size.height
-            }else{
+            } else {
                 height = node.height == size.height ~ priority
             }
         }
     }
 }
 
-final class PositionConstraints{
+final class PositionConstraints {
     
     /// used for frame translated constraint
     var minX: LayoutConstraint?
     var minY: LayoutConstraint?
     
     /// update content size Constraint
-    func updateOrigin(_ point: CGPoint,node: Layoutable, priority: LayoutPriority = .required){
+    func updateOrigin(_ point: CGPoint,node: Layoutable, priority: LayoutPriority = .required) {
         
-        if let minX = minX{
+        if let minX = minX {
             minX.constant = point.x
-        }else{
+        } else {
             minX =  node.left == point.x ~ priority
         }
         
-        if let minY = minY{
+        if let minY = minY {
             minY.constant = point.y
-        }else{
+        } else {
             minY = node.top == point.y ~ priority
         }
     }

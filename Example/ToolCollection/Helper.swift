@@ -10,12 +10,12 @@ import Foundation
 
 @discardableResult
 func measureTime(desc: String? = nil,action:()->()) -> Double{
-  let renderStart = CFAbsoluteTimeGetCurrent()
-  action()
-  let renderEnd = CFAbsoluteTimeGetCurrent()
-  let renderTime = (renderEnd - renderStart)*100000/100
-  if let desc = desc{
-    print("\(desc) : \(renderTime)")
-  }
-  return renderTime
+    let renderStart = CFAbsoluteTimeGetCurrent()
+    action()
+    let renderEnd = CFAbsoluteTimeGetCurrent()
+    let renderTime = (renderEnd - renderStart)*100000/100
+    if let desc = desc{
+        print("\(desc) : \(renderTime)")
+    }
+    return renderTime
 }

@@ -38,44 +38,44 @@ public protocol TextRenderable: class {
     func textDidUpdate(for attribute: AnyKeyPath)
 }
 
-extension TextRenderable{
-    public var text: String{
+extension TextRenderable {
+    public var text: String {
         set{ textHolder.text = newValue }
         get{ return textHolder.text}
     }
     
-    public var attributeText: NSAttributedString?{
+    public var attributeText: NSAttributedString? {
         set{ textHolder.attributeText = newValue}
         get{ return textHolder.attributeText}
     }
     
-    public var textColor: UIColor{
+    public var textColor: UIColor {
         set{ textHolder.textColor = newValue }
         get{ return textHolder.textColor }
     }
     
-    public var font: UIFont{
+    public var font: UIFont {
         set{ textHolder.font = newValue}
         get{ return textHolder.font }
     }
     
-    public var numberOfLines: Int{
+    public var numberOfLines: Int {
         set{ textHolder.numberOfLines = newValue }
         get{ return textHolder.numberOfLines}
     }
     
-    public var truncationMode: NSLineBreakMode{
+    public var truncationMode: NSLineBreakMode {
         set{ textHolder.truncationMode = newValue }
         get{ return textHolder.truncationMode}
     }
     
-    public var lineSpace: CGFloat?{
+    public var lineSpace: CGFloat? {
         set{ textHolder.lineSpace = newValue }
         get{ return textHolder.lineSpace}
     }
 }
 
-public class TextAttributesHolder{
+public class TextAttributesHolder {
     
     weak var render: TextRenderable?
     
@@ -83,59 +83,59 @@ public class TextAttributesHolder{
         self.render = render
     }
     
-    var text: String = ""{
-        didSet{
+    var text: String = "" {
+        didSet {
             useAttributedText = false
-            if text != oldValue{
+            if text != oldValue {
                 render?.textDidUpdate(for: \TextRenderable.text)
             }
         }
     }
     
-    var attributeText: NSAttributedString?{
-        didSet{
+    var attributeText: NSAttributedString? {
+        didSet {
             useAttributedText = true
-            if attributeText != oldValue{
+            if attributeText != oldValue {
                 render?.textDidUpdate(for: \TextRenderable.attributeText)
             }
         }
     }
     
-    var textColor = UIColor.black{
-        didSet{
-            if oldValue != textColor{
+    var textColor = UIColor.black {
+        didSet {
+            if oldValue != textColor {
                 render?.textDidUpdate(for: \TextRenderable.textColor)
             }
         }
     }
     
-    var font = UIFont.systemFont(ofSize: 17){
-        didSet{
-            if oldValue != font{
+    var font = UIFont.systemFont(ofSize: 17) {
+        didSet {
+            if oldValue != font {
                 render?.textDidUpdate(for: \TextRenderable.font)
             }
         }
     }
     
-    var numberOfLines = 1{
-        didSet{
-            if oldValue != numberOfLines{
+    var numberOfLines = 1 {
+        didSet {
+            if oldValue != numberOfLines {
                 render?.textDidUpdate(for: \TextRenderable.numberOfLines)
             }
         }
     }
     
-    var lineSpace: CGFloat?{
-        didSet{
-            if oldValue != lineSpace{
+    var lineSpace: CGFloat? {
+        didSet {
+            if oldValue != lineSpace {
                 render?.textDidUpdate(for: \TextRenderable.lineSpace)
             }
         }
     }
     
-    var truncationMode: NSLineBreakMode = .byTruncatingTail{
-        didSet{
-            if oldValue != truncationMode{
+    var truncationMode: NSLineBreakMode = .byTruncatingTail {
+        didSet {
+            if oldValue != truncationMode {
                 render?.textDidUpdate(for: \TextRenderable.truncationMode)
             }
         }
@@ -143,9 +143,9 @@ public class TextAttributesHolder{
     
     var useAttributedText = false
     
-    var itemIntrinsicContentSize: CGSize{
+    var itemIntrinsicContentSize: CGSize {
         
-        if textAttributes.attributeString.length == 0{
+        if textAttributes.attributeString.length == 0 {
             return .zero
         }
         
@@ -156,7 +156,7 @@ public class TextAttributesHolder{
     }
     
     func sizeFor(maxWidth: CGFloat) -> CGSize {
-        if textAttributes.attributeString.length == 0{
+        if textAttributes.attributeString.length == 0 {
             return .zero
         }
         
@@ -165,23 +165,23 @@ public class TextAttributesHolder{
         return render(for: CGRect(origin: .zero, size: size)).size
     }
     
-    func render(for bounds: CGRect) -> TextRender{
+    func render(for bounds: CGRect) -> TextRender {
         return TextRender.render(for: textAttributes, constrainedSize: bounds.size)
     }
     
-    public var textAttributes: TextAttributes{
+    public var textAttributes: TextAttributes {
         
         var usedAttributeText: NSAttributedString
         
-        if let attributeText = attributeText,useAttributedText{
+        if let attributeText = attributeText,useAttributedText {
             usedAttributeText = attributeText
-        }else{
+        } else {
             let attributes:[NSAttributedString.Key: Any] = [.font:font,
                                                             .foregroundColor: textColor]
             usedAttributeText = NSAttributedString(string: text as String,attributes: attributes)
         }
         
-        if let lineSpace = lineSpace{
+        if let lineSpace = lineSpace {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = lineSpace
             let attributedText = NSMutableAttributedString(attributedString: usedAttributeText)
@@ -199,8 +199,8 @@ public class TextAttributesHolder{
     
 }
 
-extension NSAttributedString{
-    var range: NSRange{
+extension NSAttributedString {
+    var range: NSRange {
         return NSRange(location: 0, length: length)
     }
 }

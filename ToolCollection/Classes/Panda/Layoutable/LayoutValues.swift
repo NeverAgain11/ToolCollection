@@ -57,7 +57,7 @@ public let OffsetZero: Offset = (0,0)
 
 public let SizeZero: Size = (0,0)
 
-public struct LayoutValues{
+public struct LayoutValues {
     public var frame = CGRect.zero
     public var subLayout = [LayoutValues]()
 }

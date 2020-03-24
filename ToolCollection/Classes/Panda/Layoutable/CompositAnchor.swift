@@ -31,12 +31,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-public enum LayoutAxis{
+public enum LayoutAxis {
     case horizontal
     case vertical
 }
 
-public class CompositAnchor{
+public class CompositAnchor {
     let item: Layoutable
     
     public init(item: Layoutable) {
@@ -44,9 +44,9 @@ public class CompositAnchor{
     }
 }
 
-final public class SizeAnchor: CompositAnchor{
+final public class SizeAnchor: CompositAnchor {
     @discardableResult
-    public func equalTo(_ size: Size) -> [LayoutConstraint]{
+    public func equalTo(_ size: Size) -> [LayoutConstraint] {
         return [
             item.width == size.width,
             item.height == size.height
@@ -54,7 +54,7 @@ final public class SizeAnchor: CompositAnchor{
     }
     
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, offset: Offset = ( 0, 0)) -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, offset: Offset = ( 0, 0)) -> [LayoutConstraint] {
         return [
             item.width == layoutItem.width + offset.x,
             item.height == layoutItem.height + offset.y
@@ -62,14 +62,14 @@ final public class SizeAnchor: CompositAnchor{
     }
     
     @discardableResult
-    public static func == (lhs: SizeAnchor, rhs: Size) -> [LayoutConstraint]{
+    public static func == (lhs: SizeAnchor, rhs: Size) -> [LayoutConstraint] {
         return lhs.equalTo(rhs)
     }
 }
 
 typealias PositionAttributes = (x: LayoutAttribute, y: LayoutAttribute)
 
-final public class PositionAnchor: CompositAnchor{
+final public class PositionAnchor: CompositAnchor {
     
     let attributes: PositionAttributes
     
@@ -78,12 +78,12 @@ final public class PositionAnchor: CompositAnchor{
         super.init(item: item)
     }
     
-    public func offset(_ offset: Offset) -> CompositExpression<PositionAnchor, Offset>{
+    public func offset(_ offset: Offset) -> CompositExpression<PositionAnchor, Offset> {
         return self + offset
     }
     
     @discardableResult
-    public func equalTo(_ anchor: PositionAnchor, offset: Offset = (0,0)) -> [LayoutConstraint]{
+    public func equalTo(_ anchor: PositionAnchor, offset: Offset = (0,0)) -> [LayoutConstraint] {
         
         let x = XAxisAnchor(item: item,
                             attribute: attributes.x) ==
@@ -99,26 +99,26 @@ final public class PositionAnchor: CompositAnchor{
     }
     
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, offset: Offset = (0,0)) -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, offset: Offset = (0,0)) -> [LayoutConstraint] {
         return equalTo(PositionAnchor(item: layoutItem, attributes: attributes),
                        offset: offset)
     }
     
     @discardableResult
-    static public func == (lhs: PositionAnchor, rhs: Layoutable) -> [LayoutConstraint]{
+    static public func == (lhs: PositionAnchor, rhs: Layoutable) -> [LayoutConstraint] {
         return lhs.equalTo(rhs)
     }
     
     @discardableResult
-    static public func == (lhs: PositionAnchor, rhs: PositionAnchor) -> [LayoutConstraint]{
+    static public func == (lhs: PositionAnchor, rhs: PositionAnchor) -> [LayoutConstraint] {
         return lhs.equalTo(rhs)
     }
 }
 
-final public class XSideAnchor: CompositAnchor{
+final public class XSideAnchor: CompositAnchor {
     
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, insets: XSideInsets  = (0,0)) -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, insets: XSideInsets  = (0,0)) -> [LayoutConstraint] {
         return [
             item.left == layoutItem.left + insets.left,
             item.right == layoutItem.right - insets.right
@@ -126,33 +126,33 @@ final public class XSideAnchor: CompositAnchor{
     }
     
     @discardableResult
-    public func equalTo(_ anchor: XSideAnchor, insets: XSideInsets  = (0,0)) -> [LayoutConstraint]{
+    public func equalTo(_ anchor: XSideAnchor, insets: XSideInsets  = (0,0)) -> [LayoutConstraint] {
         return equalTo(anchor.item, insets: insets)
     }
     
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, insets: Value) -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, insets: Value) -> [LayoutConstraint] {
         return equalTo(layoutItem, insets: (insets, insets))
     }
     
-    public func insets(_ inset: XSideInsets) -> CompositExpression<XSideAnchor, XSideInsets>{
+    public func insets(_ inset: XSideInsets) -> CompositExpression<XSideAnchor, XSideInsets> {
         return self + inset
     }
     
-    public func insets(_ inset: Value) -> CompositExpression<XSideAnchor, Value>{
+    public func insets(_ inset: Value) -> CompositExpression<XSideAnchor, Value> {
         return self + inset
     }
     
     @discardableResult
-    static public func == (lhs: XSideAnchor, rhs: Layoutable) -> [LayoutConstraint]{
+    static public func == (lhs: XSideAnchor, rhs: Layoutable) -> [LayoutConstraint] {
         return lhs.equalTo(rhs)
     }
     
 }
 
-final public class YSideAnchor: CompositAnchor{
+final public class YSideAnchor: CompositAnchor {
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, insets: YSideInsets = (0, 0))  -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, insets: YSideInsets = (0, 0))  -> [LayoutConstraint] {
         return [
             item.top == layoutItem.top + insets.top,
             item.bottom == layoutItem.bottom - insets.bottom
@@ -160,37 +160,37 @@ final public class YSideAnchor: CompositAnchor{
     }
     
     @discardableResult
-    public func equalTo(_ anchor: YSideAnchor, insets: YSideInsets = (0, 0))  -> [LayoutConstraint]{
+    public func equalTo(_ anchor: YSideAnchor, insets: YSideInsets = (0, 0))  -> [LayoutConstraint] {
         return equalTo(anchor.item, insets: insets)
     }
     
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, insets: Value) -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, insets: Value) -> [LayoutConstraint] {
         return equalTo(layoutItem, insets: (insets, insets))
     }
     
-    public func insets(_ inset: YSideInsets) -> CompositExpression<YSideAnchor, YSideInsets>{
+    public func insets(_ inset: YSideInsets) -> CompositExpression<YSideAnchor, YSideInsets> {
         return self + inset
     }
     
-    public func insets(_ inset: Value) -> CompositExpression<YSideAnchor, Value>{
+    public func insets(_ inset: Value) -> CompositExpression<YSideAnchor, Value> {
         return self + inset
     }
     
     @discardableResult
-    static public func == (lhs: YSideAnchor, rhs: Layoutable) -> [LayoutConstraint]{
+    static public func == (lhs: YSideAnchor, rhs: Layoutable) -> [LayoutConstraint] {
         return lhs.equalTo(rhs)
     }
 }
 
-final public class EdgeAnchor: CompositAnchor{
+final public class EdgeAnchor: CompositAnchor {
     
-    public func insets(_ insets: EdgeInsets) -> CompositExpression<EdgeAnchor, EdgeInsets>{
+    public func insets(_ insets: EdgeInsets) -> CompositExpression<EdgeAnchor, EdgeInsets> {
         return self + insets
     }
     
     @discardableResult
-    public func equalTo(_ layoutItem: Layoutable, insets: EdgeInsets = EdgeInsetsZero) -> [LayoutConstraint]{
+    public func equalTo(_ layoutItem: Layoutable, insets: EdgeInsets = EdgeInsetsZero) -> [LayoutConstraint] {
         return [
             item.top == layoutItem.top + insets.top,
             item.left == layoutItem.left + insets.left,
@@ -200,12 +200,12 @@ final public class EdgeAnchor: CompositAnchor{
     }
     
     @discardableResult
-    static public func == (lhs: EdgeAnchor, rhs: Layoutable) -> [LayoutConstraint]{
+    static public func == (lhs: EdgeAnchor, rhs: Layoutable) -> [LayoutConstraint] {
         return lhs.equalTo(rhs)
     }
 }
 
-final public class CompositExpression<AnchorType, valueType>{
+final public class CompositExpression<AnchorType, valueType> {
     var anchor: AnchorType
     var value: valueType
     
@@ -227,83 +227,83 @@ public func + <AnchorType: CompositAnchor, ValueType>(lhs: AnchorType, rhs: Valu
 
 @discardableResult
 public func == (lhs: SizeAnchor, rhs: CompositExpression<Layoutable, Offset
-    >) -> [LayoutConstraint]{
+    >) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, offset: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: PositionAnchor, rhs: CompositExpression<Layoutable,Offset>) -> [LayoutConstraint]{
+public func == (lhs: PositionAnchor, rhs: CompositExpression<Layoutable,Offset>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, offset: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: PositionAnchor, rhs: CompositExpression<PositionAnchor,Offset>) -> [LayoutConstraint]{
+public func == (lhs: PositionAnchor, rhs: CompositExpression<PositionAnchor,Offset>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, offset: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: XSideAnchor, rhs: CompositExpression<Layoutable, Value>) -> [LayoutConstraint]{
+public func == (lhs: XSideAnchor, rhs: CompositExpression<Layoutable, Value>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: XSideAnchor, rhs: CompositExpression<Layoutable, XSideInsets>) -> [LayoutConstraint]{
+public func == (lhs: XSideAnchor, rhs: CompositExpression<Layoutable, XSideInsets>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: XSideAnchor, rhs: CompositExpression<XSideAnchor, Value>) -> [LayoutConstraint]{
+public func == (lhs: XSideAnchor, rhs: CompositExpression<XSideAnchor, Value>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor.item, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: XSideAnchor, rhs: CompositExpression<XSideAnchor, XSideInsets>) -> [LayoutConstraint]{
+public func == (lhs: XSideAnchor, rhs: CompositExpression<XSideAnchor, XSideInsets>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: YSideAnchor, rhs: CompositExpression<Layoutable, Value>) -> [LayoutConstraint]{
+public func == (lhs: YSideAnchor, rhs: CompositExpression<Layoutable, Value>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: YSideAnchor, rhs: CompositExpression<Layoutable, YSideInsets>) -> [LayoutConstraint]{
+public func == (lhs: YSideAnchor, rhs: CompositExpression<Layoutable, YSideInsets>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: YSideAnchor, rhs: CompositExpression<YSideAnchor, Value>) -> [LayoutConstraint]{
+public func == (lhs: YSideAnchor, rhs: CompositExpression<YSideAnchor, Value>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor.item, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: YSideAnchor, rhs: CompositExpression<YSideAnchor, YSideInsets>) -> [LayoutConstraint]{
+public func == (lhs: YSideAnchor, rhs: CompositExpression<YSideAnchor, YSideInsets>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: EdgeAnchor, rhs: CompositExpression<Layoutable, EdgeInsets>) -> [LayoutConstraint]{
+public func == (lhs: EdgeAnchor, rhs: CompositExpression<Layoutable, EdgeInsets>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor, insets: rhs.value)
 }
 
 @discardableResult
-public func == (lhs: EdgeAnchor, rhs: CompositExpression<EdgeAnchor, EdgeInsets>) -> [LayoutConstraint]{
+public func == (lhs: EdgeAnchor, rhs: CompositExpression<EdgeAnchor, EdgeInsets>) -> [LayoutConstraint] {
     return lhs.equalTo(rhs.anchor.item, insets: rhs.value)
 }
 
-public extension Array where Element: Layoutable{
+public extension Array where Element: Layoutable {
     
     typealias LayoutAction = (_ pre: Layoutable, _ current: Layoutable) -> (LayoutConstraint)
     
     @discardableResult
-    func traverse(action: LayoutAction) -> [LayoutConstraint]{
+    func traverse(action: LayoutAction) -> [LayoutConstraint] {
         var constraints = [LayoutConstraint]()
-        if count <= 1{
+        if count <= 1 {
             return constraints
         }
         var preItem = self.first!
-        for item in self{
-            if item !== preItem{
+        for item in self {
+            if item !== preItem {
                 constraints.append(action(preItem, item))
             }
             preItem = item
@@ -312,9 +312,9 @@ public extension Array where Element: Layoutable{
     }
     
     @discardableResult
-    func space(_ space: Value,axis: LayoutAxis = .vertical) -> [LayoutConstraint]{
+    func space(_ space: Value,axis: LayoutAxis = .vertical) -> [LayoutConstraint] {
         return traverse { (preItem, currentItem) -> (LayoutConstraint) in
-            switch axis{
+            switch axis {
             case .horizontal: return currentItem.left == preItem.right + space
             case .vertical: return currentItem.top == preItem.bottom + space
             }
@@ -322,9 +322,9 @@ public extension Array where Element: Layoutable{
     }
     
     @discardableResult
-    func equal(_ attributes: LayoutAttribute...) -> [LayoutConstraint]{
+    func equal(_ attributes: LayoutAttribute...) -> [LayoutConstraint] {
         var constraints = [LayoutConstraint]()
-        for attribute in attributes{
+        for attribute in attributes {
             constraints.append(contentsOf:traverse { (preItem, current) -> (LayoutConstraint) in
                 let firstAnchor = Anchor(item: current, attribute: attribute)
                 let secondAnchor = Anchor(item: preItem, attribute: attribute)

@@ -34,52 +34,52 @@
 import UIKit
 //import Layoutable
 
-open class ButtonNode: ControlNode{
+open class ButtonNode: ControlNode {
     
     public let textNode = TextNode()
     public let imageNode = ImageNode()
     public let backgroundImageNode = ImageNode()
     
-    public var space: CGFloat = 5{
-        didSet{
+    public var space: CGFloat = 5 {
+        didSet {
             invalidateIntrinsicContentSize()
         }
     }
     
-    public var layoutAxis = LayoutAxis.horizontal{
-        didSet{
+    public var layoutAxis = LayoutAxis.horizontal {
+        didSet {
             invalidateIntrinsicContentSize()
         }
     }
     
-    override open var highlighted: Bool{
-        didSet{
+    override open var highlighted: Bool {
+        didSet {
             updateForState()
         }
     }
     
-    override open var enabled: Bool{
-        didSet{
+    override open var enabled: Bool {
+        didSet {
             updateForState()
         }
     }
     
-    override open var selected: Bool{
-        didSet{
+    override open var selected: Bool {
+        didSet {
             updateForState()
         }
     }
     
-    public var textFirst = true
+    public var textFirst = false
     
-    private var currentState: UIControl.State{
-        if !enabled{
+    private var currentState: UIControl.State {
+        if !enabled {
             return .disabled
-        }else if highlighted{
+        } else if highlighted {
             return .highlighted
-        }else if selected{
+        } else if selected {
             return .selected
-        }else{
+        } else {
             return .normal
         }
     }
@@ -107,37 +107,37 @@ open class ButtonNode: ControlNode{
     // by other states which don't have a custom value set
     
     // default is nil. title is assumed to be single line
-    open func setTitle(_ title: String?, for state: UIControl.State){
+    open func setTitle(_ title: String?, for state: UIControl.State) {
         titleState.update(state: state, with: title)
         updateContent()
     }
     
     // default if nil. use opaque white
-    open func setTitleColor(_ color: UIColor?, for state: UIControl.State){
+    open func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
         titleColorState.update(state: state, with: color)
         updateForState()
     }
     
     // default is nil. should be same size if different for different states
-    open func setImage(_ image: UIImage?, for state: UIControl.State){
+    open func setImage(_ image: UIImage?, for state: UIControl.State) {
         imageState.update(state: state, with: image)
         updateContent()
     }
     
     // default is nil
-    open func setBackgroundImage(_ image: UIImage?, for state: UIControl.State){
+    open func setBackgroundImage(_ image: UIImage?, for state: UIControl.State) {
         backgroundImageState.update(state: state, with: image)
         updateContent()
     }
     
     
     // default is nil. title is assumed to be single line
-    open func setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State){
+    open func setAttributedTitle(_ title: NSAttributedString?, for state: UIControl.State) {
         attributeTitleState.update(state: state, with: title)
         updateContent()
     }
     
-    open func setBackgroundColor(color: UIColor?, for state: UIControl.State){
+    open func setBackgroundColor(color: UIColor?, for state: UIControl.State) {
         backgroundColorState.update(state: state, with: color)
         updateForState()
     }
@@ -147,22 +147,22 @@ open class ButtonNode: ControlNode{
         updateButtonLayout()
     }
     
-    override open var itemIntrinsicContentSize: CGSize{
+    override open var itemIntrinsicContentSize: CGSize {
         let title = titleState.value(for: currentState)
         let image = imageState.value(for: currentState)
         let backgroundImage = backgroundImageState.value(for: currentState)
         
         // no title,use Image size as it's contentSize
-        if title != nil{
+        if title != nil {
             let titleSize = textNode.itemIntrinsicContentSize
             let imageSize = imageNode.itemIntrinsicContentSize
             
             return titleSize.combineTo(imageSize, space: space, isVertical: layoutAxis == .vertical)
             
-        }else{
-            if let backgroundImage = backgroundImage{
+        } else {
+            if let backgroundImage = backgroundImage {
                 return backgroundImage.size
-            }else if let image = image{
+            } else if let image = image {
                 return image.size
             }
         }
@@ -180,16 +180,16 @@ open class ButtonNode: ControlNode{
         }
     }
     
-    func layoutForHorizontal(){
+    func layoutForHorizontal() {
         let textSize = textNode.sizeThatFit(bounds.size)
         let imageSize = imageNode.sizeThatFit(bounds.size)
-        if textFirst{
+        if textFirst {
             let rect = bounds.constraint(lhs: textSize,
                                          rhs: imageSize,
                                          space: space)
             textNode.frame = rect.0
             imageNode.frame = rect.1
-        }else{
+        } else {
             let rect = bounds.constraint(lhs: imageSize,
                                          rhs: textSize,
                                          space: space)
@@ -198,17 +198,18 @@ open class ButtonNode: ControlNode{
         }
     }
     
-    func layoutForVertical(){
+    func layoutForVertical() {
         let textSize = textNode.sizeThatFit(bounds.size)
         let imageSize = imageNode.sizeThatFit(bounds.size)
         
-        if textFirst{
+        if textFirst {
             let rects = bounds.constraint(ths: textSize,
                                           bhs: imageSize,
                                           space: space)
             textNode.frame = rects.0
             imageNode.frame = rects.1
-        }else{
+        }
+        else {
             let rects = bounds.constraint(ths: imageSize,
                                           bhs: textSize,
                                           space: space)
@@ -217,30 +218,30 @@ open class ButtonNode: ControlNode{
         }
     }
     
-    func updateForState(){
+    func updateForState() {
         backgroundImageNode.image = backgroundImageState.value(for: currentState)
         textNode.text = titleState.value(for: currentState) ?? ""
         imageNode.image = imageState.value(for: currentState)
         
-        if let color = backgroundColorState.value(for: currentState){
+        if let color = backgroundColorState.value(for: currentState) {
             backgroundColor = color
         }
         
-        if let textColor = titleColorState.value(for: currentState){
+        if let textColor = titleColorState.value(for: currentState) {
             textNode.textColor = textColor
         }
         
-        if backgroundImageNode.image == nil{
+        if backgroundImageNode.image == nil {
             backgroundImageNode.hidden = true
         }
     }
     
-    private func updateContent(){
+    private func updateContent() {
         updateForState()
         invalidateIntrinsicContentSize()
     }
     
-    private func contentRectForbounds(_ rect: CGRect) -> CGRect{
+    private func contentRectForbounds(_ rect: CGRect) -> CGRect {
         return rect
     }
 }
@@ -251,28 +252,28 @@ struct StatePicker<T> {
     
     private var stateTable = [UIControl.State: T]()
     
-    mutating func update(state: UIControl.State, with value: T?){
+    mutating func update(state: UIControl.State, with value: T?) {
         
         // rawValue for UIControlStateNormal is 0
         // UIControlState.contains(.normal) always return true
         // so we have to deal this situation seperately
         
-        if state == .normal{
+        if state == .normal {
             stateTable[.normal] = value
-        }else{
+        } else {
             let states: [UIControl.State] = [.highlighted,.selected,.disabled]
             
             // flatten state and value
             states.forEach {
-                if state.contains($0){
+                if state.contains($0) {
                     stateTable[$0] = value
                 }
             }
         }
     }
     
-    func value(for state: UIControl.State) -> T?{
-        if let value = stateTable[state]{
+    func value(for state: UIControl.State) -> T? {
+        if let value = stateTable[state] {
             return value
         }
         return stateTable[.normal]
@@ -280,8 +281,8 @@ struct StatePicker<T> {
     
 }
 
-extension UIControl.State: Hashable{
-    public var hashValue: Int{
+extension UIControl.State: Hashable {
+    public var hashValue: Int {
         return Int(rawValue)
     }
 }

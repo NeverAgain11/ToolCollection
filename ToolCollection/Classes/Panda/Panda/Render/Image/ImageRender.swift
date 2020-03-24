@@ -33,7 +33,7 @@
 
 import UIKit
 
-final class ImageRender{
+final class ImageRender {
     
     typealias ImageCache = NSCache<ImageKey, UIImage>
     
@@ -44,12 +44,12 @@ final class ImageRender{
         return cache
     }()
     
-    class func imageForKey(_ key: ImageKey, isCancelled: CancelBlock) -> UIImage?{
-        if let image = cache.object(forKey: key){
+    class func imageForKey(_ key: ImageKey, isCancelled: CancelBlock) -> UIImage? {
+        if let image = cache.object(forKey: key) {
             return image
         }
         
-        if let image = contentForKey(key, isCancelled){
+        if let image = contentForKey(key, isCancelled) {
             cache.setObject(image, forKey: key)
             return image
         }
@@ -57,7 +57,7 @@ final class ImageRender{
         return nil;
     }
     
-    class func contentForKey(_ key: ImageKey, _ isCancelled: CancelBlock)->UIImage?{
+    class func contentForKey(_ key: ImageKey, _ isCancelled: CancelBlock)->UIImage? {
         
         if isCancelled(){ return nil }
         
@@ -79,7 +79,7 @@ final class ImageRender{
         if isCancelled(){ return nil }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        if let processor = key.processor,let image = image{
+        if let processor = key.processor,let image = image {
             return processor.process(image: image)
         }
         return image
@@ -108,12 +108,12 @@ final class ImageKey: NSObject {
         hashCache = hasher.finalize()
     }
     
-    override var hash: Int{
+    override var hash: Int {
         return hashCache
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? ImageKey else{
+        guard let object = object as? ImageKey else {
             return false
         }
         return size == object.size && image == object.image

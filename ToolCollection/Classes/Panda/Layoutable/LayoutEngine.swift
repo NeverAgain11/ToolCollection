@@ -33,13 +33,13 @@
 
 //import Cassowary
 
-final class LayoutEngine{
+final class LayoutEngine {
     
     static let solverPool = NSMapTable<AnyObject,SimplexSolver>.weakToStrongObjects()
-    static func solveFor(_ node: Layoutable) -> SimplexSolver{
-        if let solver = solverPool.object(forKey: node){
+    static func solveFor(_ node: Layoutable) -> SimplexSolver {
+        if let solver = solverPool.object(forKey: node) {
             return solver
-        }else{
+        } else {
             let solver = SimplexSolver()
             solver.autoSolve = false
             solverPool.setObject(solver, forKey: node)

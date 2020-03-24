@@ -36,30 +36,30 @@ import UIKit
 public typealias TextTapAction = (NSRange) -> ()
 
 open class TextNode: ControlNode,TextRenderable {
-  
-  public private(set) lazy var textHolder = TextAttributesHolder(self)
-  
-  public func textDidUpdate(for attribute: AnyKeyPath) {
-    if attribute == \TextRenderable.textColor{
-      setNeedsDisplay()
-    }else{
-      invalidateIntrinsicContentSize()
-      setNeedsDisplay()
+    
+    public private(set) lazy var textHolder = TextAttributesHolder(self)
+    
+    public func textDidUpdate(for attribute: AnyKeyPath) {
+        if attribute == \TextRenderable.textColor {
+            setNeedsDisplay()
+        } else {
+            invalidateIntrinsicContentSize()
+            setNeedsDisplay()
+        }
     }
-  }
-  
-  override open var itemIntrinsicContentSize: CGSize{
-    return textHolder.itemIntrinsicContentSize
-  }
-  
-  override open func contentSizeFor(maxWidth: CGFloat) -> CGSize {
     
-    if numberOfLines == 1{ return InvaidIntrinsicSize }
+    override open var itemIntrinsicContentSize: CGSize {
+        return textHolder.itemIntrinsicContentSize
+    }
     
-    return textHolder.sizeFor(maxWidth: maxWidth)
-  }
-  
-  override open func drawContent(in context: CGContext) {
-    textHolder.render(for: bounds).drawInContext(context, bounds: bounds)
-  }
+    override open func contentSizeFor(maxWidth: CGFloat) -> CGSize {
+        
+        if numberOfLines == 1{ return InvaidIntrinsicSize }
+        
+        return textHolder.sizeFor(maxWidth: maxWidth)
+    }
+    
+    override open func drawContent(in context: CGContext) {
+        textHolder.render(for: bounds).drawInContext(context, bounds: bounds)
+    }
 }

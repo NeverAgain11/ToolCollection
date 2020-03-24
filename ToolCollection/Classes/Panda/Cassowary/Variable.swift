@@ -34,7 +34,7 @@
 
 /// use class will be easy to track the value of Variable
 /// but using struct performent better than class type
-public struct Variable{
+public struct Variable {
     
     /// Variable type
     private enum VarType: CustomDebugStringConvertible {
@@ -54,7 +54,7 @@ public struct Variable{
         /// Varable for objective function
         case error
         
-        var debugDescription: String{
+        var debugDescription: String {
             switch self {
             case .external: return "v"
             case .restrictedExternal: return "r"
@@ -73,11 +73,11 @@ public struct Variable{
         return varType == .external || varType == .restrictedExternal
     }
     
-    var isSlack: Bool{
+    var isSlack: Bool {
         return varType == .slack
     }
     
-    var isError: Bool{
+    var isError: Bool {
         return varType == .error
     }
     
@@ -93,25 +93,25 @@ public struct Variable{
         self.init(type: .external)
     }
     
-    public static func restricted() -> Variable{
+    public static func restricted() -> Variable {
         return Variable(type: .restrictedExternal)
     }
     
-    private init(type: VarType){
+    private init(type: VarType) {
         self.varType = type
         Variable.count += 1
         count = Variable.count
     }
     
-    static func slack() -> Variable{
+    static func slack() -> Variable {
         return Variable(type: .slack)
     }
     
-    static func dummpy() -> Variable{
+    static func dummpy() -> Variable {
         return Variable(type: .dummpy)
     }
     
-    static func error() -> Variable{
+    static func error() -> Variable {
         return Variable(type: .error)
     }
     
@@ -121,13 +121,13 @@ public struct Variable{
     private let varType: VarType
 }
 
-extension Variable: CustomDebugStringConvertible{
-    public var debugDescription: String{
+extension Variable: CustomDebugStringConvertible {
+    public var debugDescription: String {
         return "\(varType)" + "\(count)"
     }
 }
 
-extension Variable: Hashable{
+extension Variable: Hashable {
     
     public static func ==(lhs: Variable, rhs: Variable) -> Bool {
         return lhs.hashValue == rhs.hashValue

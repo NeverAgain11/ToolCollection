@@ -35,12 +35,12 @@
 
 /// abstraction for constraint layout Item
 /// any object conform to Layoutable can use constraint to caculate frame
-public protocol Layoutable: class{
+public protocol Layoutable: class {
     
-    var layoutManager: LayoutManager{ get }
+    var layoutManager: LayoutManager { get }
     
     var superItem: Layoutable? { get }
-    var subItems: [Layoutable]{ get }
+    var subItems: [Layoutable] { get }
     var layoutRect: CGRect { get set}
     
     /// like layoutSubviews in UIView
@@ -64,18 +64,18 @@ public protocol Layoutable: class{
 }
 
 // public function
-extension Layoutable{
+extension Layoutable {
     
-    public var allConstraints: [LayoutConstraint]{
+    public var allConstraints: [LayoutConstraint] {
         return Array(layoutManager.installedConstraints) +  Array(layoutManager.pinedConstraints)
     }
     
-    public var fixedWidth: Bool{
+    public var fixedWidth: Bool {
         set{ layoutManager.fixedWidth = newValue }
         get{ return layoutManager.fixedWidth }
     }
     
-    public var layoutNeedsUpdate: Bool{
+    public var layoutNeedsUpdate: Bool {
         set{ layoutManager.layoutNeedsUpdate = newValue}
         get{ return layoutManager.layoutNeedsUpdate }
     }
@@ -83,7 +83,7 @@ extension Layoutable{
     /// disable cassowary Layout Enginer
     /// - Parameter disable: if set to true, all cassowary related code will return immediately
     /// it is useful when you want to use cached frame to Layout node, rather than caculate again
-    public func disableLayout(_ disable: Bool = true){
+    public func disableLayout(_ disable: Bool = true) {
         layoutManager.enabled = !disable
         subItems.forEach{ $0.disableLayout(disable)}
     }
@@ -91,7 +91,7 @@ extension Layoutable{
     /// just like layutIfNeeded in UIView
     /// call this method will caculate and update frame immediately
     /// be careful, don't call this if layout hierarchy is not ready
-    public func layoutIfEnabled(){
+    public func layoutIfEnabled() {
         
         if !layoutManager.enabled{ return }
         
@@ -99,9 +99,10 @@ extension Layoutable{
         
         /// for newly added Layoutable object
         /// if item is added after a layout pass,we need to add constraints to solver
-        if let solver = item.layoutManager.solver{
+        if let solver = item.layoutManager.solver {
             item.updateSolverIfNeeded(solver)
-        }else{
+        }
+        else {
             let solver = LayoutEngine.solveFor(item)
             solver.autoSolve = false
             item.addConstraintsTo(solver)
@@ -115,11 +116,11 @@ extension Layoutable{
     
     /// layout info of the current node hierarchy
     /// provide for case of layout cache
-    public var layoutValues: LayoutValues{
+    public var layoutValues: LayoutValues {
         var cache = LayoutValues()
-        if layoutManager.isConstraintValidRect{
+        if layoutManager.isConstraintValidRect {
             cache.frame = layoutManager.layoutRect
-        }else{
+        } else {
             cache.frame = layoutRect
         }
         cache.subLayout = subItems.map{ $0.layoutValues }
@@ -130,9 +131,9 @@ extension Layoutable{
     ///
     /// - Parameter layout: layout hierarchy from this root node
     /// - make sure node hierarchy is exactly the same when you get this layoutValues
-    public func apply(_ layout: LayoutValues){
+    public func apply(_ layout: LayoutValues) {
         layoutRect = layout.frame
-        for (index, node) in subItems.enumerated(){
+        for (index, node) in subItems.enumerated() {
             node.apply(layout.subLayout[index])
         }
     }
@@ -142,16 +143,16 @@ extension Layoutable{
     //  this function will remove all constraints for this item and it's subitems from current solver
     /// and break all constraints with item's supernode
     /// - Parameter item: item from which to break
-    public func recursivelyReset(from item: Layoutable){
+    public func recursivelyReset(from item: Layoutable) {
         layoutManager.solver = nil
         while let constraint = layoutManager.installedConstraints.popFirst() {
             constraint.remove()
-            if let secondItem = constraint.secondAnchor?.item{
-                if secondItem.ancestorItem === item{
+            if let secondItem = constraint.secondAnchor?.item {
+                if secondItem.ancestorItem === item {
                     addConstraint(constraint)
                     secondItem.layoutManager.pinedConstraints.insert(constraint)
                 }
-            }else{
+            } else {
                 addConstraint(constraint)
             }
         }
@@ -161,7 +162,7 @@ extension Layoutable{
         subItems.forEach{ $0.recursivelyReset(from: item)}
     }
     
-    public func setContentHuggingPriorty(for axis: LayoutAxis, priorty: LayoutPriority){
+    public func setContentHuggingPriorty(for axis: LayoutAxis, priorty: LayoutPriority) {
         switch axis {
         case .horizontal:
             layoutManager.contentSizeConstraints.xAxis.huggingPriorty = priorty
@@ -170,7 +171,7 @@ extension Layoutable{
         }
     }
     
-    public func contentHuggingPriorty(for axis: LayoutAxis) -> LayoutPriority{
+    public func contentHuggingPriorty(for axis: LayoutAxis) -> LayoutPriority {
         switch axis {
         case .horizontal:
             return layoutManager.contentSizeConstraints.xAxis.huggingPriorty
@@ -179,7 +180,7 @@ extension Layoutable{
         }
     }
     
-    public func setContentCompressionPriorty(for axis: LayoutAxis, priorty: LayoutPriority){
+    public func setContentCompressionPriorty(for axis: LayoutAxis, priorty: LayoutPriority) {
         switch axis {
         case .horizontal:
             layoutManager.contentSizeConstraints.xAxis.compressionPriorty = priorty
@@ -188,7 +189,7 @@ extension Layoutable{
         }
     }
     
-    public func contentCompressionPriorty(for axis: LayoutAxis) -> LayoutPriority{
+    public func contentCompressionPriorty(for axis: LayoutAxis) -> LayoutPriority {
         switch axis {
         case .horizontal:
             return layoutManager.contentSizeConstraints.xAxis.compressionPriorty
@@ -199,75 +200,75 @@ extension Layoutable{
 }
 
 // MARK: - public property
-extension Layoutable{
-    public var left: XAxisAnchor{
+extension Layoutable {
+    public var left: XAxisAnchor {
         return XAxisAnchor(item: self, attribute: .left)
     }
     
-    public var right: XAxisAnchor{
+    public var right: XAxisAnchor {
         return XAxisAnchor(item: self, attribute: .right)
     }
     
-    public var top: YAxisAnchor{
+    public var top: YAxisAnchor {
         return YAxisAnchor(item: self, attribute: .top)
     }
     
-    public var bottom: YAxisAnchor{
+    public var bottom: YAxisAnchor {
         return YAxisAnchor(item: self, attribute: .bottom)
     }
     
-    public var width: DimensionAnchor{
+    public var width: DimensionAnchor {
         return DimensionAnchor(item: self, attribute:.width)
     }
     
-    public var height: DimensionAnchor{
+    public var height: DimensionAnchor {
         return DimensionAnchor(item: self, attribute:.height)
     }
     
-    public var centerX: XAxisAnchor{
+    public var centerX: XAxisAnchor {
         return XAxisAnchor(item: self, attribute: .centerX)
     }
     
-    public var centerY: YAxisAnchor{
+    public var centerY: YAxisAnchor {
         return YAxisAnchor(item: self, attribute: .centerY)
     }
     
-    public var size: SizeAnchor{
+    public var size: SizeAnchor {
         return SizeAnchor(item: self)
     }
     
-    public var center: PositionAnchor{
+    public var center: PositionAnchor {
         return PositionAnchor(item: self, attributes: (.centerX,.centerY))
     }
     
-    public var topLeft: PositionAnchor{
+    public var topLeft: PositionAnchor {
         return PositionAnchor(item: self, attributes: (.top,.left))
     }
     
-    public var topRight: PositionAnchor{
+    public var topRight: PositionAnchor {
         return PositionAnchor(item: self, attributes: (.top,.right))
     }
     
-    public var bottomLeft: PositionAnchor{
+    public var bottomLeft: PositionAnchor {
         return PositionAnchor(item: self, attributes: (.bottom,.left))
     }
     
-    public var bottomRight: PositionAnchor{
+    public var bottomRight: PositionAnchor {
         return PositionAnchor(item: self, attributes: (.bottom,.right))
     }
     
     /// left and right
-    public var xSide: XSideAnchor{
+    public var xSide: XSideAnchor {
         return XSideAnchor(item: self)
     }
     
     /// top and bottom
-    public var ySide: YSideAnchor{
+    public var ySide: YSideAnchor {
         return YSideAnchor(item: self)
     }
     
     /// top, left, right, bottom
-    public var edge: EdgeAnchor{
+    public var edge: EdgeAnchor {
         return EdgeAnchor(item: self)
     }
     
@@ -275,17 +276,17 @@ extension Layoutable{
 
 
 // MARK: - internal function
-extension Layoutable{
+extension Layoutable {
     
-    func addConstraint(_ constraint: LayoutConstraint){
+    func addConstraint(_ constraint: LayoutConstraint) {
         layoutManager.addConstraint(constraint)
     }
     
-    func removeConstraint(_ constraint: LayoutConstraint){
+    func removeConstraint(_ constraint: LayoutConstraint) {
         layoutManager.removeConstraint(constraint)
     }
     
-    func removeConstraints(_ constraints: [LayoutConstraint]){
+    func removeConstraints(_ constraints: [LayoutConstraint]) {
         constraints.forEach {
             self.removeConstraint($0)
         }
@@ -294,9 +295,9 @@ extension Layoutable{
     /// find common super item with another LayoutItem
     /// - Parameter item: item to find common superNode with
     /// - Returns: first super node for self and node
-    func commonSuperItem(with item: Layoutable?) -> Layoutable?{
+    func commonSuperItem(with item: Layoutable?) -> Layoutable? {
         
-        guard let item = item else{
+        guard let item = item else {
             return self
         }
         
@@ -317,7 +318,7 @@ extension Layoutable{
         }
         
         while !(superItem1 === superItem2) {
-            if superItem1.superItem == nil{
+            if superItem1.superItem == nil {
                 return nil
             }
             superItem1 = superItem1.superItem!
@@ -330,59 +331,60 @@ extension Layoutable{
 }
 
 // MARK: - private function
-extension Layoutable{
+extension Layoutable {
     
-    private var depth: Int{
-        if let item = superItem{
+    private var depth: Int {
+        if let item = superItem {
             return item.depth + 1
-        }else{
+        } else {
             return 1
         }
     }
     
-    private func updateLayout(){
+    private func updateLayout() {
         // need to be optimized
-        if layoutManager.isConstraintValidRect{
+        if layoutManager.isConstraintValidRect {
             layoutRect = layoutManager.layoutRect
         }
         subItems.forEach{ $0.updateLayout() }
     }
     
-    private func addConstraintsTo(_ solver: SimplexSolver){
+    private func addConstraintsTo(_ solver: SimplexSolver) {
         layoutManager.addConstraintsTo(solver)
         subItems.forEach { $0.addConstraintsTo(solver) }
     }
     
-    private var ancestorItem: Layoutable{
-        if let superItem = superItem{
+    private var ancestorItem: Layoutable {
+        if let superItem = superItem {
             return superItem.ancestorItem
         }
         return self
     }
     
-    private func updateAllConstraint(){
+    private func updateAllConstraint() {
         updateConstraint()
         layoutManager.updateConstraint()
     }
     
-    private func updateSolverIfNeeded(_ solver: SimplexSolver){
-        if layoutManager.solver !== solver{
+    private func updateSolverIfNeeded(_ solver: SimplexSolver) {
+        if layoutManager.solver !== solver {
             addConstraintsTo(solver)
             return
         }
         subItems.forEach{ $0.updateSolverIfNeeded(solver)}
     }
     
-    private func layoutFirstPass(){
-        if layoutNeedsUpdate{
-            if !layoutManager.translateRectIntoConstraints{
+    private func layoutFirstPass() {
+        if layoutNeedsUpdate {
+            if !layoutManager.translateRectIntoConstraints {
                 var size = CGSize(width: InvalidIntrinsicMetric, height: 0)
-                if !layoutManager.fixedWidth{
+                if !layoutManager.fixedWidth {
                     size = itemIntrinsicContentSize
                 }
                 layoutManager.updateSize(size)
             }
-        }else if layoutManager.isRectConstrainted{
+        }
+        else if layoutManager.isRectConstrainted {
             layoutManager.updateRect(layoutRect)
             /// a little weird here, when update size or origin,some constraints will be add to this item
             /// this item's translateRectIntoConstraints will be set to false
@@ -394,21 +396,21 @@ extension Layoutable{
     }
     
     /// second layout pass is used to adjust contentSize height
-    /// such as TextNode,at this time ,width for textNode is determined
+    /// such as TextNode, at this time, width for textNode is determined
     /// so we can know how manay lines this text should have
-    private func layoutSecondPass(){
-        if layoutManager.sizeNeedsUpdate && !layoutManager.translateRectIntoConstraints{
+    private func layoutSecondPass() {
+        if layoutManager.sizeNeedsUpdate && !layoutManager.translateRectIntoConstraints {
             var size = contentSizeFor(maxWidth: layoutManager.layoutRect.size.width)
-            if layoutManager.fixedWidth{
+            if layoutManager.fixedWidth {
                 size = CGSize(width: InvalidIntrinsicMetric, height: size.height)
             }
             
-            if size != InvaidIntrinsicSize{
+            if size != InvaidIntrinsicSize {
                 layoutManager.updateSize(size)
             }
         }
         
-        subItems.forEach{ $0.layoutSecondPass()}
+        subItems.forEach{ $0.layoutSecondPass() }
         layoutNeedsUpdate = false
     }
     

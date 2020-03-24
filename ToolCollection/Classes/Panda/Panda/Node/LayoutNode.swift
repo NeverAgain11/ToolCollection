@@ -49,7 +49,7 @@ open class LayoutNode<T: UIView>: ViewNode {
     private let viewGenerator: ViewGenerator
     private(set) lazy var viewHolder = self.viewGenerator()
     
-    public override var view: UIView{
+    public override var view: UIView {
         return viewHolder
     }
     
@@ -59,15 +59,15 @@ open class LayoutNode<T: UIView>: ViewNode {
     }
     
     // this action will be called in main thread after view.frame is set
-    public var action: Action? = nil{
-        didSet{
-            if action != nil{
+    public var action: Action? = nil {
+        didSet {
+            if action != nil {
                 commitUpdate()
             }
         }
     }
     
-    open override var itemIntrinsicContentSize: CGSize{
+    open override var itemIntrinsicContentSize: CGSize {
         return sizeGenerator()
     }
     

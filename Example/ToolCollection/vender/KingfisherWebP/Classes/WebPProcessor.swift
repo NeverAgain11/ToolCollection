@@ -15,7 +15,7 @@ public struct WebPProcessor: ImageProcessor {
     public let identifier = "com.yeatse.WebPProcessor"
 
     public init() {}
-
+    
     public func process(item: ImageProcessItem, options: KingfisherOptionsInfo) -> Image? {
         switch item {
         case .image(let image):

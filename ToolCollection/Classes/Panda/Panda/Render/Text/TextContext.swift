@@ -33,7 +33,7 @@
 
 import UIKit
 
-public struct TextContext{
+public struct TextContext {
     let layoutManager = NSLayoutManager()
     let textContainer = NSTextContainer()
     let textStorage = NSTextStorage()
@@ -61,7 +61,7 @@ public struct TextContext{
         self.constraintSize = constraintSize
     }
     
-    public func performBlockWithLockedComponent(_ block: TextKitLockedBlock){
+    public func performBlockWithLockedComponent(_ block: TextKitLockedBlock) {
         block(layoutManager,textContainer,textStorage)
     }
     

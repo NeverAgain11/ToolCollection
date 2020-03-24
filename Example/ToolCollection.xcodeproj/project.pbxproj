@@ -170,10 +170,10 @@
 		028EA9472428C2B9004FF665 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				028EA9482428C2B9004FF665 /* YYClassInfo.h */,
-				028EA9492428C2B9004FF665 /* NSObject+YYModel.m */,
-				028EA94A2428C2B9004FF665 /* YYClassInfo.m */,
 				028EA94B2428C2B9004FF665 /* NSObject+YYModel.h */,
+				028EA9492428C2B9004FF665 /* NSObject+YYModel.m */,
+				028EA9482428C2B9004FF665 /* YYClassInfo.h */,
+				028EA94A2428C2B9004FF665 /* YYClassInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";

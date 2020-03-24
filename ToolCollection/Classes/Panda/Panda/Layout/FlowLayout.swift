@@ -42,8 +42,8 @@ import UIKit
 open class FlowLayoutNode: ViewNode {
     
     /// number of each column
-    public var columnCount: Int = 0{
-        didSet{
+    public var columnCount: Int = 0 {
+        didSet {
             invalidateIntrinsicContentSize()
         }
     }
@@ -72,20 +72,20 @@ open class FlowLayoutNode: ViewNode {
     public var withMargin = false
     
     
-    private var rowCount: Int{
+    private var rowCount: Int {
         get{ return Int((validNode.count - 1)/columnCount) + 1}
     }
     
-    private var validNode:[ViewNode]{
+    private var validNode:[ViewNode] {
         return subnodes.filter{ $0.hidden == false }
     }
     
-    convenience init(nodes: [ViewNode]){
+    convenience init(nodes: [ViewNode]) {
         self.init()
         addArrangedNodes(nodes)
     }
     
-    public func addArrangedNodes(_ nodes: [ViewNode]){
+    public func addArrangedNodes(_ nodes: [ViewNode]) {
         nodes.forEach { addSubnode($0)}
     }
     
@@ -111,7 +111,7 @@ open class FlowLayoutNode: ViewNode {
         if space < 0.01 {
             space = totalSpace/(columnCount + (withMargin ? 1 : -1))
         }
-        for (index, item) in validNode.enumerated(){
+        for (index, item) in validNode.enumerated() {
             let xIndex = index % columnCount
             let yIndex = index/columnCount
             
@@ -137,14 +137,14 @@ open class FlowLayoutNode: ViewNode {
             if aspectRatio > 0 {
                 height = width * aspectRatio
             }
-            else{
+            else {
                 height = (size.height - inset.yAxis - (rowCount - 1)*lineSpace)/rowCount
             }
         }
         return CGSize(width: width, height: height)
     }
     
-    open override  var itemIntrinsicContentSize: CGSize{
+    open override  var itemIntrinsicContentSize: CGSize {
         guard validNode.count > 0,columnCount > 0 else { return .zero }
         let size = itemSize(for: bounds.size)
         
@@ -158,7 +158,7 @@ open class FlowLayoutNode: ViewNode {
         return contenSizeForItemSize(size)
     }
     
-    private func contenSizeForItemSize(_ size: CGSize) -> CGSize{
+    private func contenSizeForItemSize(_ size: CGSize) -> CGSize {
         let spaceX = (columnCount - 1)*itemSpace
         let spaceY = (rowCount - 1)*lineSpace
         
@@ -170,20 +170,20 @@ open class FlowLayoutNode: ViewNode {
     
 }
 
-private func * (lhs: Int, rhs: CGFloat) -> CGFloat{
+private func * (lhs: Int, rhs: CGFloat) -> CGFloat {
     return CGFloat(lhs) * rhs
 }
 
-private func / (lhs: CGFloat, rhs: Int) -> CGFloat{
+private func / (lhs: CGFloat, rhs: Int) -> CGFloat {
     return lhs / CGFloat(rhs)
 }
 
-extension UIEdgeInsets{
-    fileprivate var xAxis: CGFloat{
+extension UIEdgeInsets {
+    fileprivate var xAxis: CGFloat {
         return left + right
     }
     
-    fileprivate var yAxis: CGFloat{
+    fileprivate var yAxis: CGFloat {
         return top + bottom
     }
 }

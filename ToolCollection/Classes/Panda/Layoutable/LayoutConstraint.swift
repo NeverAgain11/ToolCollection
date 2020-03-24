@@ -39,7 +39,7 @@ public enum LayoutRelation {
     case greatThanOrEqual
 }
 
-extension LayoutRelation: CustomDebugStringConvertible{
+extension LayoutRelation: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .equal: return "=="
@@ -49,7 +49,7 @@ extension LayoutRelation: CustomDebugStringConvertible{
     }
 }
 
-public struct LayoutPriority: RawRepresentable,ExpressibleByFloatLiteral{
+public struct LayoutPriority: RawRepresentable,ExpressibleByFloatLiteral {
     public init(rawValue: Double) {
         self.rawValue = rawValue
     }
@@ -70,7 +70,7 @@ public struct LayoutPriority: RawRepresentable,ExpressibleByFloatLiteral{
     public static let weak: LayoutPriority = 10.0
 }
 
-public enum LayoutAttribute{
+public enum LayoutAttribute {
     
     case left
     
@@ -89,7 +89,7 @@ public enum LayoutAttribute{
     case centerY
 }
 
-extension LayoutAttribute: CustomDebugStringConvertible{
+extension LayoutAttribute: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .left: return "left"
@@ -104,9 +104,9 @@ extension LayoutAttribute: CustomDebugStringConvertible{
     }
 }
 
-open class LayoutConstraint{
+open class LayoutConstraint {
     
-    public init(firstAnchor: AnchorType,secondAnchor: AnchorType? = nil, relation: LayoutRelation = .equal, multiplier: Value = 1,constant: Value = 0){
+    public init(firstAnchor: AnchorType,secondAnchor: AnchorType? = nil, relation: LayoutRelation = .equal, multiplier: Value = 1,constant: Value = 0) {
         self.firstAnchor = firstAnchor
         self.secondAnchor = secondAnchor
         self.relation = relation
@@ -127,29 +127,29 @@ open class LayoutConstraint{
     
     public let multiplier: Value
     
-    open var constant: Value = 0{
-        didSet{
-            if let solver = solver , constant != oldValue{
+    open var constant: Value = 0 {
+        didSet {
+            if let solver = solver , constant != oldValue {
                 solver.updateConstant(for: constraint, to: Double(constant))
             }
         }
     }
     
-    open var priority: LayoutPriority = .required{
-        didSet{
-            if let solver = solver{
+    open var priority: LayoutPriority = .required {
+        didSet {
+            if let solver = solver {
                 try? solver.updateStrength(for: constraint, to: Strength(rawValue: priority.rawValue))
             }
         }
     }
     
-    open var isActive: Bool = false{
-        didSet{
-            if oldValue != isActive{
-                if isActive{
+    open var isActive: Bool = false {
+        didSet {
+            if oldValue != isActive {
+                if isActive {
                     firstAnchor.item.addConstraint(self)
                     secondAnchor?.item.layoutManager.pinedConstraints.insert(self)
-                }else{
+                } else {
                     firstAnchor.item.removeConstraint(self)
                     secondAnchor?.item.layoutManager.pinedConstraints.remove(self)
                     try? solver?.remove(constraint: constraint)
@@ -169,9 +169,9 @@ open class LayoutConstraint{
         var lhsExpr = firstAnchor.expression(in: superItem)
         let rhsExpr = Expression(constant: Double(constant))
         
-        if let secondAnchor = secondAnchor{
+        if let secondAnchor = secondAnchor {
             rhsExpr += secondAnchor.expression(in: superItem)*Double(multiplier)
-        }else{
+        } else {
             lhsExpr = firstAnchor.expression()
         }
         
@@ -191,16 +191,16 @@ open class LayoutConstraint{
     
 }
 
-extension LayoutConstraint{
+extension LayoutConstraint {
     
-    func addToSolver(_ solver: SimplexSolver){
-        if self.solver === solver{
+    func addToSolver(_ solver: SimplexSolver) {
+        if self.solver === solver {
             return
         }
         self.solver = solver
-        do{
+        do {
             try solver.add(constraint: constraint)
-        }catch ConstraintError.requiredFailureWithExplanation(let constraint){
+        }catch ConstraintError.requiredFailureWithExplanation(let constraint) {
             let tips = """
                  Unable to simultaneously satisfy constraints.
                  Probably at least one of the constraints in the following list is one you don't want.
@@ -210,8 +210,8 @@ extension LayoutConstraint{
                  """
             print(tips)
             
-            for (index,constraint) in constraint.enumerated(){
-                if let owner = constraint.owner{
+            for (index,constraint) in constraint.enumerated() {
+                if let owner = constraint.owner {
                     print("    \(index + 1). \(String(describing: owner)) " )
                 }
             }
@@ -221,23 +221,23 @@ extension LayoutConstraint{
                 \(self)
                 \n
                 """)
-        }catch{
+        }catch {
             print(error)
         }
     }
     
-    public func remove(){
+    public func remove() {
         _ = try? solver?.remove(constraint: constraint)
         secondAnchor?.item.layoutManager.pinedConstraints.remove(self)
         solver = nil
     }
     
-    class func active(_ constraints: [LayoutConstraint]){
+    class func active(_ constraints: [LayoutConstraint]) {
         constraints.forEach{ $0.isActive = true}
     }
     
     @discardableResult
-    func priority(_ priority: LayoutPriority) -> LayoutConstraint{
+    func priority(_ priority: LayoutPriority) -> LayoutConstraint {
         self.priority = priority
         return self
     }
@@ -258,19 +258,19 @@ infix operator ~:TernaryPrecedence
 // syntax surge for setPriority
 // item1.left = item2.right + 10 ~ .strong
 @discardableResult
-public func ~(lhs: LayoutConstraint, rhs: LayoutPriority) -> LayoutConstraint{
+public func ~(lhs: LayoutConstraint, rhs: LayoutPriority) -> LayoutConstraint {
     lhs.priority = rhs
     return lhs
 }
 
-extension LayoutConstraint: CustomStringConvertible{
+extension LayoutConstraint: CustomStringConvertible {
     public var description: String {
         let lhsdesc = firstAnchor.debugDescription
         var desc = lhsdesc
-        if let rhsAnchor = self.secondAnchor{
+        if let rhsAnchor = self.secondAnchor {
             let rhsdesc = rhsAnchor.debugDescription
             desc = "\(lhsdesc) \(relation) \(rhsdesc)*\(multiplier) + \(constant)"
-        }else{
+        } else {
             desc = "\(lhsdesc) \(relation) \(constant)"
         }
         return desc

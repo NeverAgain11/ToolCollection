@@ -9,7 +9,7 @@
 import Foundation
 //import Layoutable
 
-extension CGSize{
+extension CGSize {
   /// scale self and keep aspectRatio to fite size
   public func fitted(to size: CGSize) -> CGSize {
     let aspectWidth = round(aspectRatio * size.height)
@@ -26,12 +26,12 @@ extension CGSize{
     return aspectWidth < size.width ? CGSize(width: size.width, height: aspectHeight) : CGSize(width: aspectWidth, height: size.height)
   }
   
-  func constrainted(to size: CGSize) -> CGSize{
+  func constrainted(to size: CGSize) -> CGSize {
     return CGSize(width: min(width, size.width),
                   height: min(height, size.height))
   }
   
-  public func inset(to size: CGSize) -> CGPoint{
+  public func inset(to size: CGSize) -> CGPoint {
     return CGPoint(x: (size.width - width)/2 ,
                    y: (size.height - height)/2)
   }
@@ -41,7 +41,7 @@ extension CGSize{
   }
 }
 
-extension CGRect{
+extension CGRect {
   
   /// layout two item with size lhs and rhs horizontal, equal centerX
   ///
@@ -50,7 +50,7 @@ extension CGRect{
   ///   - rhs: item in right
   ///   - space: space between lhs and rhs item
   /// - Returns: rect for lhs and rhs item
-  public func constraint(lhs: CGSize, rhs: CGSize,space: CGFloat) -> (CGRect, CGRect){
+  public func constraint(lhs: CGSize, rhs: CGSize,space: CGFloat) -> (CGRect, CGRect) {
     let contentSize = lhs.combineTo(rhs, space: space, isVertical: false)
     let x = (size.width - contentSize.width)/2
     let y = (height - lhs.height)/2
@@ -63,9 +63,9 @@ extension CGRect{
     let rhsY = (height - rhs.height)/2
     var rhsRect = CGRect(x: minX, y: rhsY, width: min(w, rhs.width), height: rhs.height)
     
-    if rhs.width == 0{
+    if rhs.width == 0 {
       lhsRect = lhsRect.offsetBy(dx: space, dy: 0)
-    }else if lhs.width == 0{
+    } else if lhs.width == 0 {
       rhsRect = rhsRect.offsetBy(dx: -space, dy: 0)
     }
     return (lhsRect.pixelRounded, rhsRect.pixelRounded)
@@ -78,7 +78,7 @@ extension CGRect{
   ///   - bhs: item in bottom
   ///   - space: space between ths and bhs item
   /// - Returns: rect for ths and bhs item
-  public func constraint(ths: CGSize, bhs: CGSize, space: CGFloat) -> (CGRect, CGRect){
+  public func constraint(ths: CGSize, bhs: CGSize, space: CGFloat) -> (CGRect, CGRect) {
     let contentSize = ths.combineTo(bhs, space: space, isVertical: true)
     let x = (width - ths.width)/2
     let y = (height - contentSize.height)/2
@@ -95,7 +95,7 @@ extension CGRect{
   
 }
 
-extension CGSize{
+extension CGSize {
   
     /// caculate the best size to hold two size
     ///
@@ -104,7 +104,7 @@ extension CGSize{
     ///   - space: space between two item
     ///   - isVertical: layout vertical or horizontal
     /// - Returns: the best size to hold self and other size
-    public func combineTo(_ other: CGSize,space: CGFloat,isVertical: Bool = false) -> CGSize{
+    public func combineTo(_ other: CGSize,space: CGFloat,isVertical: Bool = false) -> CGSize {
         var size = CGSize.zero
         if !isVertical {
             size.width = width + space + other.width
@@ -117,41 +117,41 @@ extension CGSize{
             size.width = CGFloat.maximum(width, other.width)
             size.height = height + space + other.height
           
-            if height == 0 || other.height == 0{
+            if height == 0 || other.height == 0 {
                 size.height -= space
             }
         }
         return size
     }
   
-  public var tuple: Size{
+  public var tuple: Size {
     return (width,height)
   }
   
-    public init(_ size: Size){
+    public init(_ size: Size) {
         self.init(width: size.width, height: size.height)
     }
 }
 
-extension CGPoint{
-    public var tuple: Point{
+extension CGPoint {
+    public var tuple: Point {
         return (x,y)
     }
 }
 
-extension CGFloat{
+extension CGFloat {
   
     /// adjust to fit pixel
-    public var pixelRounded: CGFloat{
+    public var pixelRounded: CGFloat {
         let scale = UIScreen.main.scale
         return ceil(self*scale)/scale
     }
 }
 
-extension CGRect{
+extension CGRect {
   
   /// adjust to fit pixel
-  public var pixelRounded: CGRect{
+  public var pixelRounded: CGRect {
     return CGRect(x: origin.x.pixelRounded,
                   y: origin.y.pixelRounded,
               width: size.width.pixelRounded,

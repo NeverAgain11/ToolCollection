@@ -34,7 +34,7 @@
 import UIKit
 import CoreGraphics
 
-final public class TextRender{
+final public class TextRender {
     
     /// we do not use NSCache here. NSCache‘s auto-removal policies is unpredictable
     /// which may degrade performance significantly sometimes
@@ -69,11 +69,11 @@ final public class TextRender{
     }
     
     public class func render(for attributes: TextAttributes,
-                             constrainedSize: CGSize) -> TextRender{
+                             constrainedSize: CGSize) -> TextRender {
         
         let key = TextKitRenderKey(attributes: attributes, constrainedSize: constrainedSize)
         
-        if let render = activeCache.object(forKey: key){
+        if let render = activeCache.object(forKey: key) {
             return render
         }
         
@@ -84,39 +84,39 @@ final public class TextRender{
         return render
     }
     
-    public class func cleanCachePool(){
+    public class func cleanCachePool() {
         cachePool.removeAll()
     }
     
-    public class func activeCache(_ identifier: String){
-        if let cache = cachePool[identifier]{
+    public class func activeCache(_ identifier: String) {
+        if let cache = cachePool[identifier] {
             activeCache = cache
-        }else{
+        } else {
             activeCache = createCache()
             cachePool[identifier] = activeCache
         }
     }
     
-    public class func cleanCache(_ identifier: String){
+    public class func cleanCache(_ identifier: String) {
         cachePool[identifier]?.removeAllObjects()
     }
     
-    public class func removeCache(_ identifier: String){
+    public class func removeCache(_ identifier: String) {
         cachePool.removeValue(forKey: identifier)
     }
     
-    private static func createCache() -> TextRenderCache{
+    private static func createCache() -> TextRenderCache {
         return TextRenderCache.strongToStrongObjects()
     }
     
-    private func updateTextSize(){
+    private func updateTextSize() {
         textContext.performBlockWithLockedComponent { (layoutManager, textContainer, textStorage) in
             layoutManager.ensureLayout(for: textContainer)
             size = layoutManager.usedRect(for: textContainer).size
         }
     }
     
-    public func drawInContext(_ context: CGContext, bounds: CGRect){
+    public func drawInContext(_ context: CGContext, bounds: CGRect) {
         context.saveGState()
         UIGraphicsPushContext(context)
         
@@ -132,7 +132,7 @@ final public class TextRender{
     
 }
 
-private class TextKitRenderKey: NSObject{
+private class TextKitRenderKey: NSObject {
     
     let attributes: TextAttributes
     let constrainedSize: CGSize
@@ -153,19 +153,19 @@ private class TextKitRenderKey: NSObject{
             lhs.attributes == rhs.attributes
     }
     
-    override var hash: Int{
+    override var hash: Int {
         return hasherResult
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let value = object as? TextKitRenderKey else{
+        guard let value = object as? TextKitRenderKey else {
             return false
         }
         return self == value
     }
 }
 
-extension CGSize: Hashable{
+extension CGSize: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(width)
         hasher.combine(height)

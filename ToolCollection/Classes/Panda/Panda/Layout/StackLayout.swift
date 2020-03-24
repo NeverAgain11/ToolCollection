@@ -35,7 +35,7 @@ import UIKit
 //import Cassowary
 //import Layoutable
 
-public enum StackLayoutAlignment: Int{
+public enum StackLayoutAlignment: Int {
     
     case fill
     
@@ -54,7 +54,7 @@ public enum StackLayoutAlignment: Int{
     case lastBaseline // Valid for horizontal axis only
 }
 
-public enum StackLayoutDistribution{
+public enum StackLayoutDistribution {
     
     case fill
     
@@ -69,7 +69,7 @@ public enum StackLayoutDistribution{
 
 
 /// Not fully ready yet !!!
-open class StackLayoutNode: ViewNode{
+open class StackLayoutNode: ViewNode {
     
     required public init(subnodes:[ViewNode] = []) {
         super.init()
@@ -78,29 +78,29 @@ open class StackLayoutNode: ViewNode{
         subnodes.forEach{ addArrangedSubnode($0) }
     }
     
-    public var alignment: StackLayoutAlignment = .leading{
-        didSet{
+    public var alignment: StackLayoutAlignment = .leading {
+        didSet {
             aligmentArrangment.aligment = alignment
             setNeedUpdateConstraint()
         }
     }
     
-    public var distribution: StackLayoutDistribution = .fill{
-        didSet{
+    public var distribution: StackLayoutDistribution = .fill {
+        didSet {
             distributionArrangement.distribution = distribution
             setNeedUpdateConstraint()
         }
     }
     
-    public var space: CGFloat = 4{
-        didSet{
+    public var space: CGFloat = 4 {
+        didSet {
             distributionArrangement.space = space
             setNeedUpdateConstraint()
         }
     }
     
-    public var axis: LayoutAxis = .horizontal{
-        didSet{
+    public var axis: LayoutAxis = .horizontal {
+        didSet {
             aligmentArrangment.axis = axis
             distributionArrangement.axis = axis
             setNeedUpdateConstraint()
@@ -114,7 +114,7 @@ open class StackLayoutNode: ViewNode{
     
     private var needUpdateConstraint = false
     
-    public func addArrangedSubnode(_ node: ViewNode){
+    public func addArrangedSubnode(_ node: ViewNode) {
         arrangedSubnodes.append(node)
         addSubnode(node)
         aligmentArrangment.addItem(node)
@@ -122,12 +122,12 @@ open class StackLayoutNode: ViewNode{
         setNeedUpdateConstraint()
     }
     
-    public func addArrangedSubnodes(_ nodes: [ViewNode]){
+    public func addArrangedSubnodes(_ nodes: [ViewNode]) {
         nodes.forEach{ addArrangedSubnode($0) }
     }
     
-    public func removeArrangedSubnode(_ node: ViewNode){
-        if let index = arrangedSubnodes.firstIndex(of: node){
+    public func removeArrangedSubnode(_ node: ViewNode) {
+        if let index = arrangedSubnodes.firstIndex(of: node) {
             arrangedSubnodes.remove(at: index)
         }
         aligmentArrangment.removeItem(node)
@@ -135,7 +135,7 @@ open class StackLayoutNode: ViewNode{
         setNeedUpdateConstraint()
     }
     
-    private func setNeedUpdateConstraint(){
+    private func setNeedUpdateConstraint() {
         needUpdateConstraint = true
     }
     
@@ -144,22 +144,22 @@ open class StackLayoutNode: ViewNode{
         super.updateConstraint()
     }
     
-    public func updateConstraintIfNeed(){
-        if needUpdateConstraint{
+    public func updateConstraintIfNeed() {
+        if needUpdateConstraint {
             distributionArrangement.updateConstraint()
             aligmentArrangment.updateConstraint()
             needUpdateConstraint = false
         }
     }
     
-    func addHiddenObserver(_ node: ViewNode){
+    func addHiddenObserver(_ node: ViewNode) {
         
     }
     
 }
 
 
-class StackLayoutArrangement{
+class StackLayoutArrangement {
     
     var axis: LayoutAxis = .horizontal
     var items = [ViewNode]()
@@ -175,38 +175,38 @@ class StackLayoutArrangement{
         }
     }
     
-    func addItem(_ node: ViewNode){
+    func addItem(_ node: ViewNode) {
         items.append(node)
     }
     
-    func removeItem(_ node: ViewNode){
-        if let index = items.firstIndex(of: node){
+    func removeItem(_ node: ViewNode) {
+        if let index = items.firstIndex(of: node) {
             items.remove(at: index)
         }
     }
     
-    func InvalidIntrinsicContentSizeFor(_ node: ViewNode){
+    func InvalidIntrinsicContentSizeFor(_ node: ViewNode) {
         
     }
     
-    func updateConstraint(){
+    func updateConstraint() {
         updateConstraintIfNeed()
     }
     
-    func updateConstraintIfNeed(){
+    func updateConstraintIfNeed() {
         
     }
 }
 
-class StackLayoutAlignmentArrangement: StackLayoutArrangement{
+class StackLayoutAlignmentArrangement: StackLayoutArrangement {
     
     var aligment: StackLayoutAlignment = .center
     
-    var firstAttribute: LayoutAttribute{
+    var firstAttribute: LayoutAttribute {
         return dimensionAttributeForCurrentAxis
     }
     
-    var secondAttribute: LayoutAttribute{
+    var secondAttribute: LayoutAttribute {
         switch axis {
         case .horizontal:
             switch aligment {
@@ -234,12 +234,12 @@ class StackLayoutAlignmentArrangement: StackLayoutArrangement{
             updateSecondAttribute(for: node)
         }
         
-        func updateFirstAttribute(for node: ViewNode){
+        func updateFirstAttribute(for node: ViewNode) {
             let attribute = firstAttribute
             let anchor = Anchor(item: node, attribute: attribute)
             let anchor2 = Anchor(item: canvas!, attribute: attribute)
             var relation: LayoutRelation = .equal
-            switch aligment{
+            switch aligment {
             case .fill: relation = .equal
             default: relation = .lessThanOrEqual
             }
@@ -250,12 +250,12 @@ class StackLayoutAlignmentArrangement: StackLayoutArrangement{
             canvasConstraint.append(constraint)
         }
         
-        func updateSecondAttribute(for node: ViewNode){
+        func updateSecondAttribute(for node: ViewNode) {
             let attribute = secondAttribute
             let anchor = Anchor(item: node, attribute: attribute)
             let anchor2 = Anchor(item: canvas!, attribute: attribute)
             var relation: LayoutRelation = .equal
-            switch aligment{
+            switch aligment {
             case .fill: relation = .equal
             case .leading: relation = .greatThanOrEqual
             default: relation = .lessThanOrEqual
@@ -270,7 +270,7 @@ class StackLayoutAlignmentArrangement: StackLayoutArrangement{
     }
 }
 
-class StackLayoutDistributionArrangement: StackLayoutArrangement{
+class StackLayoutDistributionArrangement: StackLayoutArrangement {
     
     typealias ConstraintMapper = NSMapTable<ViewNode, LayoutConstraint>
     
@@ -281,7 +281,7 @@ class StackLayoutDistributionArrangement: StackLayoutArrangement{
     let relatedDimensionConstraints = ConstraintMapper.weakToWeakObjects()
     let hiddingDimensionConstraints = ConstraintMapper.weakToWeakObjects()
     
-    var edgeToEdgeRelation: Relation{
+    var edgeToEdgeRelation: Relation {
         switch distribution {
         case .equalCentering:
             return .greateThanOrEqual
@@ -290,7 +290,7 @@ class StackLayoutDistributionArrangement: StackLayoutArrangement{
         }
     }
     
-    var minAttributeForGapConstraint: LayoutAttribute{
+    var minAttributeForGapConstraint: LayoutAttribute {
         switch axis {
         case .horizontal:
             return .left
@@ -299,14 +299,14 @@ class StackLayoutDistributionArrangement: StackLayoutArrangement{
         }
     }
     
-    func resetFillEffect(){
+    func resetFillEffect() {
         
         items.traverse { (preNode, currentNode) -> (LayoutConstraint) in
             var multiply: CGFloat = 1
-            if distribution == .fillProportionally{
+            if distribution == .fillProportionally {
                 let size1 = preNode.itemIntrinsicContentSize
                 let size2 = currentNode.itemIntrinsicContentSize
-                switch axis{
+                switch axis {
                 case .horizontal:
                     multiply = size2.width / size1.width
                 case .vertical:
@@ -314,7 +314,7 @@ class StackLayoutDistributionArrangement: StackLayoutArrangement{
                 }
             }
             
-            switch axis{
+            switch axis {
             case .horizontal:
                 return currentNode.width == preNode.width * multiply
             case .vertical:
@@ -323,19 +323,19 @@ class StackLayoutDistributionArrangement: StackLayoutArrangement{
         }
     }
     
-    func resetEquallyEffect(){
+    func resetEquallyEffect() {
         
-        if items.count < 1{
+        if items.count < 1 {
             return
         }
         
         let guardView = canvas!
         
-        if axis == .horizontal{
+        if axis == .horizontal {
             items.first!.left == guardView.left
             items.last!.right == guardView.right
             items.space(space,axis:.horizontal)
-        }else{
+        } else {
             items.first!.top == guardView.top
             items.last!.bottom == guardView.bottom
             items.space(space,axis:.vertical)
