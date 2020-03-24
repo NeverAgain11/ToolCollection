@@ -93,7 +93,8 @@
             throw UIColorInputError.missingHashMarkAsPrefix
         }
         
-        let hexString: String = rgba.substring(from: rgba.index(rgba.startIndex, offsetBy: 1))
+        let index = rgba.index(rgba.startIndex, offsetBy: 1)
+        let hexString: String = String(rgba[index...])
         var hexValue:  UInt32 = 0
         
         guard Scanner(string: hexString).scanHexInt32(&hexValue) else {
@@ -147,27 +148,3 @@
     }
  }
  
- extension String {
-    /**
-     Convert argb string to rgba string.
-     */
-    public func argb2rgba() -> String? {
-        guard self.hasPrefix("#") else {
-            return nil
-        }
-        
-        let hexString: String = self.substring(from: self.index(self.startIndex, offsetBy: 1))
-        switch (hexString.count) {
-        case 4:
-            return "#"
-                + hexString.substring(from: self.index(self.startIndex, offsetBy: 1))
-                + hexString.substring(to: self.index(self.startIndex, offsetBy: 1))
-        case 8:
-            return "#"
-                + hexString.substring(from: self.index(self.startIndex, offsetBy: 2))
-                + hexString.substring(to: self.index(self.startIndex, offsetBy: 2))
-        default:
-            return nil
-        }
-    }
- }
