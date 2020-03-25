@@ -54,12 +54,22 @@ open class TextNode: ControlNode,TextRenderable {
     
     override open func contentSizeFor(maxWidth: CGFloat) -> CGSize {
         
-        if numberOfLines == 1{ return InvaidIntrinsicSize }
+        if numberOfLines == 1 { return InvaidIntrinsicSize }
         
         return textHolder.sizeFor(maxWidth: maxWidth)
     }
     
     override open func drawContent(in context: CGContext) {
         textHolder.render(for: bounds).drawInContext(context, bounds: bounds)
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?, currentTraitCollection: UITraitCollection) {
+        super.traitCollectionDidChange(previousTraitCollection, currentTraitCollection: currentTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if currentTraitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                setNeedsDisplay()
+            }
+        }
     }
 }

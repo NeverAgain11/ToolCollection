@@ -198,7 +198,7 @@ open class ViewNode: Layoutable {
             viewNeedsUpdate = false
         }
         
-        if frameDidUpdate {
+        if frameDidUpdate, frame.isValidated {
             view.frame = frame
             frameDidUpdate = false
         }
@@ -233,9 +233,13 @@ open class ViewNode: Layoutable {
     }
     
     open func addSubnodes(_ nodes: [ViewNode]) {
-        nodes.forEach{ addSubnode($0)}
+        nodes.forEach{ addSubnode($0) }
     }
-  
+    
+    open func addSubnodes(_ nodes: ViewNode...) {
+        nodes.forEach{ addSubnode($0) }
+    }
+    
     open func removeSubnode(_ node: ViewNode) {
         if let index = subnodes.firstIndex(of: node) {
             node.superNode = nil
@@ -246,6 +250,10 @@ open class ViewNode: Layoutable {
                 node.isInHierarchy = false
             }
         }
+    }
+    
+    open func removeFromSuperNode() {
+        superNode?.removeSubnode(self)
     }
   
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -334,9 +342,14 @@ open class ViewNode: Layoutable {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
     
-    open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        let color = borderColor
-        self.borderColor = color
+    open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?, currentTraitCollection: UITraitCollection) {
+        
+        if #available(iOS 13.0, *) {
+            if currentTraitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                let color = borderColor
+                self.borderColor = color
+            }
+        }
     }
 }
 

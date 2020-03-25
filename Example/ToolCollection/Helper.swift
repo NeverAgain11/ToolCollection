@@ -19,3 +19,19 @@ func measureTime(desc: String? = nil,action:()->()) -> Double{
     }
     return renderTime
 }
+
+extension UIColor {
+    class func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13.0, *) {
+            let color = UIColor { (traitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return dark
+                }
+                return light
+            }
+            return color
+        } else {
+            return light
+        }
+    }
+}

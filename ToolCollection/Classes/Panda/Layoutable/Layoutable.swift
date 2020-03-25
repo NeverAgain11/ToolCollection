@@ -93,7 +93,7 @@ extension Layoutable {
     /// be careful, don't call this if layout hierarchy is not ready
     public func layoutIfEnabled() {
         
-        if !layoutManager.enabled{ return }
+        if !layoutManager.enabled { return }
         
         let item = ancestorItem
         

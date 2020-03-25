@@ -32,6 +32,7 @@
 /// THE SOFTWARE.
 
 import UIKit
+import AVKit
 //import Layoutable
 
 open class ButtonNode: ControlNode {
@@ -148,15 +149,19 @@ open class ButtonNode: ControlNode {
     }
     
     override open var itemIntrinsicContentSize: CGSize {
-        let title = titleState.value(for: currentState)
+        let title = textNode.text
+        let attribubteTitle = textNode.attributeText
+        
         let image = imageState.value(for: currentState)
         let backgroundImage = backgroundImageState.value(for: currentState)
         
         // no title,use Image size as it's contentSize
-        if title != nil {
+        if title != nil || attribubteTitle != nil {
             let titleSize = textNode.itemIntrinsicContentSize
             let imageSize = imageNode.itemIntrinsicContentSize
-            
+            if imageSize == .zero {
+                return titleSize
+            }
             return titleSize.combineTo(imageSize, space: space, isVertical: layoutAxis == .vertical)
             
         } else {
@@ -183,6 +188,16 @@ open class ButtonNode: ControlNode {
     func layoutForHorizontal() {
         let textSize = textNode.sizeThatFit(bounds.size)
         let imageSize = imageNode.sizeThatFit(bounds.size)
+        
+        if textSize.isEmpty {
+            imageNode.frame = AVMakeRect(aspectRatio: imageSize, insideRect: bounds)
+            return
+        }
+        if imageSize.isEmpty {
+            textNode.frame = AVMakeRect(aspectRatio: textSize, insideRect: bounds)
+            return
+        }
+        
         if textFirst {
             let rect = bounds.constraint(lhs: textSize,
                                          rhs: imageSize,
@@ -201,6 +216,15 @@ open class ButtonNode: ControlNode {
     func layoutForVertical() {
         let textSize = textNode.sizeThatFit(bounds.size)
         let imageSize = imageNode.sizeThatFit(bounds.size)
+        
+        if textSize.isEmpty {
+            imageNode.frame = AVMakeRect(aspectRatio: imageSize, insideRect: bounds)
+            return
+        }
+        if imageSize.isEmpty {
+            textNode.frame = AVMakeRect(aspectRatio: textSize, insideRect: bounds)
+            return
+        }
         
         if textFirst {
             let rects = bounds.constraint(ths: textSize,
@@ -225,10 +249,16 @@ open class ButtonNode: ControlNode {
         
         if let color = backgroundColorState.value(for: currentState) {
             backgroundColor = color
+        } else {
+            backgroundColor = .clear
         }
         
         if let textColor = titleColorState.value(for: currentState) {
             textNode.textColor = textColor
+        }
+        
+        if let attributeString = attributeTitleState.value(for: currentState) {
+            textNode.attributeText = attributeString
         }
         
         if backgroundImageNode.image == nil {

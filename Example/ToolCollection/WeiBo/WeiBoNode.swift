@@ -65,9 +65,9 @@ class StatusNode: ViewNode{
         retweetTextNode.numberOfLines = -1
         retweetBackground.backgroundColor = UIColor(hex6: 0xf7f7f7)
         
-        addSubnodes([topBackground,titleNode,profileNode,vipBackground,
+        addSubnodes(topBackground,titleNode,profileNode,vipBackground,
                      menuButton,textNode,retweetBackground,imageContainer,
-                     cardNode,tagNode,toolBarNode,bottomBackground])
+                     cardNode,tagNode,toolBarNode,bottomBackground)
         
         retweetBackground.addSubnode(retweetTextNode)
         imageContainer.addSubnodes(imageViews)

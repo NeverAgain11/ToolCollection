@@ -129,6 +129,6 @@ class ProxyView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        node?.traitCollectionDidChange(previousTraitCollection)
+        node?.traitCollectionDidChange(previousTraitCollection, currentTraitCollection: self.traitCollection)
     }
 }
