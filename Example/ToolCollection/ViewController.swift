@@ -12,18 +12,6 @@ import ToolCollection
 
 class ViewController: UIViewController {
     
-    let containerNode = ViewNode()
-    
-    lazy var textNode = TextNode()
-    
-    lazy var buttonNode: ButtonNode = {
-        let node = ButtonNode()
-        node.setAttributedTitle("button".attributedString().textColor(.dynamicColor(light: .purple, dark: .orange)).font(.systemFont(ofSize: 13)), for: .normal)
-        node.hitTestSlop = .init(top: -20, left: -30, bottom: -20, right: -30)
-        node.setBackgroundColor(color: .yellow, for: .highlighted)
-        return node
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,12 +36,10 @@ class ViewController: UIViewController {
 //            let displayName = locale.localizedString(forRegionCode: counrtyCode) ?? ""
 //            print(displayName, " :", counrtyCode)
 //        }
-        addVideNode()
-//        addButtonNode()
         
-//        testButton()
-//        textGhostButton()
-//        testLinkButton()
+        testButton()
+        textGhostButton()
+        testLinkButton()
     }
 
     let japanServer = ["JP"]
@@ -76,36 +62,6 @@ class ViewController: UIViewController {
         print(DemoPropertyWrapper.optionalInt ?? "")
         
         
-    }
-    
-    func addVideNode() {
-        containerNode.addSubnodes([textNode, buttonNode])
-        
-        view.addSubview(containerNode.view)
-        
-        containerNode.width == UIScreen.main.bounds.width
-        containerNode.height == UIScreen.main.bounds.height
-        
-        containerNode.backgroundColor = .dynamicColor(light: .white, dark: .black)
-        containerNode.backgroundColor = .black
-        
-        textNode.text = "dark mode test"
-        textNode.textColor = .dynamicColor(light: .red, dark: .blue)
-        textNode.font = .systemFont(ofSize: 15)
-
-        textNode.centerX == containerNode.centerX
-        textNode.top == 300
-
-        buttonNode.center == containerNode
-        
-        containerNode.layoutIfNeeded()
-        
-//        buttonNode.addAction(for: .touchUpInside) { [weak self] (button, _) in
-//            guard let `self` = self else { return }
-//            self.textNode.text = "did tapdid tapdid tapdid tapdid tapdid tap"
-//            
-//            button.removeFromSuperNode()
-//        }
     }
     
     func addButtonNode() {

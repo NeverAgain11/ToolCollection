@@ -12,8 +12,6 @@ import ToolCollection
 
 class SecondViewController: UIViewController {
     
-    let stackView = AloeStackView()
-    
     //MARK: UIViewController 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +55,6 @@ private extension SecondViewController {
         title = "canPop"
         view.backgroundColor = .white
         
-        view.addSubview(stackView)
-        
-        stackView.frame = .init(x: 0, y: 100, width: 375, height: 200)
-        stackView.backgroundColor = .purple
     }
     
     func setupData() {
