@@ -8,7 +8,6 @@
 
 import UIKit
 import ToolCollection
-import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -1,10 +1,9 @@
 platform :ios, '9.3'
 
 use_frameworks!
-inhibit_all_warnings!
+#inhibit_all_warnings!
 
 target 'ToolCollection_Example' do
   pod 'ToolCollection', :path => '../'
 
-  pod 'Kingfisher'
 end
