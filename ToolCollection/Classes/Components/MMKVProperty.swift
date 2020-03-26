@@ -26,29 +26,29 @@ public class OptionalMMKVProperty<T> {
         get {
             switch T.self {
             case is String.Type:
-                return self.mmkv.string(forKey: self.key, defaultValue:self.defaultValue as? String) as! T?
+                return self.mmkv.string(forKey: self.key, defaultValue:self.defaultValue as? String) as? T
             case is Data.Type:
-                return self.mmkv.data(forKey: self.key, defaultValue:self.defaultValue as? Data) as! T?
+                return self.mmkv.data(forKey: self.key, defaultValue:self.defaultValue as? Data) as? T
             case is Date.Type:
-                return self.mmkv.date(forKey: self.key, defaultValue:self.defaultValue as? Date) as! T?
+                return self.mmkv.date(forKey: self.key, defaultValue:self.defaultValue as? Date) as? T
             case is Bool.Type:
-                return self.mmkv.bool(forKey: self.key, defaultValue: self.defaultValue as? Bool ?? false) as? T;
+                return self.mmkv.bool(forKey: self.key, defaultValue: self.defaultValue as? Bool ?? false) as? T
             case is Int32.Type:
-                return self.mmkv.int32(forKey: self.key, defaultValue: self.defaultValue as? Int32 ?? 0) as? T;
+                return self.mmkv.int32(forKey: self.key, defaultValue: self.defaultValue as? Int32 ?? 0) as? T
             case is UInt32.Type:
-                return self.mmkv.uint32(forKey: self.key, defaultValue: self.defaultValue as? UInt32 ?? 0) as? T;
+                return self.mmkv.uint32(forKey: self.key, defaultValue: self.defaultValue as? UInt32 ?? 0) as? T
             case is Int.Type:
-                return Int(self.mmkv.int64(forKey: self.key, defaultValue: Int64(self.defaultValue as? Int ?? 0))) as? T;
+                return Int(self.mmkv.int64(forKey: self.key, defaultValue: Int64(self.defaultValue as? Int ?? 0))) as? T
             case is Int64.Type:
-                return self.mmkv.int64(forKey: self.key, defaultValue: self.defaultValue as? Int64 ?? 0) as? T;
+                return self.mmkv.int64(forKey: self.key, defaultValue: self.defaultValue as? Int64 ?? 0) as? T
             case is UInt64.Type:
-                return self.mmkv.uint64(forKey: self.key, defaultValue: self.defaultValue as? UInt64 ?? 0) as? T;
+                return self.mmkv.uint64(forKey: self.key, defaultValue: self.defaultValue as? UInt64 ?? 0) as? T
             case is Float.Type:
-                return self.mmkv.float(forKey: self.key, defaultValue: self.defaultValue as? Float ?? 0) as? T;
+                return self.mmkv.float(forKey: self.key, defaultValue: self.defaultValue as? Float ?? 0) as? T
             case is Double.Type:
-                return self.mmkv.double(forKey: self.key, defaultValue: self.defaultValue as? Double ?? 0) as? T;
+                return self.mmkv.double(forKey: self.key, defaultValue: self.defaultValue as? Double ?? 0) as? T
             case is (NSCoding & NSObjectProtocol).Type:
-                return self.mmkv.object(of: T.self as! AnyClass, forKey: self.key) as? T ?? defaultValue;
+                return self.mmkv.object(of: T.self as! AnyClass, forKey: self.key) as? T
             default:
                 print("type not supported: \(T.self)")
                 return defaultValue;
