@@ -24,7 +24,7 @@ public class SKSlider: UISlider {
         if trackHeight == 0 {
             return result
         }
-
+        
         result = result.setHeight(trackHeight)
         result = result.setY(bounds.height.center(result.height))
         return result

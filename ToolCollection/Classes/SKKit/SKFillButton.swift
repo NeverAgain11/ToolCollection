@@ -65,8 +65,6 @@ open class SKFillButton: SKButton {
         self.titleTextColor = UIColor.white
     }
     
-    private static let _onceToken = UUID().uuidString
-    
     private func didInitialized(_ fillColor: UIColor, titleTextColor: UIColor) {
         self.fillColor = fillColor
         self.titleTextColor = titleTextColor

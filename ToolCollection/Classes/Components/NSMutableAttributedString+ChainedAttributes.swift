@@ -8,27 +8,26 @@
 
 import Foundation
 import UIKit
-
 public extension NSMutableAttributedString {
     
     // MARK: Chained attributes
     
     /**
      This function adds text color attribute to attributed string.
-        
+     
      - warning: If text passed in "text" parameter is not found, attribute will be applied to whole attributed string. Only first occurence of "text" is styled.
      
      - parameter value - UIColor which should be applied as text color
      - parameter text - String for which should be applied text color (optional, default = whole attributed string)
      
      - returns: Modified NSMutableAttributedString
-    */
+     */
     func textColor(_ value: UIColor, forText text: String? = nil) -> NSMutableAttributedString {
         
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.foregroundColor, withValue: value, forRange: attributeRange)
@@ -51,14 +50,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.font, withValue: value, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds background color attribute to attributed string.
      
@@ -69,19 +68,19 @@ public extension NSMutableAttributedString {
      
      - returns: Modified NSMutableAttributedString
      */
-    func backgroundColor(_ value:UIColor, forText text:String? = nil) -> NSMutableAttributedString {
+    func backgroundColor(_ value:UIColor, forText text: String? = nil) -> NSMutableAttributedString {
         
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.backgroundColor, withValue: value, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds kern spacing attribute to attributed string.
      
@@ -97,14 +96,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.kern, withValue: value as AnyObject, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds underline attribute to attributed string.
      
@@ -120,14 +119,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.underlineStyle, withValue: value as AnyObject, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds underline color attribute to attributed string.
      
@@ -143,14 +142,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.underlineColor, withValue: value, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds strike through attribute to attributed string.
      
@@ -166,14 +165,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.strikethroughStyle, withValue: value as AnyObject, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds strike through color attribute to attributed string.
      
@@ -189,14 +188,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.strikethroughColor, withValue: value, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds link attribute to attributed string.
      
@@ -212,14 +211,14 @@ public extension NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
             
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.link, withValue: value as AnyObject, forRange: attributeRange)
         
         return self
     }
-
+    
     /**
      This function adds paragraphy style with line spacing to attributed string.
      
@@ -234,7 +233,7 @@ public extension NSMutableAttributedString {
         
         var attributeRange:NSRange?
         if let textForAttribute = text {
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -252,7 +251,7 @@ public extension NSMutableAttributedString {
     func paragraphStyle(_ paragraphStyle: NSParagraphStyle, forText text: String? = nil) -> NSMutableAttributedString {
         var attributeRange:NSRange?
         if let textForAttribute = text {
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         self.applyAttribute(NSAttributedString.Key.paragraphStyle, withValue: paragraphStyle as AnyObject, forRange: attributeRange)
@@ -274,7 +273,7 @@ public extension NSMutableAttributedString {
         
         var attributeRange:NSRange?
         if let textForAttribute = text {
-            attributeRange = self.getRangeOfStringInSelf(textForAttribute)
+            attributeRange = self.rangeOfString(textForAttribute)
         }
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -294,29 +293,26 @@ public extension NSMutableAttributedString {
      */
     func clearAllAttributes() -> NSMutableAttributedString {
         
-        self.setAttributes(nil, range: self.getRangeOfSelf())
+        self.setAttributes(nil, range: self.fullRange())
         
         return self
     }
     
     // MARK: Range
-    
-    fileprivate func getRangeOfSelf() -> NSRange {
+    fileprivate func fullRange() -> NSRange {
         
         return NSRange(location: 0, length: self.length)
     }
     
-    fileprivate func getRangeOfStringInSelf(_ value:String) -> NSRange? {
-        
+    fileprivate func rangeOfString(_ value: String) -> NSRange? {
         let range = (self.string as NSString).range(of: value)
         return range.location == NSNotFound ? nil : range
     }
     
     // MARK: Applying attributes
-    
     fileprivate func applyAttribute(_ attributeName: NSAttributedString.Key, withValue value: AnyObject, forRange range: NSRange? = nil) {
         
-        let attributeRange = range ?? self.getRangeOfSelf()
+        let attributeRange = range ?? self.fullRange()
         self.addAttribute(attributeName, value: value, range: attributeRange)
     }
     
@@ -342,3 +338,4 @@ public func + (left: NSMutableAttributedString, right: NSMutableAttributedString
     
     return resultString
 }
+
