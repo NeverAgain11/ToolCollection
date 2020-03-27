@@ -177,8 +177,8 @@ extension MMKV {
     public static var skRelativePath: String? = nil
     
     class func customMMKV(mmkvID: String? = nil) -> MMKV {
-        if let mmkvID = mmkvID {
-            return MMKV(mmapID: mmkvID, relativePath: MMKV.skRelativePath)!
+        if let mmkvID = mmkvID, let mmkv = MMKV(mmapID: mmkvID, relativePath: MMKV.skRelativePath) {
+            return mmkv
         } else {
             return MMKV.default()
         }

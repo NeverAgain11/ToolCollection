@@ -40,6 +40,8 @@ class ViewController: UIViewController {
         testButton()
         textGhostButton()
         testLinkButton()
+        
+        textasd()
     }
 
     let japanServer = ["JP"]
@@ -55,6 +57,7 @@ class ViewController: UIViewController {
         DemoPropertyWrapper.int = 110
         print(DemoPropertyWrapper.int)
         
+        DemoPropertyWrapper.optionalInt = nil
         print(DemoPropertyWrapper.optionalInt ?? "")
         DemoPropertyWrapper.optionalInt = 120
         print(DemoPropertyWrapper.optionalInt ?? "")
