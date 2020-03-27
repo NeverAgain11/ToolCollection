@@ -57,12 +57,12 @@ class ViewController: UIViewController {
         DemoPropertyWrapper.int = 110
         print(DemoPropertyWrapper.int)
         
-        DemoPropertyWrapper.optionalInt = nil
-        print(DemoPropertyWrapper.optionalInt ?? "")
-        DemoPropertyWrapper.optionalInt = 120
-        print(DemoPropertyWrapper.optionalInt ?? "")
-        DemoPropertyWrapper.optionalInt = 140
-        print(DemoPropertyWrapper.optionalInt ?? "")
+//        DemoPropertyWrapper.optionalInt = nil
+//        print(DemoPropertyWrapper.optionalInt ?? "")
+//        DemoPropertyWrapper.optionalInt = 120
+//        print(DemoPropertyWrapper.optionalInt ?? "")
+//        DemoPropertyWrapper.optionalInt = 140
+//        print(DemoPropertyWrapper.optionalInt ?? "")
         
         
     }
@@ -125,11 +125,11 @@ struct DemoPropertyWrapper {
     @MMKVProperty(key: "int32", defaultValue: 43)
     static var int32: Int32
     
-    @OptionalMMKVProperty(key: "str")
-    static var str: String?
+//    @OptionalMMKVProperty(key: "str")
+//    static var str: String?
     
-    @OptionalMMKVProperty(key: "optionalInt")
-    static var optionalInt: Int?
+//    @OptionalMMKVProperty(key: "optionalInt")
+//    static var optionalInt: Int?
     
     @MMKVProperty(key: "int", defaultValue: 1)
     static var int: Int
