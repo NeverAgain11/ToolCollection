@@ -72,7 +72,11 @@ class ViewController: UIViewController {
     }
     
     func testButton() {
-        let button = SKFillButton(fillColor: .purple, titleTextColor: .white)
+        let button = SKFillButton(fillColor: .blue, titleTextColor: .white)
+//        button.backgroundColor = .blue
+        
+        button.disableBackgroundColor = .cyan
+        
         button.setTitle("fill", for: .normal)
         button.contentEdgeInsets = .init(top: 5, left: 20, bottom: 5, right: 20)
         view.addSubview(button)
@@ -80,6 +84,15 @@ class ViewController: UIViewController {
         button.sizeToFit()
         button.center = UIScreen.main.bounds.center
         
+        button.addTarget(self, action: #selector(someButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc func someButtonTapped(_ button: UIButton) {
+        button.isEnabled.toggle()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            button.isEnabled.toggle()
+        }
     }
     
     func textGhostButton() {

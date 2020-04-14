@@ -59,7 +59,7 @@ open class SKButton: UIButton {
     @IBInspectable public var disableBackgroundColor: UIColor? {
         didSet {
             if disableBackgroundColor != nil {
-                // 只要开启了highlightedBackgroundColor，就默认不需要alpha的高亮
+                // 只要开启了disableBackgroundColor，就默认不需要alpha的高亮
                 adjustsButtonWhenDisabled = false
             }
         }
@@ -463,7 +463,10 @@ open class SKButton: UIButton {
     override open var isEnabled: Bool {
         didSet {
             adjustsButtonDisable()
-            guard adjustsButtonWhenDisabled else { return }
+            guard adjustsButtonWhenDisabled else {
+                alpha = 1
+                return
+            }
             if !isEnabled && adjustsButtonWhenDisabled {
                 alpha = 0.5
             } else {
@@ -497,7 +500,7 @@ open class SKButton: UIButton {
         
         disableBackgroundLayer.frame = bounds
         disableBackgroundLayer.cornerRadius = layer.cornerRadius
-        disableBackgroundLayer.backgroundColor = isEnabled ? disableBackgroundColor.cgColor : UIColor.clear.cgColor
+        disableBackgroundLayer.backgroundColor = isEnabled ? UIColor.clear.cgColor : disableBackgroundColor.cgColor
         
         if let disableBorderColor = disableBorderColor {
             layer.borderColor = isEnabled ? disableBorderColor.cgColor : originBorderColor?.cgColor
