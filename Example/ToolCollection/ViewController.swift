@@ -18,30 +18,15 @@ class ViewController: UIViewController {
         if #available(iOS 13.0, *) {
 //            view.backgroundColor = .systemBackground
         }
-        view.backgroundColor = .white
-        // Do any additional setup after loading the view, typically from a nib.
-        
-//        let code = NSLocale.current.regionCode ?? ""
-//        let regionName = NSLocale.current.localizedString(forRegionCode: code) ?? ""
-        
-//        let timer = SwiftCountDownTimer(interval: .fromSeconds(10), times: 1, queue: .main) { (_, time) in
-//            print(time)
-//        }
-//        timer.start()
-//
-//        let countryArray = NSLocale.isoCountryCodes
-//        for counrtyCode in countryArray {
-//            let locale = Locale(identifier: "zh_Hans_CN")
-//
-//            let displayName = locale.localizedString(forRegionCode: counrtyCode) ?? ""
-//            print(displayName, " :", counrtyCode)
-//        }
+        view.backgroundColor = .dynamicColor(light: .white, dark: .black)
         
         testButton()
         textGhostButton()
         testLinkButton()
         
         textasd()
+        
+        addAttributeLabel()
     }
 
     let japanServer = ["JP"]
@@ -106,7 +91,25 @@ class ViewController: UIViewController {
         var point = UIScreen.main.bounds.center
         point.y = point.y + 50
         button.center = point
-//
+        
+    }
+    
+    func addAttributeLabel() {
+        let label = SKAttributedLabel()
+        if #available(iOS 13.0, *) {
+            label.attributedText = "attribute".attributedString().font(.systemFont(ofSize: 15)).textColor(UIColor.dynamicColor(light: .black, dark: .white))
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        view.addSubview(label)
+        
+        label.sizeToFit()
+        
+        var point = UIScreen.main.bounds.center
+        point.y = point.y + 100
+        label.center = point
+        
     }
     
     func testLinkButton() {
@@ -146,4 +149,20 @@ struct DemoPropertyWrapper {
     
     @MMKVProperty(key: "int", defaultValue: 1)
     static var int: Int
+}
+
+extension UIColor {
+    class func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
+        if #available(iOS 13.0, *) {
+            let color = UIColor { (traitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return dark
+                }
+                return light
+            }
+            return color
+        } else {
+            return light
+        }
+    }
 }
