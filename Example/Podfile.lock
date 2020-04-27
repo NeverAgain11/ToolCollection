@@ -14,15 +14,18 @@ PODS:
   - RxRelay (5.0.1):
     - RxSwift (~> 5)
   - RxSwift (5.0.1)
-  - ToolCollection (0.4.1):
+  - Texture/Core (2.8.1)
+  - ToolCollection (0.4.2):
     - DifferenceKit
     - MMKV
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
+    - Texture/Core (~> 2.8)
     - YHListKit-flow (~> 1.1.7)
   - YHListKit-flow (1.1.7)
 
 DEPENDENCIES:
+  - Texture/Core
   - ToolCollection (from `../`)
 
 SPEC REPOS:
@@ -33,6 +36,7 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - Texture
     - YHListKit-flow
 
 EXTERNAL SOURCES:
@@ -46,9 +50,10 @@ SPEC CHECKSUMS:
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
   RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
-  ToolCollection: 98eb21d8db327509c42d65e5f9728a694b0fa5c8
+  Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
+  ToolCollection: 58eab183ad5f5ef55bab4022ced99882d768fb98
   YHListKit-flow: ab83c8d2037d4b4f07b71216821be5b6c01365d3
 
-PODFILE CHECKSUM: 1caab574bd24557588d53d293deaee9648d0a70c
+PODFILE CHECKSUM: 2c1e324a110afae14726e3149fbf2b80fb354def
 
 COCOAPODS: 1.9.1

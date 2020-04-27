@@ -20,13 +20,15 @@ class ViewController: UIViewController {
         }
         view.backgroundColor = .dynamicColor(light: .white, dark: .black)
         
-        testButton()
-        textGhostButton()
-        testLinkButton()
+        addButtonNode()
         
-        textasd()
-        
-        addAttributeLabel()
+//        testButton()
+//        textGhostButton()
+//        testLinkButton()
+//
+//        textasd()
+//
+//        addAttributeLabel()
     }
 
     let japanServer = ["JP"]
@@ -53,7 +55,11 @@ class ViewController: UIViewController {
     }
     
     func addButtonNode() {
+        let node = SettingSwitchNode()
+        view.addSubview(node)
+        node.sizeToFit()
         
+        node.center = UIScreen.main.bounds.center
     }
     
     func testButton() {

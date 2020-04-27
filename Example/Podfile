@@ -1,9 +1,13 @@
 platform :ios, '9.3'
 
-use_frameworks!
+#use_frameworks!
 #inhibit_all_warnings!
+
+use_modular_headers!
 
 target 'ToolCollection_Example' do
   pod 'ToolCollection', :path => '../'
 
+  pod 'Texture/Core'
+  
 end

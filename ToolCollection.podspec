@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ToolCollection'
-  s.version          = '0.4.2'
+  s.version          = '0.4.3'
   s.summary          = '工具集合'
 
 # This description is used to generate tags and improve search results.
@@ -42,5 +42,6 @@ Pod::Spec.new do |s|
   s.dependency 'DifferenceKit'
   s.dependency 'RxSwift', '~> 5'
   s.dependency 'RxCocoa', '~> 5'
-  
+  s.dependency "Texture/Core", "~> 2.8"
+
 end

@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		025F82DB2456D549001677CB /* SettingSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025F82DA2456D549001677CB /* SettingSwitch.swift */; };
 		04EAAF6223BF8DB400E3332A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAAF6123BF8DB400E3332A /* SecondViewController.swift */; };
 		04EAAF6623BF8E0800E3332A /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAAF6523BF8E0800E3332A /* ThirdViewController.swift */; };
+		2F212327B50B9DA48369C113 /* libPods-ToolCollection_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CB2C5F00774048E06E56AE /* libPods-ToolCollection_Example.a */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		AEF4D1A617D72D06F77FB3C6 /* Pods_ToolCollection_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC30DF3931220A811B32E5AB /* Pods_ToolCollection_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		025F82DA2456D549001677CB /* SettingSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSwitch.swift; sourceTree = "<group>"; };
 		026E164E2431E5550035ABD3 /* ToolCollection_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToolCollection_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		0275EFF32166ACE449122353 /* Pods-ToolCollection_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToolCollection_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		04EAAF6123BF8DB400E3332A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -46,8 +48,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		641E534F8870B210A6A8FC2E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		99CB2C5F00774048E06E56AE /* libPods-ToolCollection_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToolCollection_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B6604B6212970A0964EC3D /* ToolCollection.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ToolCollection.podspec; path = ../ToolCollection.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		CC30DF3931220A811B32E5AB /* Pods_ToolCollection_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToolCollection_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E509B8BF4DD0598367A64F5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEF4D1A617D72D06F77FB3C6 /* Pods_ToolCollection_Example.framework in Frameworks */,
+				2F212327B50B9DA48369C113 /* libPods-ToolCollection_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +72,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		025F82D92456D530001677CB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				025F82DA2456D549001677CB /* SettingSwitch.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		04EAAF6323BF8DF000E3332A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,8 +102,8 @@
 		23F27127CD02A509E6C15C19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CC30DF3931220A811B32E5AB /* Pods_ToolCollection_Example.framework */,
 				268D7361F71B60F820F79B95 /* Pods_ToolCollection_Tests.framework */,
+				99CB2C5F00774048E06E56AE /* libPods-ToolCollection_Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				04EAAF6423BF8DF700E3332A /* Global */,
+				025F82D92456D530001677CB /* View */,
 				04EAAF6323BF8DF000E3332A /* Controller */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -188,7 +199,6 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				32B2261728DC1E7440955ADD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -281,38 +291,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		32B2261728DC1E7440955ADD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DifferenceKit/DifferenceKit.framework",
-				"${BUILT_PRODUCTS_DIR}/MMKV/MMKV.framework",
-				"${BUILT_PRODUCTS_DIR}/MMKVCore/MMKVCore.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/ToolCollection/ToolCollection.framework",
-				"${BUILT_PRODUCTS_DIR}/YHListKit-flow/YHListKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DifferenceKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMKV.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMKVCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ToolCollection.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YHListKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToolCollection_Example/Pods-ToolCollection_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D990B836D3E0380E7A4B6BCD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -339,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04EAAF6223BF8DB400E3332A /* SecondViewController.swift in Sources */,
+				025F82DB2456D549001677CB /* SettingSwitch.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				04EAAF6623BF8E0800E3332A /* ThirdViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
