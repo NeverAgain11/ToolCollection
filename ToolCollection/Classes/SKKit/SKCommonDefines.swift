@@ -249,7 +249,27 @@ public extension CGRect {
         result.origin.x = left
         return result
     }
-
+    
+    func float(centerY: CGFloat) -> CGRect {
+        var result = self
+        result.origin.y = centerY - halfHeight
+        return result
+    }
+    
+    func float(centerX: CGFloat) -> CGRect {
+        var result = self
+        result.origin.x = centerX - halfWidth
+        return result
+    }
+    
+    var halfHeight: CGFloat {
+        return height/2
+    }
+    
+    var halfWidth: CGFloat {
+        return width/2
+    }
+    
     /// 保持rect的左边缘不变，改变其宽度，使右边缘靠在right上
     func limit(right: CGFloat) -> CGRect {
         var result = self

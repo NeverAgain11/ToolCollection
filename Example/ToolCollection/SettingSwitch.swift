@@ -30,18 +30,20 @@ class SettingSwitchNode: UIControl {
     
     lazy var onImageView: ASImageNode = {
         let imageView = ASImageNode()
+        imageView.isLayerBacked = true
         return imageView
     }()
     
     lazy var offImageView: ASImageNode = {
         let imageView = ASImageNode()
+        imageView.isLayerBacked = true
         imageView.backgroundColor = .blue
         return imageView
     }()
     
     lazy var thumbView: ASDisplayNode = {
         let view = ASDisplayNode()
-        view.isUserInteractionEnabled = false
+        view.isLayerBacked = true
         view.backgroundColor = .white
         return view
     }()
