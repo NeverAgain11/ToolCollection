@@ -277,9 +277,26 @@ public extension NSMutableAttributedString {
         }
         
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
+        paragraphStyle.alignment = alignment
         
         self.applyAttribute(NSAttributedString.Key.paragraphStyle, withValue: paragraphStyle as AnyObject, forRange: attributeRange)
+        
+        return self
+    }
+    
+    func shadow(_ offset: CGSize, blurRadius: CGFloat, color: UIColor, forText text: String? = nil) -> NSMutableAttributedString {
+        
+        var attributeRange:NSRange?
+        if let textForAttribute = text {
+            attributeRange = self.rangeOfString(textForAttribute)
+        }
+        
+        let shadow = NSShadow()
+        shadow.shadowOffset = offset
+        shadow.shadowBlurRadius = blurRadius
+        shadow.shadowColor = color
+        
+        self.applyAttribute(NSAttributedString.Key.shadow, withValue: shadow, forRange: attributeRange)
         
         return self
     }
