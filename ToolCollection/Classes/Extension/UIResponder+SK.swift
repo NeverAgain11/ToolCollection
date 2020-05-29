@@ -8,13 +8,13 @@
 import Foundation
 
 public class SKEvent: NSObject {
-    public var sender: UIResponder
+    public var sender: UIView
     
     public var info: [String : Any]
     
     public let identifier: Any
     
-    public init(sender: UIResponder, info: [String: Any], identifier: Any) {
+    public init(sender: UIView, info: [String: Any], identifier: Any) {
         self.sender = sender
         self.info = info
         self.identifier = identifier

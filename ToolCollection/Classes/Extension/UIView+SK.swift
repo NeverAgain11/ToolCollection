@@ -38,7 +38,6 @@ public extension UIView {
         UIGraphicsEndImageContext()
         return resultImage
     }
-    
 }
 
 public extension SKKit where Base == UIView {
