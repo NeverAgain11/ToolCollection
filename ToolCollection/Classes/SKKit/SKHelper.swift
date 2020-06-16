@@ -14,9 +14,17 @@ public extension SKHelper {
     
     static let isSimulator: Bool = {
         #if targetEnvironment(simulator)
-            return true
+        return true
         #else
-            return false
+        return false
+        #endif
+    }()
+    
+    static let isDebug: Bool = {
+        #if DEBUG
+        return true
+        #else
+        return false
         #endif
     }()
     

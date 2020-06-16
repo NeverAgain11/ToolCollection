@@ -12,7 +12,6 @@ open class SKTextView: UITextView {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         view.textColor = placeholderColor
-        view.textAlignment = .center
         view.numberOfLines = 0
         view.alpha = 0
         return view
@@ -26,13 +25,13 @@ open class SKTextView: UITextView {
     /**
      *   placeholder 的文字
      */
-    @IBInspectable open var placeholder: String? {
+    @IBInspectable open var placeholder: String = "" {
         didSet {
             let attributes = Dictionary(uniqueKeysWithValues: convertFromNSAttributedStringKeyDictionary(typingAttributes).map {
                 key, value in (key, value)
             })
-            placeholderLabel.attributedText = NSAttributedString(string: placeholder ?? "", attributes: attributes)
-
+            placeholderLabel.attributedText = NSAttributedString(string: placeholder, attributes: attributes)
+            
             placeholderLabel.textColor = placeholderColor
             sendSubviewToBack(placeholderLabel)
             setNeedsLayout()
@@ -79,9 +78,21 @@ open class SKTextView: UITextView {
         }
     }
     
+    public override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        
+        addSubview(placeholderLabel)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTextChange), name: UITextView.textDidChangeNotification, object: nil)
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override open func layoutSubviews() {
         super.layoutSubviews()
-        guard !(placeholder?.isEmpty ?? true) else { return }
+        guard placeholder.isEmpty == false else { return }
         
         let labelMargins = textContainerInset.concat(insets: placeholderMargins).concat(insets: UIEdgeInsets.init(top: 0, left: 5, bottom: 0, right: 5))
         let limitWidth = bounds.width - contentInset.horizontalValue - labelMargins.horizontalValue
@@ -96,19 +107,31 @@ open class SKTextView: UITextView {
         updatePlaceholderLabelHidden()
     }
     
-    private func updatePlaceholderLabelHidden() {
-        if text?.isEmpty ?? true && !(placeholder?.isEmpty ?? true) {
-            placeholderLabel.alpha = 1
-        } else {
-            placeholderLabel.alpha = 0
+}
+
+private extension SKTextView {
+    @objc func handleTextChange() {
+        if placeholder.isEmpty == false {
+            updatePlaceholderLabelHidden()
         }
     }
     
-    private func updatePlaceholderStyle() {
+    func updatePlaceholderLabelHidden() {
+        
+        if text?.isEmpty == true && placeholder.isEmpty == false {
+            placeholderLabel.alpha = 1
+        }
+        else {
+            placeholderLabel.alpha = 0
+        }
+        
+    }
+    
+    func updatePlaceholderStyle() {
         let placeholder = self.placeholder
         self.placeholder = placeholder // 触发文字样式的更新
     }
-
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.
