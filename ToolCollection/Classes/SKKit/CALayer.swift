@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CALayer {
+public extension CALayer {
     /**
      *  把某个sublayer移动到当前所有sublayers的最后面
      *  @param  sublayer    要被移动的layer

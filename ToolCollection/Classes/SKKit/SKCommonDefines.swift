@@ -230,37 +230,37 @@ public extension CGRect {
         return CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
     }
 
-    func float(top: CGFloat) -> CGRect {
+    func set(top: CGFloat) -> CGRect {
         var result = self
         result.origin.y = top
         return result
     }
 
-    func float(bottom: CGFloat) -> CGRect {
+    func set(bottom: CGFloat) -> CGRect {
         var result = self
         result.origin.y = bottom - height
         return result
     }
 
-    func float(right: CGFloat) -> CGRect {
+    func set(right: CGFloat) -> CGRect {
         var result = self
         result.origin.x = right - width
         return result
     }
 
-    func float(left: CGFloat) -> CGRect {
+    func set(left: CGFloat) -> CGRect {
         var result = self
         result.origin.x = left
         return result
     }
     
-    func float(centerY: CGFloat) -> CGRect {
+    func set(centerY: CGFloat) -> CGRect {
         var result = self
         result.origin.y = centerY - halfHeight
         return result
     }
     
-    func float(centerX: CGFloat) -> CGRect {
+    func set(centerX: CGFloat) -> CGRect {
         var result = self
         result.origin.x = centerX - halfWidth
         return result

@@ -47,6 +47,12 @@ open class SKTextView: UITextView {
         }
     }
     
+    open var placeholderFont: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+        didSet {
+            placeholderLabel.font = placeholderFont
+        }
+    }
+    
     /// 重写 typingAttributes 的 setter 方法
     override open var typingAttributes: [NSAttributedString.Key: Any] {
         get {
