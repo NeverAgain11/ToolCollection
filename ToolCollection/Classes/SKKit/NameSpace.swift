@@ -8,7 +8,7 @@
 import Foundation
 
 // 定义泛型类
-public final class SKKit<Base> {
+public struct SKKit<Base> {
     public let base: Base
     public init(_ base: Base) {
         self.base = base

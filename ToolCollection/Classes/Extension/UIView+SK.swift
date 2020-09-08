@@ -13,7 +13,19 @@ public extension UIView {
     
     /// 性能较差
     func sk_snapshotLayerImage() -> UIImage? {
-        let view = self
+        return self.sk.snapshotLayerImage()
+    }
+    
+    /// 界面要已经render完，否则截到得图将会是empty
+    func sk_snapshotImage(afterScreenUpdates: Bool) -> UIImage? {
+        return self.sk.snapshotImage(afterScreenUpdates: afterScreenUpdates)
+    }
+}
+
+public extension SKKit where Base == UIView {
+    /// 性能较差
+    func snapshotLayerImage() -> UIImage? {
+        let view = self.base
         // 如果可以用新方式，则建议使用新方式，性能上好很多
         var resultImage: UIImage?
         // 第二个参数是不透明度，这里默认设置为YES，不用出来alpha通道的事情，可以提高性能
@@ -28,8 +40,8 @@ public extension UIView {
     }
     
     /// 界面要已经render完，否则截到得图将会是empty
-    func sk_snapshotImage(afterScreenUpdates: Bool) -> UIImage? {
-        let view = self
+    func snapshotImage(afterScreenUpdates: Bool) -> UIImage? {
+        let view = self.base
         var resultImage: UIImage?
         UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
         
@@ -38,8 +50,4 @@ public extension UIView {
         UIGraphicsEndImageContext()
         return resultImage
     }
-}
-
-public extension SKKit where Base == UIView {
-    
 }

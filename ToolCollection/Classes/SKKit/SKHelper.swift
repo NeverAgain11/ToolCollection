@@ -8,6 +8,94 @@
 import Foundation
 
 public extension SKHelper {
+    
+    /// 是否有刘海
+    @available(iOSApplicationExtension, unavailable)
+    public static var hasTopNotch: Bool {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+            // with notch: 44.0 on iPhone X, XS, XS Max, XR.
+            // without notch: 20.0 on iPhone 8 on iOS 12+.
+            return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+        }
+        
+        return false
+    }
+    
+    /// 是否有底部Home区域
+    @available(iOSApplicationExtension, unavailable)
+    public static var hasBottomSafeAreaInsets: Bool {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+            // with home indicator: 34.0 on iPhone X, XS, XS Max, XR.
+            return UIApplication.shared.delegate?.window??.safeAreaInsets.bottom ?? 0 > 0
+        }
+        
+        return false
+    }
+    
+    /// 安全区
+    @available(iOSApplicationExtension, unavailable)
+    public static var safeAreaInsets: UIEdgeInsets {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+            if let safeAreaInsets = UIApplication.shared.delegate?.window??.safeAreaInsets {
+                return safeAreaInsets
+            } else if let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets {
+                return safeAreaInsets
+            }
+        }
+    
+        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+    
+    @available(iOSApplicationExtension, unavailable)
+    static let isZoomedMode: Bool = {
+        if isIPad {
+            return false
+        }
+        let nativeScale = UIScreen.main.nativeScale
+        var scale = UIScreen.main.scale
+        
+        let shouldBeDownsampledDevice = UIScreen.main.nativeBounds.size.equalTo(CGSize(width: 1080, height: 1920))
+        if shouldBeDownsampledDevice {
+            scale /= 1.15;
+        }
+        return nativeScale > scale
+    }()
+    
+    @available(iOSApplicationExtension, unavailable)
+    static let isRegularScreen: Bool = {
+        return isIPad || (!isZoomedMode && (is61InchScreen || is61InchScreen || is55InchScreen))
+    }()
+    
+    /// 是否横竖屏，用户界面横屏了才会返回true
+    @available(iOSApplicationExtension, unavailable)
+    static var isLandscape: Bool {
+        return UIApplication.shared.statusBarOrientation.isLandscape
+    }
+    
+    /// tabbar  高度
+    @available(iOSApplicationExtension, unavailable)
+    static var tabBarHeight: CGFloat {
+        if isIPad {
+            if hasBottomSafeAreaInsets {
+                return 65
+            } else {
+                if #available(iOS 12.0, *) {
+                    return 50
+                } else {
+                    return 49
+                }
+            }
+        } else {
+            let height: CGFloat
+            if isLandscape, !isRegularScreen {
+                height = 32
+            } else {
+                height = 49
+            }
+            return height + safeAreaInsets.bottom
+        }
+    }
+    
     static let pixelOne: CGFloat = {
         return 1 / UIScreen.main.scale
     }()
@@ -131,6 +219,7 @@ public extension SKHelper {
         return CGSize(width: 320, height: 480)
     }
 
+    
 }
 
 public extension SKHelper {
