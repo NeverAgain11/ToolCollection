@@ -9,7 +9,7 @@ import Foundation
 
 extension NSAttributedString: SKKitCompatible {}
 
-public extension SKKit where Base == NSAttributedString {
+public extension SKKit where Base: NSAttributedString {
     func image() -> UIImage? {
         let attributedString = self.base
         let stringSize = attributedString.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.sizeCeil
@@ -20,11 +20,5 @@ public extension SKKit where Base == NSAttributedString {
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resultImage
-    }
-}
-
-public extension SKKit where Base == NSMutableAttributedString {
-    func image() -> UIImage? {
-        return (self.base as NSAttributedString).sk.image()
     }
 }

@@ -15,19 +15,23 @@ public enum SKButtonImagePosition: Int {
     case right // imageView在titleLabel右边
 }
 
+public typealias SKButtonAction = (_ sender: SKButton) -> Void
+
 open class SKButton: UIButton {
+    open var action: SKButtonAction?
+    
     /**
      * 是否自动调整highlighted时的按钮样式，默认为YES。<br/>
      * 当值为YES时，按钮highlighted时会改变自身的alpha属性为<b>ButtonHighlightedAlpha</b>
      */
     @IBInspectable public var adjustsButtonWhenHighlighted: Bool = true
-
+    
     /**
      * 是否自动调整disabled时的按钮样式，默认为YES。<br/>
      * 当值为YES时，按钮disabled时会改变自身的alpha属性为<b>ButtonDisabledAlpha</b>
      */
     @IBInspectable public var adjustsButtonWhenDisabled: Bool = true
-
+    
     /**
      * 设置按钮点击时的背景色，默认为nil。
      * @warning 不支持带透明度的背景颜色。当设置<i>highlightedBackgroundColor</i>时，会强制把<i>adjustsButtonWhenHighlighted</i>设为NO，避免两者效果冲突。
@@ -41,7 +45,7 @@ open class SKButton: UIButton {
             }
         }
     }
-
+    
     /**
      * 设置按钮点击时的边框颜色，默认为nil。
      * @warning 当设置<i>highlightedBorderColor</i>时，会强制把<i>adjustsButtonWhenHighlighted</i>设为NO，避免两者效果冲突。
@@ -125,7 +129,7 @@ open class SKButton: UIButton {
     private lazy var disableBackgroundLayer = CALayer()
     
     func didInitialized() {
-
+        
         // 默认接管highlighted和disabled的表现，去掉系统默认的表现
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
@@ -134,6 +138,9 @@ open class SKButton: UIButton {
         
         // 图片默认在按钮左边，与系统UIButton保持一致
         imagePosition = .left
+        
+        addTarget(self, action: #selector(SKButton.didPressed(_:)), for: .touchUpInside)
+        
     }
     
     override open func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -142,7 +149,7 @@ open class SKButton: UIButton {
         if bounds.size == size {
             size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         }
-
+        
         let isImageViewShowing = imageView != nil && !imageView!.isHidden
         let isTitleLabelShowing = titleLabel != nil && !titleLabel!.isHidden
         var imageTotalSize = CGSize.zero // 包含 imageEdgeInsets 那些空间
@@ -168,11 +175,11 @@ open class SKButton: UIButton {
                 titleSize.height = fmin(titleSize.height, titleLimitSize.height)
                 titleTotalSize = CGSize(width: titleSize.width + titleEdgeInsets.horizontalValue, height: titleSize.height + titleEdgeInsets.verticalValue)
             }
-
+            
             resultSize.width = contentEdgeInsets.horizontalValue
             resultSize.width += fmax(imageTotalSize.width, titleTotalSize.width)
             resultSize.height = contentEdgeInsets.verticalValue + imageTotalSize.height + spacingBetweenImageAndTitle + titleTotalSize.height
-
+            
         case .right, .left:
             // 图片和文字水平排版时，高度以文字或图片的最大高度为最终高度
             // 注意这里有一个和系统不一致的行为：当 titleLabel 为多行时，系统的 sizeThatFits: 计算结果固定是单行的，所以当 QMUIButtonImagePositionLeft 并且titleLabel 多行的情况下，QMUIButton 计算的结果与系统不一致
@@ -197,14 +204,14 @@ open class SKButton: UIButton {
         }
         return resultSize
     }
-
+    
     override open var intrinsicContentSize: CGSize {
         return sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
     }
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-
+        
         if bounds.isEmpty {
             return
         }
@@ -351,7 +358,7 @@ open class SKButton: UIButton {
                     imageFrame = imageFrame.setY(contentEdgeInsets.top + imageEdgeInsets.top)
                     imageFrame = imageFrame.setHeight(contentSize.height - imageEdgeInsets.verticalValue)
                 }
-                 if isTitleLabelShowing {
+                if isTitleLabelShowing {
                     titleFrame = titleFrame.setY(contentEdgeInsets.top + titleEdgeInsets.top)
                     titleFrame = titleFrame.setHeight(contentSize.height - titleEdgeInsets.verticalValue)
                 }
@@ -483,7 +490,7 @@ open class SKButton: UIButton {
     
     fileprivate func adjustsButtonHighlighted() {
         guard let highlightedBackgroundColor = highlightedBackgroundColor else { return }
-
+        
         highlightedBackgroundLayer.qmui_removeDefaultAnimations()
         layer.insertSublayer(highlightedBackgroundLayer, at: 0)
         
@@ -498,7 +505,7 @@ open class SKButton: UIButton {
     
     fileprivate func adjustsButtonDisable() {
         guard let disableBackgroundColor = disableBackgroundColor else { return }
-
+        
         disableBackgroundLayer.qmui_removeDefaultAnimations()
         layer.insertSublayer(disableBackgroundLayer, at: 0)
         
@@ -509,6 +516,14 @@ open class SKButton: UIButton {
         if let disableBorderColor = disableBorderColor {
             layer.borderColor = isEnabled ? disableBorderColor.cgColor : originBorderColor?.cgColor
         }
+    }
+    
+    open func addAction(_ action: @escaping SKButtonAction) {
+        self.action = action
+    }
+    
+    @objc open func didPressed(_ sender: SKButton) {
+        action?(sender)
     }
     
 }

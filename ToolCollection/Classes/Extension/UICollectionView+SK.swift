@@ -21,7 +21,7 @@ public extension UICollectionView {
     }
 }
 
-public extension SKKit where Base == UICollectionView {
+public extension SKKit where Base: UICollectionView {
     func indexPathForItem(at view: UIView?) -> IndexPath? {
         if let cell = self.base.parentCell(for: view) {
             return self.base.indexPath(for: cell)

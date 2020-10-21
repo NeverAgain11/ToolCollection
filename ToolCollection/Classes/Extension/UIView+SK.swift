@@ -8,6 +8,7 @@
 import Foundation
 
 extension UIView: SKKitCompatible {}
+extension UIResponder: SKKitCompatible {}
 
 public extension UIView {
     
@@ -22,7 +23,7 @@ public extension UIView {
     }
 }
 
-public extension SKKit where Base == UIView {
+public extension SKKit where Base: UIView {
     /// 性能较差
     func snapshotLayerImage() -> UIImage? {
         let view = self.base

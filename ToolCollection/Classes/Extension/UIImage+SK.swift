@@ -9,7 +9,7 @@ import Foundation
 
 extension UIImage: SKKitCompatible {}
 
-public extension SKKit where Base == UIImage {
+public extension SKKit where Base: UIImage {
     
     /// 将文字渲染成图片，最终图片和文字一样大
     static func image(attributedString: NSAttributedString) -> UIImage? {
