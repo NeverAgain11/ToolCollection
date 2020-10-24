@@ -11,7 +11,13 @@ import YHListKit
 
 open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollectionViewSectionHeaderFooter {
     
-    public var cellModel: YHCollectionViewCellModel?
+    public var cellModel: YHCollectionViewCellModel? {
+        didSet {
+            if let model = cellModel {
+                updateUI(model.dataModel)
+            }
+        }
+    }
     
     public var sectionModel: YHCollectionViewSectionModel? {
         didSet {
@@ -23,6 +29,12 @@ open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHColle
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        contentView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        contentView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
         setupUI()
     }
     
@@ -30,11 +42,11 @@ open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHColle
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func willDisplay() {
-        if let model = cellModel {
-            updateUI(model.dataModel)
-        }
-    }
+//    public func willDisplay() {
+//        if let model = cellModel {
+//            updateUI(model.dataModel)
+//        }
+//    }
     
     open func updateUI(_ data: Any) {
         

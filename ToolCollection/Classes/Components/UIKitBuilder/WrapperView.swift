@@ -17,7 +17,7 @@ public class WrapperView<T: UIView>: UIView {
         self.content = content
         super.init(frame: .zero)
         
-        add(content) {
+        addView(content) {
             $0.translatesAutoresizingMaskIntoConstraints = false
             let leadingConstraint = $0.leadingAnchor.constraint(equalTo: self.leadingAnchor)
             let trailingConstraint = $0.trailingAnchor.constraint(equalTo: self.trailingAnchor)

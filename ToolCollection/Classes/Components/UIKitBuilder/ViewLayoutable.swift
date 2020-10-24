@@ -11,14 +11,14 @@ import UIKit
 public protocol ViewLayoutable {}
 
 extension ViewLayoutable where Self: UIView {
-    @discardableResult public func add<T: UIView>(_ child: T, configuration: ((T) -> Void)? = nil) -> Self {
+    @discardableResult public func addView<T: UIView>(_ child: T, configuration: ((T) -> Void)? = nil) -> Self {
         addSubview(child)
         configuration?(child)
         return self
     }
     
     @discardableResult public func add(to superview: UIView, configuration: ((Self) -> Void)? = nil) -> Self {
-        superview.add(self, configuration: configuration)
+        superview.addView(self, configuration: configuration)
         return self
     }
     

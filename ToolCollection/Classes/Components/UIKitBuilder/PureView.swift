@@ -28,7 +28,7 @@ open class PureView: UIView {
     open func configure() {}
     
     open func setupView() {
-        add(body) {
+        addView(body) {
             $0.translatesAutoresizingMaskIntoConstraints = false
             let leadingConstraint = $0.leadingAnchor.constraint(equalTo: self.leadingAnchor)
             let trailingConstraint = $0.trailingAnchor.constraint(equalTo: self.trailingAnchor)
