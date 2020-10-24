@@ -8,6 +8,7 @@
 
 import Foundation
 import YHListKit
+import AsyncDisplayKit
 
 open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHCollectionViewSectionHeaderFooter {
     
@@ -44,4 +45,29 @@ open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHColle
         
     }
     
+}
+
+open class SKCellNode<Node>: SKCollectionCell where Node: ASDisplayNode {
+    
+    public let node = Node()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubnode(node)
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        node.frame = bounds
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+//    open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+//      return ASWrapperLayoutSpec(layoutElements: [])
+//    }
 }
