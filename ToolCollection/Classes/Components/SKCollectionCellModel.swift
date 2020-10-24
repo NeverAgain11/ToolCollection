@@ -34,4 +34,26 @@ open class SKCollectionCellModel<T>: YHCollectionViewCellModel where T: UICollec
     open func didSelect(_ closure: @escaping ((UICollectionView, IndexPath) -> Void)) {
         didSelectItem = closure
     }
+    
+}
+
+public extension YHCollectionViewCellModel {
+    @discardableResult
+    open func cellWidth(_ width: CGFloat) -> YHCollectionViewCellModel {
+        self.cellWidth = width
+        return self
+    }
+    
+    @discardableResult
+    open func cellHeight(_ height: CGFloat) -> YHCollectionViewCellModel {
+        self.cellHeight = height
+        return self
+    }
+    
+    @discardableResult
+    open func dataModel(_ model: Any) -> YHCollectionViewCellModel {
+        self.dataModel = model
+        return self
+    }
+    
 }

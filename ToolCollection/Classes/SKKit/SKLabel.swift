@@ -39,7 +39,6 @@ open class SKLabel: UILabel {
         }
         super.drawText(in: drawRect)
     }
-    
 }
 
 @IBDesignable
