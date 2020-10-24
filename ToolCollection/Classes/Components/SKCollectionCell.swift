@@ -29,24 +29,12 @@ open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHColle
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        contentView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        contentView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
         setupUI()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    public func willDisplay() {
-//        if let model = cellModel {
-//            updateUI(model.dataModel)
-//        }
-//    }
     
     open func updateUI(_ data: Any) {
         
