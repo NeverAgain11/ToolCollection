@@ -106,9 +106,9 @@ public extension ASDisplayNode {
 }
 
 public class SKButtonNode<E>: ASButtonNode {
-    let model: E
+    public let model: E
     
-    init(model: E) {
+    public init(model: E) {
         self.model = model
         
         super.init()
@@ -116,7 +116,7 @@ public class SKButtonNode<E>: ASButtonNode {
         addTarget(self, action: #selector(buttonTapped), forControlEvents: .touchUpInside)
     }
     
-    @objc func buttonTapped() {
+    @objc open func buttonTapped() {
         let event = UIResponder.Event(sender: self.view, identifier: model)
         
         self.view.responseEvent(event)
