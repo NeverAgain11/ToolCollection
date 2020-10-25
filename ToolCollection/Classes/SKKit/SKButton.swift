@@ -17,6 +17,28 @@ public enum SKButtonImagePosition: Int {
 
 public typealias SKButtonAction = (_ sender: SKButton) -> Void
 
+open class SKEventButton<E>: SKButton {
+    public let model: E
+    
+    public init(model: E) {
+        self.model = model
+        
+        super.init(frame: .zero)
+    }
+    
+    open override func didPressed(_ sender: SKButton) {
+        super.didPressed(sender)
+        
+        let event = UIResponder.Event(sender: sender, identifier: model)
+        
+        sender.responseEvent(event)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 open class SKButton: UIButton {
     open var action: SKButtonAction?
     
