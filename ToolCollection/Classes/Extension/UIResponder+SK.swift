@@ -20,6 +20,7 @@ extension UIResponder {
         
         public let sender: UIView
         public let identifier: Any
+        public var info: [String : Any] = [:]
     }
 }
 

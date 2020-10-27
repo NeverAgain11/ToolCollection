@@ -291,3 +291,31 @@ extension SKHelper {
         UINavigationController.awake()
     }
 }
+
+
+public extension SKHelper {
+    static func isValidatePhone(_ phone: String) -> Bool {
+        let string = "1\\d{10}"
+        let pred = NSPredicate(format: "SELF MATCHES %@", string)
+        
+        return pred.evaluate(with: phone)
+    }
+    
+    //密码正则  6-8位字母和数字组合
+    static func isPasswordRuler(password: String, minLength: Int, maxLength: Int) -> Bool {
+        let passwordRule = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{\(minLength),\(maxLength)}$"
+        let regexPassword = NSPredicate(format: "SELF MATCHES %@",passwordRule)
+        
+        return regexPassword.evaluate(with: password)
+    }
+    
+    /// 邮箱格式验证
+    static func isValidateEmail(email: String) -> Bool {
+        if email.count == 0 {
+            return false
+        }
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailTest.evaluate(with: email)
+    }
+}
