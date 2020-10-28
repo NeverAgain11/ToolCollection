@@ -51,4 +51,11 @@ public extension SKKit where Base: UIView {
         UIGraphicsEndImageContext()
         return resultImage
     }
+    
+    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: base.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        base.layer.mask = mask
+    }
 }

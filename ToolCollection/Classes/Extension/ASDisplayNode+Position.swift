@@ -122,3 +122,23 @@ public class SKButtonNode<E>: ASButtonNode {
         self.view.responseEvent(event)
     }
 }
+
+open class SKControlNode<E>: ASControlNode {
+    public let model: E
+    
+    public init(model: E) {
+        self.model = model
+        
+        super.init()
+        
+        addTarget(self, action: #selector(buttonTapped), forControlEvents: .touchUpInside)
+        
+        automaticallyManagesSubnodes = true
+    }
+    
+    @objc open func buttonTapped() {
+        let event = UIResponder.Event(sender: self.view, identifier: model)
+        
+        self.view.responseEvent(event)
+    }
+}
