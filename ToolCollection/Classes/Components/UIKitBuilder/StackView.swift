@@ -23,7 +23,7 @@ public class StackView: UIStackView {
         self.alignment = alignment
         self.distribution = distribution
         self.spacing = spacing
-        isLayoutMarginsRelativeArrangement = true
+        isLayoutMarginsRelativeArrangement = false
         self.layoutMargins = layoutMargins
     }
 
