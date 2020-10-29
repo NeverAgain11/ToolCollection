@@ -47,7 +47,7 @@ open class SKCollectionCell: UICollectionViewCell, YHCollectionViewCell, YHColle
     
 }
 
-open class SKCellNode<Node>: SKCollectionCell where Node: ASDisplayNode {
+open class SKCollectionNodeCell<Node>: SKCollectionCell where Node: ASDisplayNode {
     
     public let node = Node()
     
