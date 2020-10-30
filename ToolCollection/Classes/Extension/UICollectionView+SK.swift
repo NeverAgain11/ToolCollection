@@ -21,6 +21,18 @@ public extension UICollectionView {
     }
 }
 
+public extension UITableView {
+    open override func touchesShouldCancel(in view: UIView) -> Bool {
+        true
+    }
+}
+
+public extension UICollectionView {
+    open override func touchesShouldCancel(in view: UIView) -> Bool {
+        true
+    }
+}
+
 public extension SKKit where Base: UICollectionView {
     func indexPathForItem(at view: UIView?) -> IndexPath? {
         if let cell = self.base.parentCell(for: view) {

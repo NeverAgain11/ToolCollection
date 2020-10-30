@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension UIViewController: SKKitCompatible {}
+//extension UIViewController: SKKitCompatible {}
 
 public extension SKKit where Base: UIViewController {
     

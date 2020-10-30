@@ -45,7 +45,7 @@ class SecondViewController: UIViewController {
         return true
     }
     
-    override func responseEvent(_ event: SKEvent) {
+    override func responseEvent(_ event: UIResponder.Event) {
         
     }
 }

@@ -35,7 +35,7 @@ public extension Reactive where Base: AnyObject {
         }
     }
     
-    public func clearDisposeBag() {
+    func clearDisposeBag() {
         synchronizedBag {
             objc_setAssociatedObject(base, &disposeBagContext, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }

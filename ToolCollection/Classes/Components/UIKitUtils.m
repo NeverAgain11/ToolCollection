@@ -3,7 +3,7 @@
 #import <objc/runtime.h>
 
 #if TARGET_IPHONE_SIMULATOR
-UIKIT_EXTERN float UIAnimationDragCoefficient();
+UIKIT_EXTERN float UIAnimationDragCoefficient(void);
 #endif
 
 double animationDurationFactorImpl() {

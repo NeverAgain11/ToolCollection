@@ -11,7 +11,7 @@ public extension SKHelper {
     
     /// 是否有刘海
     @available(iOSApplicationExtension, unavailable)
-    public static var hasTopNotch: Bool {
+    static var hasTopNotch: Bool {
         if #available(iOS 11.0, tvOS 11.0, *) {
             // with notch: 44.0 on iPhone X, XS, XS Max, XR.
             // without notch: 20.0 on iPhone 8 on iOS 12+.
@@ -23,7 +23,7 @@ public extension SKHelper {
     
     /// 是否有底部Home区域
     @available(iOSApplicationExtension, unavailable)
-    public static var hasBottomSafeAreaInsets: Bool {
+    static var hasBottomSafeAreaInsets: Bool {
         if #available(iOS 11.0, tvOS 11.0, *) {
             // with home indicator: 34.0 on iPhone X, XS, XS Max, XR.
             return UIApplication.shared.delegate?.window??.safeAreaInsets.bottom ?? 0 > 0
@@ -34,7 +34,7 @@ public extension SKHelper {
     
     /// 安全区
     @available(iOSApplicationExtension, unavailable)
-    public static var safeAreaInsets: UIEdgeInsets {
+    static var safeAreaInsets: UIEdgeInsets {
         if #available(iOS 11.0, tvOS 11.0, *) {
             if let safeAreaInsets = UIApplication.shared.delegate?.window??.safeAreaInsets {
                 return safeAreaInsets

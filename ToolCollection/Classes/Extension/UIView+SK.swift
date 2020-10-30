@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension UIView: SKKitCompatible {}
+//extension UIView: SKKitCompatible {}
 extension UIResponder: SKKitCompatible {}
 
 public extension UIView {
