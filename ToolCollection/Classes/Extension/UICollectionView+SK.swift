@@ -11,6 +11,8 @@ import DifferenceKit
 
 extension String: Differentiable {}
 
+extension Int: Differentiable {}
+
 public extension UICollectionView {
     func reload(oldIDs: [String], newIDs: [String]) {
         let change = StagedChangeset(source: oldIDs, target: newIDs)
