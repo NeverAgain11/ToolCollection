@@ -142,3 +142,24 @@ open class SKControlNode<E>: ASControlNode {
         self.view.responseEvent(event)
     }
 }
+
+fileprivate let queue = DispatchQueue.global()
+
+open class BaseDisplayNode: ASDisplayNode {
+
+  open override func didLoad() {
+    super.didLoad()
+    #if DEBUG
+    queue.async { [weak self] in
+      guard let self = self else { return }
+      let typeName = _typeName(type(of: self))
+      DispatchQueue.main.async {
+        guard self.accessibilityIdentifier == nil else { return }
+        self.accessibilityIdentifier = typeName
+      }
+    }
+    #endif
+    
+    automaticallyManagesSubnodes = true
+  }
+}
