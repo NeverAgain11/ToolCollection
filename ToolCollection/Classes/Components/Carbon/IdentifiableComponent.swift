@@ -1,3 +1,5 @@
+import AsyncDisplayKit
+
 /// Represents a component that can be uniquely identify.
 ///
 /// Example for the simple identified component:

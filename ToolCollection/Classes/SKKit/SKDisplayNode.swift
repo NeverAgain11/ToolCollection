@@ -48,38 +48,6 @@ open class BaseControlNode: ASControlNode {
     
 }
 
-open class CarbonView<T: ASDisplayNode>: UIView {
-    public lazy var node = T()
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        addSubnode(node)
-        
-        configure()
-        setupData()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        node.frame = bounds
-    }
-    
-    open func configure() {
-        
-    }
-    
-    open func setupData() {
-        
-    }
-    
-}
-
 public struct Carbon {
     public struct Spacing: IdentifiableComponent, Hashable {
         public var height: CGFloat
@@ -99,7 +67,37 @@ public struct Carbon {
         }
     }
     
-    
+    open class View<T: ASDisplayNode>: UIView {
+        public lazy var node = T()
+        
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            addSubnode(node)
+            
+            configure()
+            setupData()
+        }
+        
+        required public init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        open override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            node.frame = bounds
+        }
+        
+        open func configure() {
+            
+        }
+        
+        open func setupData() {
+            
+        }
+        
+    }
 }
 
 

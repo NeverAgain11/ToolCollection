@@ -1,4 +1,5 @@
 import UIKit
+import AsyncDisplayKit
 
 /// A component represents a small reusable piece of code of element to be rendered.
 /// This behaves as all elements of UIKit's UITableView and UICollectionView, and can
@@ -232,6 +233,21 @@ public extension Component where Content: UIViewController {
         return content.view.intrinsicContentSize
     }
 }
+
+//public extension IdentifiableComponent where Content: ASDisplayNode {
+//    func intrinsicContentSize(for content: Content) -> CGSize {
+//        return content.size
+//    }
+//    
+//    func layout(content: Content, in container: UIView) {
+//        let view = UIView()
+//
+//
+//
+//        view.addSubnode(content)
+//        container.addSubviewWithEdgeConstraints(view)
+//    }
+//}
 
 private extension UIView {
     func addSubviewWithEdgeConstraints(_ view: UIView) {
