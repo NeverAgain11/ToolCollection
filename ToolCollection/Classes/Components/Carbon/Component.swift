@@ -234,20 +234,16 @@ public extension Component where Content: UIViewController {
     }
 }
 
-//public extension IdentifiableComponent where Content: ASDisplayNode {
-//    func intrinsicContentSize(for content: Content) -> CGSize {
-//        return content.size
-//    }
-//    
-//    func layout(content: Content, in container: UIView) {
-//        let view = UIView()
-//
-//
-//
-//        view.addSubnode(content)
-//        container.addSubviewWithEdgeConstraints(view)
-//    }
-//}
+public extension IdentifiableComponent where Content: ASDisplayNode {
+    func intrinsicContentSize(for content: Content) -> CGSize {
+        return content.size
+    }
+    
+    func layout(content: Content, in container: UIView) {
+        let view = Carbon.NodeView(node: content)
+        container.addSubviewWithEdgeConstraints(view)
+    }
+}
 
 private extension UIView {
     func addSubviewWithEdgeConstraints(_ view: UIView) {

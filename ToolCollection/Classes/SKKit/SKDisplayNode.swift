@@ -98,6 +98,28 @@ public struct Carbon {
         }
         
     }
+    
+    final class NodeView<T: ASDisplayNode>: UIView {
+        let node: T
+        init(node: T) {
+            self.node = node
+            
+            super.init(frame: .zero)
+            
+            addSubnode(node)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        public override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            node.frame = bounds
+        }
+        
+    }
 }
 
 
