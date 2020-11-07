@@ -9,7 +9,7 @@
 import UIKit
 
 public class StackView: UIStackView {
-
+    
     public init(
         axis: NSLayoutConstraint.Axis,
         distribution: UIStackView.Distribution,
@@ -26,8 +26,31 @@ public class StackView: UIStackView {
         isLayoutMarginsRelativeArrangement = false
         self.layoutMargins = layoutMargins
     }
-
+    
     public required init(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    private var color: UIColor?
+    
+    public override var backgroundColor: UIColor? {
+        get { return color }
+        set {
+            color = newValue
+            self.setNeedsLayout() // EDIT 2017-02-03 thank you @BruceLiu
+        }
+    }
+    
+    private lazy var backgroundLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        self.layer.insertSublayer(layer, at: 0)
+        return layer
+    }()
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundLayer.path = UIBezierPath(rect: self.bounds).cgPath
+        backgroundLayer.fillColor = self.backgroundColor?.cgColor
+    }
+    
 }
