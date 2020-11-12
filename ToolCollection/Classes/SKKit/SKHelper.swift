@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Photos
 
 public extension SKHelper {
     
@@ -292,6 +293,56 @@ extension SKHelper {
     }
 }
 
+public extension SKHelper {
+    static func requestPermissions(_ authorizedBlock: @escaping () -> Void, deniedBlock: @escaping (()->Void)) {
+        
+        let currentStatus = PHPhotoLibrary.authorizationStatus()
+        
+        switch currentStatus {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                if status == .authorized {
+                    DispatchQueue.main.async(execute: {
+                        authorizedBlock()
+                    })
+                } else if status == .denied {
+                    DispatchQueue.main.async(execute: {
+                        deniedBlock()
+                    })
+                }
+            })
+        case .authorized:
+            authorizedBlock()
+        case .denied:
+            deniedBlock()
+        case .restricted:
+            break
+        #if swift(>=5.3) // Xcode 12 iOS 14 support
+        case .limited:
+            authorizedBlock()
+        #endif
+        @unknown default:
+            break
+        }
+    }
+        
+    static public func saveImage(image: UIImage, resultHandler: @escaping (_ success: Bool, _ error: Error?, _ localIdentifier: String?)
+        ->
+        Swift.Void) {
+        var identifier: String?
+        
+        PHPhotoLibrary.shared().performChanges({
+            let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            identifier = request.placeholderForCreatedAsset?.localIdentifier
+            
+        }) { (success, error) in
+            DispatchQueue.main.async {
+                resultHandler(success, error, identifier)
+            }
+        }
+    }
+    
+}
 
 public extension SKHelper {
     static func isValidatePhone(_ phone: String) -> Bool {
