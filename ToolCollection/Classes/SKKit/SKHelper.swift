@@ -326,7 +326,7 @@ public extension SKHelper {
         }
     }
         
-    static public func saveImage(image: UIImage, resultHandler: @escaping (_ success: Bool, _ error: Error?, _ localIdentifier: String?)
+    static func saveImage(image: UIImage, resultHandler: @escaping (_ success: Bool, _ error: Error?, _ localIdentifier: String?)
         ->
         Swift.Void) {
         var identifier: String?

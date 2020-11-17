@@ -24,13 +24,13 @@ public extension UICollectionView {
 }
 
 public extension UITableView {
-    open override func touchesShouldCancel(in view: UIView) -> Bool {
+    override func touchesShouldCancel(in view: UIView) -> Bool {
         true
     }
 }
 
 public extension UICollectionView {
-    open override func touchesShouldCancel(in view: UIView) -> Bool {
+    override func touchesShouldCancel(in view: UIView) -> Bool {
         true
     }
 }

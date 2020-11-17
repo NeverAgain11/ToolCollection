@@ -38,10 +38,6 @@ extension ViewLayoutable where Self: UIView {
         return self
     }
     
-    @available(iOS 13.0, *)
-    public var preview: PreviewUIView<Self> {
-        PreviewUIView(view: self)
-    }
 }
 
 extension UIView: ViewLayoutable {}
