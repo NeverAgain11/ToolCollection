@@ -281,3 +281,7 @@ private extension UICollectionView {
         registeredViewReuseIdentifiersForKindAssociation[self][kind, default: []].insert(reuseIdentifier)
     }
 }
+
+public protocol Seletable {
+    var select: (()->Void) { get set }
+}
