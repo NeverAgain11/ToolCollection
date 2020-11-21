@@ -8,6 +8,4 @@ use_modular_headers!
 target 'ToolCollection_Example' do
   pod 'ToolCollection', :path => '../'
 
-  pod 'Texture/Core'
-  
 end

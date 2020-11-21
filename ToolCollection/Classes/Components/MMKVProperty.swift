@@ -8,9 +8,10 @@
 
 import Foundation
 import MMKV
+import CleanJSON
 
 @propertyWrapper
-public class OptionalMMKVProperty<T> {
+public class OptionalMMKVProperty<T: Codable> {
     let key: String
     let defaultValue: T?
     let mmkv: MMKV
@@ -47,10 +48,10 @@ public class OptionalMMKVProperty<T> {
                 return self.mmkv.float(forKey: self.key, defaultValue: ((self.defaultValue as? Float) ?? 0)) as? T
             case is Double.Type:
                 return self.mmkv.double(forKey: self.key, defaultValue: ((self.defaultValue as? Double) ?? 0)) as? T
-            case is (NSCoding & NSObjectProtocol).Type:
-                return self.mmkv.object(of: T.self as! AnyClass, forKey: self.key) as? T
             default:
-                print("type not supported: \(T.self)")
+                if let object = mmkv.codableObject(forKey: key, as: T.self) {
+                    return object
+                }
                 return defaultValue;
             }
         }
@@ -81,17 +82,15 @@ public class OptionalMMKVProperty<T> {
                 self.mmkv.set(double, forKey: self.key)
             case let uint64 as UInt64:
                 self.mmkv.set(uint64, forKey: self.key)
-            case let obj as (NSCoding & NSObjectProtocol)?:
-                self.mmkv.set(obj, forKey: self.key)
             default:
-                print("type not supported: \(T.self)")
+                self.mmkv.setCodableObject(newValue, forKey: key)
             }
         }
     }
 }
 
 @propertyWrapper
-public class MMKVProperty<T> {
+public class MMKVProperty<T: Codable> {
     
     let key: String
     let defaultValue: T
@@ -129,11 +128,11 @@ public class MMKVProperty<T> {
                 return self.mmkv.float(forKey: self.key, defaultValue: self.defaultValue as! Float) as! T
             case is Double.Type:
                 return self.mmkv.double(forKey: self.key, defaultValue: self.defaultValue as! Double) as! T
-            case is (NSCoding & NSObjectProtocol).Type:
-                return self.mmkv.object(of: T.self as! AnyClass, forKey: self.key) as? T ?? self.defaultValue
             default:
-                print("type not supported: \(T.self)")
-                return defaultValue
+                if let object = mmkv.codableObject(forKey: key, as: T.self) {
+                    return object
+                }
+                return defaultValue;
             }
         }
         set {
@@ -163,10 +162,8 @@ public class MMKVProperty<T> {
                 self.mmkv.set(double, forKey: self.key)
             case let uint64 as UInt64:
                 self.mmkv.set(uint64, forKey: self.key)
-            case let obj as (NSCoding & NSObjectProtocol):
-                self.mmkv.set(obj, forKey: self.key)
             default:
-                print("type not supported: \(T.self)")
+                self.mmkv.setCodableObject(newValue, forKey: key)
             }
         }
     }
@@ -186,5 +183,39 @@ extension MMKV {
         } else {
             return MMKV.default()!
         }
+    }
+    
+}
+
+fileprivate extension MMKV {
+    func setObject(_ object: Any?, forKey key: String) {
+        if let object = object, let data = try? JSONSerialization.data(withJSONObject: object, options: []) {
+            self.set(data, forKey: key)
+        }
+        else {
+            self.removeValue(forKey: key)
+        }
+    }
+    
+    func object<T>(forKey key: String, as _: T.Type) -> T? {
+        if let data = self.data(forKey: key), let value = try? JSONSerialization.jsonObject(with: data, options: []) as? T {
+            return value
+        }
+        return nil
+    }
+    
+    func setCodableObject<T: Codable>(_ object: T?, forKey key: String) {
+        if let data = try? JSONEncoder().encode(object) {
+            set(data, forKey: key)
+        } else {
+            self.removeValue(forKey: key)
+        }
+    }
+    
+    func codableObject<T: Codable>(forKey key: String, as _: T.Type) -> T? {
+        if let data = self.data(forKey: key), let value = try? CleanJSONDecoder().decode(T.self, from: data) {
+            return value
+        }
+        return nil
     }
 }

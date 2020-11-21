@@ -26,7 +26,7 @@ class ViewController: UIViewController {
 //        textGhostButton()
 //        testLinkButton()
 //
-//        textasd()
+        textasd()
 //
 //        addAttributeLabel()
     }
@@ -38,20 +38,45 @@ class ViewController: UIViewController {
     let europeServer = ["GB"]
     
     func textasd() {
-//        let cellModel = SKCollectionCellModel<YHCollectionCell>()
+        print(DemoPropertyWrapper.notes ?? "nil")
         
-        print(DemoPropertyWrapper.int)
-        DemoPropertyWrapper.int = 110
-        print(DemoPropertyWrapper.int)
+        DemoPropertyWrapper.notes = [Note(time: Date(), content: "first day")]
         
+        print(DemoPropertyWrapper.notes ?? "nil")
+        
+        DemoPropertyWrapper.notes?.append(Note(time: Date().addingTimeInterval(1), content: "second day"))
+        
+        print(DemoPropertyWrapper.notes ?? "nil")
+//        print(DemoPropertyWrapper.stringArray)
+//        DemoPropertyWrapper.stringArray = ["1098", "12321"]
+//        print(DemoPropertyWrapper.stringArray)
+//
+//        DemoPropertyWrapper.stringArray = ["123321", "1235555"]
+//
+//        print(DemoPropertyWrapper.stringArray)
+//
+//
 //        DemoPropertyWrapper.optionalInt = nil
 //        print(DemoPropertyWrapper.optionalInt ?? "")
 //        DemoPropertyWrapper.optionalInt = 120
 //        print(DemoPropertyWrapper.optionalInt ?? "")
 //        DemoPropertyWrapper.optionalInt = 140
 //        print(DemoPropertyWrapper.optionalInt ?? "")
-        
-        
+//
+//        print(DemoPropertyWrapper.int)
+//        DemoPropertyWrapper.int = 2
+//        print(DemoPropertyWrapper.int)
+//        DemoPropertyWrapper.int += 3
+//        print(DemoPropertyWrapper.int)
+//        DemoPropertyWrapper.int += 12
+//        print(DemoPropertyWrapper.int)
+//
+//        print(DemoPropertyWrapper.optionalData ?? "nil")
+//        DemoPropertyWrapper.optionalData = "optionalData".data(using: .utf8)
+//        print(DemoPropertyWrapper.optionalData ?? "nil")
+//        if let data = DemoPropertyWrapper.optionalData {
+//            print(String(data: data, encoding: .utf8) ?? "")
+//        }
     }
     
     func addButtonNode() {
@@ -147,14 +172,31 @@ struct DemoPropertyWrapper {
     @MMKVProperty(key: "int32", defaultValue: 43)
     static var int32: Int32
     
-//    @OptionalMMKVProperty(key: "str")
-//    static var str: String?
+    @OptionalMMKVProperty(key: "str")
+    static var str: String?
     
-//    @OptionalMMKVProperty(key: "optionalInt")
-//    static var optionalInt: Int?
+    @OptionalMMKVProperty(key: "optionalInt")
+    static var optionalInt: Int?
     
     @MMKVProperty(key: "int", defaultValue: 1)
     static var int: Int
+    
+    @OptionalMMKVProperty(key: "asd")
+    static var optionalData: Data?
+    
+    @OptionalMMKVProperty(key: "optionstringArray")
+    static var optionalStringArray: [String]?
+    
+    @MMKVProperty(key: "stringArray", defaultValue: [])
+    static var stringArray: [String]
+    
+    @OptionalMMKVProperty(key: "com.notes")
+    static var notes: [Note]?
+}
+
+struct Note: Codable {
+    let time: Date
+    let content: String
 }
 
 extension UIColor {
