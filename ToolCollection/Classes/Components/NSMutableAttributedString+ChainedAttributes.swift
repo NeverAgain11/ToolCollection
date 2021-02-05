@@ -104,16 +104,6 @@ public extension NSMutableAttributedString {
         return self
     }
     
-    /**
-     This function adds underline attribute to attributed string.
-     
-     - warning: If text passed in "text" parameter is not found, attribute will be applied to whole attributed string. Only first occurence of "text" is styled.
-     
-     - parameter value - CGFloat which should be applied as underline for attributed string
-     - parameter text - String for which should be applied font (optional, default = whole attributed string)
-     
-     - returns: Modified NSMutableAttributedString
-     */
     func underline(_ value:CGFloat, forText text:String? = nil) -> NSMutableAttributedString {
         
         var attributeRange:NSRange?
@@ -127,16 +117,19 @@ public extension NSMutableAttributedString {
         return self
     }
     
-    /**
-     This function adds underline color attribute to attributed string.
-     
-     - warning: If text passed in "text" parameter is not found, attribute will be applied to whole attributed string. Only first occurence of "text" is styled.
-     
-     - parameter value - UIColor which should be applied as underline color for attributed string
-     - parameter text - String for which should be applied font (optional, default = whole attributed string)
-     
-     - returns: Modified NSMutableAttributedString
-     */
+    func underline(_ value: NSUnderlineStyle, forText text:String? = nil) -> NSMutableAttributedString {
+        
+        var attributeRange:NSRange?
+        if let textForAttribute = text {
+            
+            attributeRange = self.rangeOfString(textForAttribute)
+        }
+        
+        self.applyAttribute(NSAttributedString.Key.underlineStyle, withValue: value.rawValue as AnyObject, forRange: attributeRange)
+        
+        return self
+    }
+    
     func underlineColor(_ value:UIColor, forText text:String? = nil) -> NSMutableAttributedString {
         
         var attributeRange:NSRange?
@@ -150,16 +143,6 @@ public extension NSMutableAttributedString {
         return self
     }
     
-    /**
-     This function adds strike through attribute to attributed string.
-     
-     - warning: If text passed in "text" parameter is not found, attribute will be applied to whole attributed string. Only first occurence of "text" is styled.
-     
-     - parameter value - CGFloat which should be applied as strike through for attributed string
-     - parameter text - String for which should be applied font (optional, default = whole attributed string)
-     
-     - returns: Modified NSMutableAttributedString
-     */
     func strikeThrough(_ value:CGFloat, forText text:String? = nil) -> NSMutableAttributedString {
         
         var attributeRange:NSRange?
@@ -169,6 +152,19 @@ public extension NSMutableAttributedString {
         }
         
         self.applyAttribute(NSAttributedString.Key.strikethroughStyle, withValue: value as AnyObject, forRange: attributeRange)
+        
+        return self
+    }
+    
+    func strikeThrough(_ style: NSUnderlineStyle, forText text:String? = nil) -> NSMutableAttributedString {
+        
+        var attributeRange:NSRange?
+        if let textForAttribute = text {
+            
+            attributeRange = self.rangeOfString(textForAttribute)
+        }
+        
+        self.applyAttribute(NSAttributedString.Key.strikethroughStyle, withValue: style.rawValue as AnyObject, forRange: attributeRange)
         
         return self
     }
