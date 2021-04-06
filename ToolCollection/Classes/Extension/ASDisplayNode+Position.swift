@@ -117,9 +117,9 @@ public class SKButtonNode<E>: ASButtonNode {
     }
     
     @objc open func buttonTapped() {
-        let event = UIResponder.Event(sender: self.view, identifier: model)
-        
-        self.view.responseEvent(event)
+//        let event = UIResponder.Event(sender: self.view, identifier: model)
+//        
+//        self.view.responseEvent(event)
     }
 }
 
@@ -137,9 +137,9 @@ open class SKControlNode<E>: ASControlNode {
     }
     
     @objc open func buttonTapped() {
-        let event = UIResponder.Event(sender: self.view, identifier: model)
-        
-        self.view.responseEvent(event)
+//        let event = UIResponder.Event(sender: self.view, identifier: model)
+//
+//        self.view.responseEvent(event)
     }
 }
 

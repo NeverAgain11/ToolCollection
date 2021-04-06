@@ -29,9 +29,9 @@ open class SKEventButton<E>: SKButton {
     open override func didPressed(_ sender: SKButton) {
         super.didPressed(sender)
         
-        let event = UIResponder.Event(sender: sender, identifier: model)
-        
-        sender.responseEvent(event)
+//        let event = UIResponder.Event(sender: sender, identifier: model)
+//
+//        sender.responseEvent(event)
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -14,6 +14,7 @@
 
 public enum SKModalVerticalAlignment: Int {
     case top
+    case center
     case bottom
 }
 
@@ -97,7 +98,7 @@ open class SKModalPresentationViewController: UIViewController {
      *  要被弹出的浮层
      *  @warning 当设置了`contentView`时，不要再设置`contentViewController`
      */
-    public var contentView: UIView?
+    public var contentView: UIView = UIView()
 
     /**
      *  要被弹出的浮层，适用于浮层以UIViewController的形式来管理的情况。
@@ -106,7 +107,8 @@ open class SKModalPresentationViewController: UIViewController {
      */
     public var contentViewController: (UIViewController & SKModalPresentationContentViewControllerProtocol)? {
         didSet {
-            contentView = contentViewController?.view
+            guard let controller = contentViewController else { return }
+            contentView = controller.view
         }
     }
 
@@ -296,7 +298,7 @@ open class SKModalPresentationViewController: UIViewController {
         if let layoutClosure = layoutClosure {
             layoutClosure(view.bounds, keyboardHeight, contentViewFrame)
         } else {
-            contentView?.frame = contentViewFrame
+            contentView.frame = contentViewFrame
         }
     }
     
@@ -342,7 +344,7 @@ open class SKModalPresentationViewController: UIViewController {
         }
 
         if _animated {
-            view.addSubview(contentView!)
+            view.addSubview(contentView)
             view.layoutIfNeeded()
 
             var contentViewFrame = contentViewFrameForShowing
@@ -350,20 +352,20 @@ open class SKModalPresentationViewController: UIViewController {
                 // 使用自定义的动画
                 if let layoutClosure = layoutClosure {
                     layoutClosure(view.bounds, keyboardHeight, contentViewFrame)
-                    contentViewFrame = contentView!.frame
+                    contentViewFrame = contentView.frame
                 }
                 showingAnimationClosure(dimmingView, view.bounds, keyboardHeight, contentViewFrame, didShownCompletion)
             } else {
-                contentView?.frame = contentViewFrame
-                contentView?.setNeedsLayout()
-                contentView?.layoutIfNeeded()
+                contentView.frame = contentViewFrame
+                contentView.setNeedsLayout()
+                contentView.layoutIfNeeded()
 
                 showingAnimation(didShownCompletion)
             }
         } else {
             let contentViewFrame = contentViewFrameForShowing
-            contentView?.frame = contentViewFrame
-            view.addSubview(contentView!)
+            contentView.frame = contentViewFrame
+            view.addSubview(contentView)
             dimmingView?.alpha = 1
             didShownCompletion(true)
         }
@@ -434,7 +436,7 @@ open class SKModalPresentationViewController: UIViewController {
                 self.hasAlreadyViewWillDisappear = false
             }
             
-            self.contentView?.removeFromSuperview()
+            self.contentView.removeFromSuperview()
             self.contentViewController?.endAppearanceTransition()
             
             self.isVisible = false
@@ -447,7 +449,7 @@ open class SKModalPresentationViewController: UIViewController {
             }
             
             if self.contentViewController != nil {
-                self.contentViewController!.qmui_modalPresentationViewController = nil
+                self.contentViewController?.qmui_modalPresentationViewController = nil
                 self.contentViewController = nil
             }
             
@@ -469,11 +471,13 @@ open class SKModalPresentationViewController: UIViewController {
         guard dimmingView == nil else {
             return
         }
-        dimmingView = UIView()
-        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.35)
-        addTapGestureRecognizerToDimmingViewIfNeeded()
-        if isViewLoaded {
-            view.addSubview(dimmingView!)
+        dimmingView = UIView().then {
+            $0.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+            addTapGestureRecognizerToDimmingViewIfNeeded()
+            
+            if isViewLoaded {
+                view.addSubview($0)
+            }
         }
     }
 
@@ -486,10 +490,11 @@ open class SKModalPresentationViewController: UIViewController {
         }
         
         if dimmingViewTapGestureRecognizer == nil {
-            dimmingViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDimmingViewTapGestureRecognizer(_:)))
+            dimmingViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDimmingViewTapGestureRecognizer(_:))).then {
+                dimmingView.addGestureRecognizer($0)
+                dimmingView.isUserInteractionEnabled = true // UIImageView默认userInteractionEnabled为NO，为了兼容UIImageView，这里必须主动设置为YES
+            }
         }
-        dimmingView.addGestureRecognizer(dimmingViewTapGestureRecognizer!)
-        dimmingView.isUserInteractionEnabled = true // UIImageView默认userInteractionEnabled为NO，为了兼容UIImageView，这里必须主动设置为YES
     }
 
     @objc func handleDimmingViewTapGestureRecognizer(_: UITapGestureRecognizer) {
@@ -526,28 +531,28 @@ open class SKModalPresentationViewController: UIViewController {
     private func showingAnimation(_ completion: ((Bool) -> Void)?) {
         if animationStyle == .fade {
             dimmingView?.alpha = 0.0
-            contentView?.alpha = 0.0
+            contentView.alpha = 0.0
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveOut, animations: {
                 self.dimmingView?.alpha = 1.0
-                self.contentView?.alpha = 1.0
+                self.contentView.alpha = 1.0
             }, completion: completion)
         } else if animationStyle == .popup {
             dimmingView?.alpha = 0.0
-            contentView?.transform = CGAffineTransform(scaleX: 0, y: 0)
+            contentView.transform = CGAffineTransform(scaleX: 0, y: 0)
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveOut, animations: {
                 self.dimmingView?.alpha = 1.0
-                self.contentView?.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.contentView.transform = CGAffineTransform(scaleX: 1, y: 1)
             }, completion: { finished in
-                self.contentView?.transform = .identity
+                self.contentView.transform = .identity
                 completion?(finished)
             })
         } else if animationStyle == .slide {
             dimmingView?.alpha = 0.0
-            contentView?.transform = CGAffineTransform(translationX: 0, y: view.bounds.height - contentView!.frame.minY)
+            contentView.transform = CGAffineTransform(translationX: 0, y: view.bounds.height - contentView.frame.minY)
 
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveOut, animations: {
                 self.dimmingView?.alpha = 1.0
-                self.contentView?.transform = .identity
+                self.contentView.transform = .identity
             }, completion: completion)
         }
     }
@@ -578,25 +583,25 @@ open class SKModalPresentationViewController: UIViewController {
         if animationStyle == .fade {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveOut, animations: {
                 self.dimmingView?.alpha = 0.0
-                self.contentView?.alpha = 0.0
+                self.contentView.alpha = 0.0
             }, completion: completion)
         } else if animationStyle == .popup {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveOut, animations: {
                 self.dimmingView?.alpha = 0.0
-                self.contentView?.transform = CGAffineTransform(scaleX: 0, y: 0)
+                self.contentView.transform = CGAffineTransform(scaleX: 0, y: 0)
             }, completion: { finished in
                 if let completion = completion {
-                    self.contentView?.transform = .identity
+                    self.contentView.transform = .identity
                     completion(finished)
                 }
             })
         } else if animationStyle == .slide {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveOut, animations: {
                 self.dimmingView?.alpha = 0.0
-                self.contentView?.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height - self.contentView!.frame.minY)
+                self.contentView.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height - self.contentView.frame.minY)
             }, completion: { finished in
                 if let completion = completion {
-                    self.contentView?.transform = .identity
+                    self.contentView.transform = .identity
                     completion(finished)
                 }
             })
@@ -664,27 +669,32 @@ open class SKModalPresentationViewController: UIViewController {
         if let contentViewController = contentViewController {
             contentViewSize = contentViewController.preferredContentSize?(inModalPresentationViewController: self, keyboardHeight: keyboardHeight, limitSize: contentViewLimitSize) ?? .zero
         } else {
-            contentViewSize = contentView!.sizeThatFits(contentViewLimitSize)
+            contentViewSize = contentView.sizeThatFits(contentViewLimitSize)
         }
         contentViewSize.width = min(contentViewLimitSize.width, contentViewSize.width)
         contentViewSize.height = min(contentViewLimitSize.height, contentViewSize.height)
         
         var contentViewFrame: CGRect
-        if verticalAlignment == .top {
+        switch verticalAlignment {
+        case .top:
             contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width) + contentViewMargins.left,
                                       y: contentViewContainerSize.height.center(contentViewSize.height) + contentViewMargins.top,
                                       width: contentViewSize.width,
                                       height: contentViewSize.height)
-        }
-        else {
+        case .center:
+            contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width),
+                                      y: contentViewContainerSize.width.center(contentViewSize.height),
+                                      width: contentViewSize.width,
+                                      height: contentViewSize.height)
+        case .bottom:
             contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width) + contentViewMargins.left,
-                                      y: view.bounds.height - contentViewSize.height - contentViewMargins.bottom,
+                                      y: contentViewContainerSize.height - contentViewSize.height - contentViewMargins.bottom,
                                       width: contentViewSize.width,
                                       height: contentViewSize.height)
         }
 
         // showingAnimation、hidingAnimation里会通过设置contentView的transform来做动画，所以可能在showing的过程中设置了transform后，系统触发viewDidLayoutSubviews，在viewDidLayoutSubviews里计算的frame又是最终状态的frame，与showing时的transform冲突，导致动画过程中浮层跳动或者位置错误，所以为了保证layout时计算出来的frame与showing/hiding时计算的frame一致，这里给frame应用了transform。但这种处理方法也有局限：如果你在showingAnimation/hidingAnimation里对contentView.frame的更改不是通过修改transform而是直接修改frame来得到结果，那么这里这句CGRectApplyAffineTransform就没用了，viewDidLayoutSubviews里算出来的frame依然会和showingAnimation/hidingAnimation冲突。
-        contentViewFrame = contentViewFrame.applying(contentView!.transform)
+        contentViewFrame = contentViewFrame.applying(contentView.transform)
         return contentViewFrame
     }
 
