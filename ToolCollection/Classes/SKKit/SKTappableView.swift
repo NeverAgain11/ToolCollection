@@ -54,14 +54,12 @@ open class SKTappableView: UIView {
     
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        guard isUserInteractionEnabled else { return }
         
         setIsHighlighted(false)
     }
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        guard isUserInteractionEnabled else { return }
         
         setIsHighlighted(false)
     }
@@ -91,7 +89,12 @@ open class SKTappableView: UIView {
     }
     
     func setIsHighlighted(_ isHighlighted: Bool) {
-        alpha = isHighlighted ? 0.5 : 1
+        let canHighlight = tapHandler != nil
+        if canHighlight {
+            alpha = isHighlighted ? 0.5 : 1
+        } else {
+            alpha = 1
+        }
     }
 
 }
