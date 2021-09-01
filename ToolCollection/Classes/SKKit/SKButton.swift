@@ -39,6 +39,8 @@ open class SKEventButton<E>: SKButton {
     }
 }
 
+fileprivate let QMUIButtonCornerRadiusAdjustsBounds: CGFloat = -1
+
 open class SKButton: UIButton {
     open var action: SKButtonAction?
     
@@ -121,6 +123,12 @@ open class SKButton: UIButton {
         }
     }
     
+    @IBInspectable public var cornerRadius: CGFloat = QMUIButtonCornerRadiusAdjustsBounds { // 默认为 QMUIButtonCornerRadiusAdjustsBounds，也即固定保持按钮高度的一半。
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
         didInitialized()
@@ -165,10 +173,14 @@ open class SKButton: UIButton {
         
     }
     
+    private var _qmui_imageView: UIImageView? {
+        return perform(NSSelectorFromString("_imageView")).takeUnretainedValue() as? UIImageView
+    }
+    
     override open func sizeThatFits(_ size: CGSize) -> CGSize {
         var size = size
         // 如果调用 sizeToFit，那么传进来的 size 就是当前按钮的 size，此时的计算不要去限制宽高
-        if bounds.size == size {
+        if bounds.size == size || size.isEmpty {
             size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         }
         
@@ -186,15 +198,22 @@ open class SKButton: UIButton {
             // 图片和文字上下排版时，宽度以文字或图片的最大宽度为最终宽度
             if isImageViewShowing {
                 let imageLimitWidth = contentLimitSize.width - imageEdgeInsets.horizontalValue
-                var imageSize = imageView!.sizeThatFits(CGSize(width: imageLimitWidth, height: .greatestFiniteMagnitude)) // 假设图片高度必定完整显示
-                imageSize.width = fmin(imageSize.width, imageLimitWidth)
+                var imageSize: CGSize = {
+                    guard let imageView = imageView else { return .zero }
+                    if let image = imageView.image {
+                        return image.size
+                    }
+                    return imageView.sizeThatFits(CGSize(width: imageLimitWidth, height: .greatestFiniteMagnitude))
+                }()
+                
+                imageSize.width = min(imageSize.width, imageLimitWidth)
                 imageTotalSize = CGSize(width: imageSize.width + imageEdgeInsets.horizontalValue, height: imageSize.height + imageEdgeInsets.verticalValue)
             }
             
             if isTitleLabelShowing {
                 let titleLimitSize = CGSize(width: contentLimitSize.width - titleEdgeInsets.horizontalValue, height: contentLimitSize.height - imageTotalSize.height - spacingBetweenImageAndTitle - titleEdgeInsets.verticalValue)
                 var titleSize = titleLabel!.sizeThatFits(titleLimitSize)
-                titleSize.height = fmin(titleSize.height, titleLimitSize.height)
+                titleSize.height = min(titleSize.height, titleLimitSize.height)
                 titleTotalSize = CGSize(width: titleSize.width + titleEdgeInsets.horizontalValue, height: titleSize.height + titleEdgeInsets.verticalValue)
             }
             
@@ -207,15 +226,22 @@ open class SKButton: UIButton {
             // 注意这里有一个和系统不一致的行为：当 titleLabel 为多行时，系统的 sizeThatFits: 计算结果固定是单行的，所以当 QMUIButtonImagePositionLeft 并且titleLabel 多行的情况下，QMUIButton 计算的结果与系统不一致
             if isImageViewShowing {
                 let imageLimitHeight = contentLimitSize.height - imageEdgeInsets.verticalValue
-                var imageSize = imageView!.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: imageLimitHeight)) // 假设图片高度必定完整显示
-                imageSize.height = fmin(imageSize.height, imageLimitHeight)
+                
+                var imageSize: CGSize = {
+                    guard let imageView = imageView else { return .zero }
+                    if let image = imageView.image {
+                        return image.size
+                    }
+                    return imageView.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: imageLimitHeight))
+                }()
+                imageSize.height = min(imageSize.height, imageLimitHeight)
                 imageTotalSize = CGSize(width: imageSize.width + imageEdgeInsets.horizontalValue, height: imageSize.height + imageEdgeInsets.verticalValue)
             }
             
             if isTitleLabelShowing {
                 let titleLimitSize = CGSize(width: contentLimitSize.width - titleEdgeInsets.horizontalValue - imageTotalSize.width - spacingBetweenImageAndTitle, height: contentLimitSize.height -  titleEdgeInsets.verticalValue)
                 var titleSize = titleLabel!.sizeThatFits(titleLimitSize)
-                titleSize.height = fmin(titleSize.height, titleLimitSize.height)
+                titleSize.height = min(titleSize.height, titleLimitSize.height)
                 titleTotalSize = CGSize(width: titleSize.width + titleEdgeInsets.horizontalValue, height: titleSize.height + titleEdgeInsets.verticalValue)
             }
             
@@ -238,6 +264,10 @@ open class SKButton: UIButton {
             return
         }
         
+        if cornerRadius == QMUIButtonCornerRadiusAdjustsBounds {
+            layer.cornerRadius = self.bounds.height / 2
+        }
+        
         let isImageViewShowing = imageView != nil && !imageView!.isHidden
         let isTitleLabelShowing = titleLabel != nil && !titleLabel!.isHidden
         var imageLimitSize = CGSize.zero
@@ -253,19 +283,44 @@ open class SKButton: UIButton {
         // 图片的布局原则都是尽量完整展示，所以不管 imagePosition 的值是什么，这个计算过程都是相同的
         if isImageViewShowing {
             imageLimitSize = CGSize(width: contentSize.width - imageEdgeInsets.horizontalValue, height: contentSize.height - imageEdgeInsets.verticalValue)
-            var imageSize = imageView!.sizeThatFits(imageLimitSize)
-            imageSize.width = fmin(imageSize.width, imageLimitSize.width)
-            imageSize.height = fmin(imageSize.height, imageLimitSize.height)
+            var imageSize: CGSize = {
+                guard let imageView = _qmui_imageView else { return .zero }
+                if let _ = imageView.image, let currentImage = currentImage {
+                    return currentImage.size
+                }
+                return imageView.sizeThatFits(imageLimitSize)
+            }()
+            
+            imageSize.width = min(imageSize.width, imageLimitSize.width)
+            imageSize.height = min(imageSize.height, imageLimitSize.height)
             imageFrame = imageSize.rect
             imageTotalSize = CGSize(width: imageSize.width + imageEdgeInsets.horizontalValue, height: imageSize.height + imageEdgeInsets.verticalValue)
+        }
+        
+        // UIButton 如果本身大小为 (0,0)，此时设置一个 imageEdgeInsets 会让 imageView 的 bounds 错误，导致后续 imageView 的 subviews 布局时会产生偏移，因此这里做一次保护
+        // https://github.com/Tencent/QMUI_iOS/issues/1012
+        func makesureBoundsPositive(_ view: UIView?) {
+            guard let view = view else { return }
+            var bounds = view.bounds
+            if bounds.minX < 0 || bounds.minY < 0 {
+                bounds = CGRect(origin: .zero, size: bounds.size)
+                view.bounds = bounds
+            }
+        }
+        
+        if isImageViewShowing {
+            makesureBoundsPositive(_qmui_imageView)
+        }
+        if isTitleLabelShowing {
+            makesureBoundsPositive(titleLabel)
         }
         
         if imagePosition == .top || imagePosition == .bottom {
             if isTitleLabelShowing {
                 titleLimitSize = CGSize(width: contentSize.width - titleEdgeInsets.horizontalValue, height: contentSize.height - imageTotalSize.height - spacingBetweenImageAndTitle - titleEdgeInsets.verticalValue)
                 var titleSize = titleLabel!.sizeThatFits(titleLimitSize)
-                titleSize.width = fmin(titleSize.width, titleLimitSize.width)
-                titleSize.height = fmin(titleSize.height, titleLimitSize.height)
+                titleSize.width = min(titleSize.width, titleLimitSize.width)
+                titleSize.height = min(titleSize.height, titleLimitSize.height)
                 titleFrame = titleSize.rect
                 titleTotalSize = CGSize(width: titleSize.width + titleEdgeInsets.horizontalValue, height: titleSize.height + titleEdgeInsets.verticalValue)
             }
@@ -352,15 +407,15 @@ open class SKButton: UIButton {
                 }
             }
             
-            imageView?.frame = imageFrame.flatted
+            _qmui_imageView?.frame = imageFrame.flatted
             titleLabel?.frame = titleFrame.flatted
         } else if imagePosition == .left || imagePosition == .right {
             
             if isTitleLabelShowing {
                 titleLimitSize = CGSize(width: contentSize.width - titleEdgeInsets.horizontalValue - imageTotalSize.width - spacingBetweenImageAndTitle, height: contentSize.height - titleEdgeInsets.verticalValue)
                 var titleSize = titleLabel!.sizeThatFits(titleLimitSize)
-                titleSize.width = fmin(titleLimitSize.width, titleSize.width)
-                titleSize.height = fmin(titleLimitSize.height, titleSize.height)
+                titleSize.width = min(titleLimitSize.width, titleSize.width)
+                titleSize.height = min(titleLimitSize.height, titleSize.height)
                 titleFrame = titleSize.rect
                 titleTotalSize = CGSize(width: titleSize.width + titleEdgeInsets.horizontalValue, height: titleSize.height + titleEdgeInsets.verticalValue)
             }
@@ -461,7 +516,7 @@ open class SKButton: UIButton {
                 }
             }
             
-            imageView?.frame = imageFrame.flatted
+            _qmui_imageView?.frame = imageFrame.flatted
             titleLabel?.frame = titleFrame.flatted
         }
     }
@@ -518,6 +573,7 @@ open class SKButton: UIButton {
         
         highlightedBackgroundLayer.frame = bounds
         highlightedBackgroundLayer.cornerRadius = layer.cornerRadius
+        
         highlightedBackgroundLayer.backgroundColor = isHighlighted ? highlightedBackgroundColor.cgColor : UIColor.clear.cgColor
         
         if let highlightedBorderColor = highlightedBorderColor {
@@ -538,6 +594,14 @@ open class SKButton: UIButton {
         if let disableBorderColor = disableBorderColor {
             layer.borderColor = isEnabled ? disableBorderColor.cgColor : originBorderColor?.cgColor
         }
+    }
+    
+    func setCornerRadius(_ cornerRadius: CGFloat) {
+        self.cornerRadius = cornerRadius
+        if cornerRadius != QMUIButtonCornerRadiusAdjustsBounds {
+            layer.cornerRadius = cornerRadius
+        }
+        setNeedsLayout()
     }
     
     open func addAction(_ action: @escaping SKButtonAction) {

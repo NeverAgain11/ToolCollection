@@ -16,7 +16,7 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - Texture/Core (3.0.0)
-  - ToolCollection (0.5.8):
+  - ToolCollection (0.6.3):
     - CleanJSON
     - DifferenceKit
     - MMKV
@@ -51,8 +51,8 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
-  ToolCollection: c29fabe2b20c2f22cf641ab89b9f1be295b8a2f9
+  ToolCollection: 0b4c6d4e9fb773c063a3e9b60a61b23abb638dac
 
 PODFILE CHECKSUM: c4cb8e934f0ddb3994290e0c824b283a901a44f1
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.2
