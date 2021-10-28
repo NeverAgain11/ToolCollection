@@ -45,9 +45,6 @@ class SecondViewController: UIViewController {
         return true
     }
     
-    override func responseEvent(_ event: UIResponder.Event) {
-        
-    }
 }
 
 private extension SecondViewController {

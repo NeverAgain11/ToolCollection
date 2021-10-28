@@ -33,12 +33,6 @@ open class SKFillButton: SKButton {
         }
     }
     
-    @IBInspectable @objc open dynamic var cornerRadius: CGFloat = SKFillButtonCornerRadiusAdjustsBounds { // 默认为 SKFillButtonCornerRadiusAdjustsBounds，也即固定保持按钮高度的一半。
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
     /**
      *  控制按钮里面的图片是否也要跟随 `titleTextColor` 一起变化，默认为 `NO`
      */
@@ -68,7 +62,7 @@ open class SKFillButton: SKButton {
     private func didInitialized(_ fillColor: UIColor, titleTextColor: UIColor) {
         self.fillColor = fillColor
         self.titleTextColor = titleTextColor
-        
+        self.cornerRadius = CornerRadiusAdjustsBounds
     }
     
     override open func setImage(_ image: UIImage?, for state: UIControl.State) {
@@ -99,7 +93,7 @@ open class SKFillButton: SKButton {
     
     override open func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        if self.cornerRadius != SKFillButtonCornerRadiusAdjustsBounds {
+        if self.cornerRadius != CornerRadiusAdjustsBounds {
             self.layer.cornerRadius = self.cornerRadius
         } else {
             self.layer.cornerRadius = self.bounds.height / 2

@@ -8,7 +8,7 @@
 
 import UIKit
 
-@_functionBuilder
+@resultBuilder
 public struct StackViewBuilder {
     public static func buildBlock(_ views: UIView...) -> [UIView] {
         return views

@@ -39,7 +39,7 @@ open class SKEventButton<E>: SKButton {
     }
 }
 
-fileprivate let QMUIButtonCornerRadiusAdjustsBounds: CGFloat = -1
+let CornerRadiusAdjustsBounds: CGFloat = -1
 
 open class SKButton: UIButton {
     open var action: SKButtonAction?
@@ -123,7 +123,7 @@ open class SKButton: UIButton {
         }
     }
     
-    @IBInspectable public var cornerRadius: CGFloat = QMUIButtonCornerRadiusAdjustsBounds { // 默认为 QMUIButtonCornerRadiusAdjustsBounds，也即固定保持按钮高度的一半。
+    @IBInspectable public var cornerRadius: CGFloat = 0 { // 默认为 CornerRadiusAdjustsBounds，也即固定保持按钮高度的一半。
         didSet {
             setNeedsLayout()
         }
@@ -264,7 +264,7 @@ open class SKButton: UIButton {
             return
         }
         
-        if cornerRadius == QMUIButtonCornerRadiusAdjustsBounds {
+        if cornerRadius == CornerRadiusAdjustsBounds {
             layer.cornerRadius = self.bounds.height / 2
         }
         
@@ -598,7 +598,7 @@ open class SKButton: UIButton {
     
     func setCornerRadius(_ cornerRadius: CGFloat) {
         self.cornerRadius = cornerRadius
-        if cornerRadius != QMUIButtonCornerRadiusAdjustsBounds {
+        if cornerRadius != CornerRadiusAdjustsBounds {
             layer.cornerRadius = cornerRadius
         }
         setNeedsLayout()

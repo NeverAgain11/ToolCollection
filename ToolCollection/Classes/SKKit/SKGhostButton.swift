@@ -36,12 +36,6 @@ open class SKGhostButton: SKButton {
         }
     }
     
-    @IBInspectable @objc dynamic open var cornerRadius: CGFloat = SKGhostButtonCornerRadiusAdjustsBounds { // 默认为 SKGhostButtonCornerRadiusAdjustsBounds，也即固定保持按钮高度的一半。
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
     /**
      *  控制按钮里面的图片是否也要跟随 `ghostColor` 一起变化，默认为 `NO`
      */
@@ -61,6 +55,7 @@ open class SKGhostButton: SKButton {
     private func didInitialized(_ ghostColor:UIColor) {
         self.ghostColor = ghostColor
         self.borderWidth = 1
+        self.cornerRadius = CornerRadiusAdjustsBounds
     }
     
     convenience public init() {
