@@ -370,3 +370,10 @@ public extension SKHelper {
         return emailTest.evaluate(with: email)
     }
 }
+
+public extension SKHelper {
+    static let libraryPath: String = {
+        let paths = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)
+        return paths[0]
+    }()
+}

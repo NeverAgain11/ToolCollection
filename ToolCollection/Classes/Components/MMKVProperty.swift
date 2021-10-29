@@ -49,7 +49,7 @@ public class OptionalMMKVProperty<T: Codable> {
             case is Double.Type:
                 return self.mmkv.double(forKey: self.key, defaultValue: ((self.defaultValue as? Double) ?? 0)) as? T
             default:
-                if let object = mmkv.codableObject(forKey: key, as: T.self) {
+                if let object = mmkv.object(forKey: key, as: T.self) {
                     return object
                 }
                 return defaultValue;
@@ -83,7 +83,7 @@ public class OptionalMMKVProperty<T: Codable> {
             case let uint64 as UInt64:
                 self.mmkv.set(uint64, forKey: self.key)
             default:
-                self.mmkv.setCodableObject(newValue, forKey: key)
+                self.mmkv.setObject(newValue, forKey: key)
             }
         }
     }
@@ -129,7 +129,7 @@ public class MMKVProperty<T: Codable> {
             case is Double.Type:
                 return self.mmkv.double(forKey: self.key, defaultValue: self.defaultValue as! Double) as! T
             default:
-                if let object = mmkv.codableObject(forKey: key, as: T.self) {
+                if let object = mmkv.object(forKey: key, as: T.self) {
                     return object
                 }
                 return defaultValue;
@@ -163,7 +163,7 @@ public class MMKVProperty<T: Codable> {
             case let uint64 as UInt64:
                 self.mmkv.set(uint64, forKey: self.key)
             default:
-                self.mmkv.setCodableObject(newValue, forKey: key)
+                self.mmkv.setObject(newValue, forKey: key)
             }
         }
     }
@@ -171,13 +171,16 @@ public class MMKVProperty<T: Codable> {
 
 extension MMKV {
     
-    public static var skRelativePath: String? = nil {
+    static private let didInitialize = false
+    
+    public static var skRelativePath: String? = SKHelper.libraryPath.appending("MMKV") {
         didSet {
-            MMKV.initialize(rootDir: nil)
+            initializeMMKV()
         }
     }
     
-    class func customMMKV(mmkvID: String? = nil) -> MMKV {
+    static func customMMKV(mmkvID: String? = "default") -> MMKV {
+        initializeMMKV()
         if let mmkvID = mmkvID, let mmkv = MMKV(mmapID: mmkvID, rootPath: MMKV.skRelativePath) {
             return mmkv
         } else {
@@ -185,26 +188,14 @@ extension MMKV {
         }
     }
     
+    static private func initializeMMKV() {
+        guard !didInitialize else { return }
+        MMKV.initialize(rootDir: nil)
+    }
 }
 
-fileprivate extension MMKV {
-    func setObject(_ object: Any?, forKey key: String) {
-        if let object = object, let data = try? JSONSerialization.data(withJSONObject: object, options: []) {
-            self.set(data, forKey: key)
-        }
-        else {
-            self.removeValue(forKey: key)
-        }
-    }
-    
-    func object<T>(forKey key: String, as _: T.Type) -> T? {
-        if let data = self.data(forKey: key), let value = try? JSONSerialization.jsonObject(with: data, options: []) as? T {
-            return value
-        }
-        return nil
-    }
-    
-    func setCodableObject<T: Codable>(_ object: T?, forKey key: String) {
+public extension MMKV {
+    func setObject<T: Codable>(_ object: T?, forKey key: String) {
         if let data = try? JSONEncoder().encode(object) {
             set(data, forKey: key)
         } else {
@@ -212,10 +203,11 @@ fileprivate extension MMKV {
         }
     }
     
-    func codableObject<T: Codable>(forKey key: String, as _: T.Type) -> T? {
+    func object<T: Codable>(forKey key: String, as _: T.Type) -> T? {
         if let data = self.data(forKey: key), let value = try? CleanJSONDecoder().decode(T.self, from: data) {
             return value
         }
         return nil
     }
+    
 }
