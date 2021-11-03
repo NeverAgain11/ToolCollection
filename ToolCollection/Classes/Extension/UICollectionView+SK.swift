@@ -21,6 +21,21 @@ public extension UICollectionView {
             
         })
     }
+    
+    var fullyVisibleCells : [UICollectionViewCell] {
+        let cells = visibleCells.filter { cell in
+            let cellRect = convert(cell.frame, to: superview)
+            return frame.contains(cellRect)
+        }
+        return cells
+    }
+    
+    var fullyVisibleIndexPaths : [IndexPath] {
+        let cells = fullyVisibleCells
+        let indexPaths = cells.compactMap { indexPath(for: $0) }
+        return indexPaths
+    }
+    
 }
 
 public extension UITableView {
