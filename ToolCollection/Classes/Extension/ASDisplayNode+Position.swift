@@ -143,7 +143,7 @@ open class SKControlNode<E>: ASControlNode {
     }
 }
 
-fileprivate let queue = DispatchQueue.global()
+fileprivate let queue = DispatchQueue(label: "com.summer.node.identifier", qos: .background, attributes: .concurrent)
 
 open class BaseDisplayNode: ASDisplayNode {
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,53 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		C4922FDF275860170068CB91 /* yyjson in Frameworks */ = {isa = PBXBuildFile; productRef = C4922FDE275860170068CB91 /* yyjson */; };
+		C4922FE2275860680068CB91 /* YYJSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FE1275860680068CB91 /* YYJSONSerialization.swift */; };
+		C4922FE5275862C10068CB91 /* ZippyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C4922FE4275862C10068CB91 /* ZippyJSON */; };
+		C4923015275863410068CB91 /* random.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FE7275863410068CB91 /* random.swift */; };
+		C4923016275863410068CB91 /* entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FE8275863410068CB91 /* entities.swift */; };
+		C4923017275863410068CB91 /* mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FE9275863410068CB91 /* mesh.swift */; };
+		C4923018275863410068CB91 /* marine_ik.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FEA275863410068CB91 /* marine_ik.json */; };
+		C4923019275863410068CB91 /* github_events.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FEB275863410068CB91 /* github_events.json */; };
+		C492301A275863410068CB91 /* mesh.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FEC275863410068CB91 /* mesh.json */; };
+		C492301B275863410068CB91 /* apache_builds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FED275863410068CB91 /* apache_builds.swift */; };
+		C492301C275863410068CB91 /* twitterCamel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FEE275863410068CB91 /* twitterCamel.swift */; };
+		C492301D275863410068CB91 /* instruments.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FEF275863410068CB91 /* instruments.json */; };
+		C492301E275863410068CB91 /* twitterescaped.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF0275863410068CB91 /* twitterescaped.json */; };
+		C492301F275863410068CB91 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FF1275863410068CB91 /* user.swift */; };
+		C4923020275863410068CB91 /* random.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF2275863410068CB91 /* random.json */; };
+		C4923021275863410068CB91 /* twitter2.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF3275863410068CB91 /* twitter2.json */; };
+		C4923022275863410068CB91 /* numbers.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF4275863410068CB91 /* numbers.json */; };
+		C4923023275863410068CB91 /* entities.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF5275863410068CB91 /* entities.json */; };
+		C4923024275863410068CB91 /* twitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FF6275863410068CB91 /* twitter.swift */; };
+		C4923025275863410068CB91 /* json_to_swift.rb in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF7275863410068CB91 /* json_to_swift.rb */; };
+		C4923026275863410068CB91 /* canada.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FF8275863410068CB91 /* canada.swift */; };
+		C4923027275863410068CB91 /* canada.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FF9275863410068CB91 /* canada.json */; };
+		C4923028275863410068CB91 /* github_events.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FFA275863410068CB91 /* github_events.swift */; };
+		C4923029275863410068CB91 /* twitter.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FFB275863410068CB91 /* twitter.json */; };
+		C492302A275863410068CB91 /* apache_builds.json in Resources */ = {isa = PBXBuildFile; fileRef = C4922FFC275863410068CB91 /* apache_builds.json */; };
+		C492302B275863410068CB91 /* ZippyJSONDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FFD275863410068CB91 /* ZippyJSONDecoderTests.swift */; };
+		C492302C275863410068CB91 /* CodableMultifile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FFE275863410068CB91 /* CodableMultifile.swift */; };
+		C492302D275863410068CB91 /* AppleJSONDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FFF275863410068CB91 /* AppleJSONDecoderTests.swift */; };
+		C492302E275863410068CB91 /* StdlibUnittest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923000275863410068CB91 /* StdlibUnittest.swift */; };
+		C492302F275863410068CB91 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923001275863410068CB91 /* JSONTests.swift */; };
+		C4923030275863410068CB91 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923002275863410068CB91 /* XCTestManifests.swift */; };
+		C4923031275863410068CB91 /* CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923003275863410068CB91 /* CodableTests.swift */; };
+		C4923032275863410068CB91 /* BinaryEncodingKeyedContainerNegativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923005275863410068CB91 /* BinaryEncodingKeyedContainerNegativeTests.swift */; };
+		C4923033275863410068CB91 /* BinaryEncodingUnkeyedContainerNegativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923006275863410068CB91 /* BinaryEncodingUnkeyedContainerNegativeTests.swift */; };
+		C4923034275863410068CB91 /* BinaryEncodingStructuredTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923007275863410068CB91 /* BinaryEncodingStructuredTypeTests.swift */; };
+		C4923035275863410068CB91 /* BinaryEncodingUnkeyedContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923008275863410068CB91 /* BinaryEncodingUnkeyedContainerTests.swift */; };
+		C4923036275863410068CB91 /* BasicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492300A275863410068CB91 /* BasicType.swift */; };
+		C4923037275863410068CB91 /* EquatableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492300B275863410068CB91 /* EquatableType.swift */; };
+		C4923038275863410068CB91 /* ComplexSubclassClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492300C275863410068CB91 /* ComplexSubclassClass.swift */; };
+		C4923039275863410068CB91 /* CodableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492300D275863410068CB91 /* CodableType.swift */; };
+		C492303A275863410068CB91 /* ComplexType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492300E275863410068CB91 /* ComplexType.swift */; };
+		C492303B275863410068CB91 /* BinaryEncodingKeyedContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C492300F275863410068CB91 /* BinaryEncodingKeyedContainerTests.swift */; };
+		C492303C275863410068CB91 /* DocumentationExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923010275863410068CB91 /* DocumentationExampleTests.swift */; };
+		C492303D275863410068CB91 /* BinaryEncoderNegativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923011275863410068CB91 /* BinaryEncoderNegativeTests.swift */; };
+		C492303E275863410068CB91 /* BinaryEncodingSingleValueContainerNegativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923012275863410068CB91 /* BinaryEncodingSingleValueContainerNegativeTests.swift */; };
+		C492303F275863410068CB91 /* BinaryDecoderNegativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923013275863410068CB91 /* BinaryDecoderNegativeTests.swift */; };
+		C4923040275863410068CB91 /* EncodeDecodeTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4923014275863410068CB91 /* EncodeDecodeTester.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +85,51 @@
 		641E534F8870B210A6A8FC2E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		99CB2C5F00774048E06E56AE /* libPods-ToolCollection_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToolCollection_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B6604B6212970A0964EC3D /* ToolCollection.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ToolCollection.podspec; path = ../ToolCollection.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C4922FE1275860680068CB91 /* YYJSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYJSONSerialization.swift; sourceTree = "<group>"; };
+		C4922FE7275863410068CB91 /* random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random.swift; sourceTree = "<group>"; };
+		C4922FE8275863410068CB91 /* entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = entities.swift; sourceTree = "<group>"; };
+		C4922FE9275863410068CB91 /* mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mesh.swift; sourceTree = "<group>"; };
+		C4922FEA275863410068CB91 /* marine_ik.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = marine_ik.json; sourceTree = "<group>"; };
+		C4922FEB275863410068CB91 /* github_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = github_events.json; sourceTree = "<group>"; };
+		C4922FEC275863410068CB91 /* mesh.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mesh.json; sourceTree = "<group>"; };
+		C4922FED275863410068CB91 /* apache_builds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apache_builds.swift; sourceTree = "<group>"; };
+		C4922FEE275863410068CB91 /* twitterCamel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = twitterCamel.swift; sourceTree = "<group>"; };
+		C4922FEF275863410068CB91 /* instruments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instruments.json; sourceTree = "<group>"; };
+		C4922FF0275863410068CB91 /* twitterescaped.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = twitterescaped.json; sourceTree = "<group>"; };
+		C4922FF1275863410068CB91 /* user.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		C4922FF2275863410068CB91 /* random.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = random.json; sourceTree = "<group>"; };
+		C4922FF3275863410068CB91 /* twitter2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = twitter2.json; sourceTree = "<group>"; };
+		C4922FF4275863410068CB91 /* numbers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = numbers.json; sourceTree = "<group>"; };
+		C4922FF5275863410068CB91 /* entities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = entities.json; sourceTree = "<group>"; };
+		C4922FF6275863410068CB91 /* twitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = twitter.swift; sourceTree = "<group>"; };
+		C4922FF7275863410068CB91 /* json_to_swift.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = json_to_swift.rb; sourceTree = "<group>"; };
+		C4922FF8275863410068CB91 /* canada.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = canada.swift; sourceTree = "<group>"; };
+		C4922FF9275863410068CB91 /* canada.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = canada.json; sourceTree = "<group>"; };
+		C4922FFA275863410068CB91 /* github_events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = github_events.swift; sourceTree = "<group>"; };
+		C4922FFB275863410068CB91 /* twitter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = twitter.json; sourceTree = "<group>"; };
+		C4922FFC275863410068CB91 /* apache_builds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = apache_builds.json; sourceTree = "<group>"; };
+		C4922FFD275863410068CB91 /* ZippyJSONDecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZippyJSONDecoderTests.swift; sourceTree = "<group>"; };
+		C4922FFE275863410068CB91 /* CodableMultifile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableMultifile.swift; sourceTree = "<group>"; };
+		C4922FFF275863410068CB91 /* AppleJSONDecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleJSONDecoderTests.swift; sourceTree = "<group>"; };
+		C4923000275863410068CB91 /* StdlibUnittest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StdlibUnittest.swift; sourceTree = "<group>"; };
+		C4923001275863410068CB91 /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
+		C4923002275863410068CB91 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
+		C4923003275863410068CB91 /* CodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableTests.swift; sourceTree = "<group>"; };
+		C4923005275863410068CB91 /* BinaryEncodingKeyedContainerNegativeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncodingKeyedContainerNegativeTests.swift; sourceTree = "<group>"; };
+		C4923006275863410068CB91 /* BinaryEncodingUnkeyedContainerNegativeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncodingUnkeyedContainerNegativeTests.swift; sourceTree = "<group>"; };
+		C4923007275863410068CB91 /* BinaryEncodingStructuredTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncodingStructuredTypeTests.swift; sourceTree = "<group>"; };
+		C4923008275863410068CB91 /* BinaryEncodingUnkeyedContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncodingUnkeyedContainerTests.swift; sourceTree = "<group>"; };
+		C492300A275863410068CB91 /* BasicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicType.swift; sourceTree = "<group>"; };
+		C492300B275863410068CB91 /* EquatableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquatableType.swift; sourceTree = "<group>"; };
+		C492300C275863410068CB91 /* ComplexSubclassClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexSubclassClass.swift; sourceTree = "<group>"; };
+		C492300D275863410068CB91 /* CodableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableType.swift; sourceTree = "<group>"; };
+		C492300E275863410068CB91 /* ComplexType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexType.swift; sourceTree = "<group>"; };
+		C492300F275863410068CB91 /* BinaryEncodingKeyedContainerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncodingKeyedContainerTests.swift; sourceTree = "<group>"; };
+		C4923010275863410068CB91 /* DocumentationExampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentationExampleTests.swift; sourceTree = "<group>"; };
+		C4923011275863410068CB91 /* BinaryEncoderNegativeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncoderNegativeTests.swift; sourceTree = "<group>"; };
+		C4923012275863410068CB91 /* BinaryEncodingSingleValueContainerNegativeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryEncodingSingleValueContainerNegativeTests.swift; sourceTree = "<group>"; };
+		C4923013275863410068CB91 /* BinaryDecoderNegativeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryDecoderNegativeTests.swift; sourceTree = "<group>"; };
+		C4923014275863410068CB91 /* EncodeDecodeTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodeDecodeTester.swift; sourceTree = "<group>"; };
 		E509B8BF4DD0598367A64F5F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +138,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4922FDF275860170068CB91 /* yyjson in Frameworks */,
 				2F212327B50B9DA48369C113 /* libPods-ToolCollection_Example.a in Frameworks */,
+				C4922FE5275862C10068CB91 /* ZippyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +206,7 @@
 		607FACD21AFB9204008FA782 /* Example for ToolCollection */ = {
 			isa = PBXGroup;
 			children = (
+				C4922FE0275860590068CB91 /* YYJSON */,
 				04EAAF6423BF8DF700E3332A /* Global */,
 				025F82D92456D530001677CB /* View */,
 				04EAAF6323BF8DF000E3332A /* Controller */,
@@ -135,7 +230,16 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C4922FFF275863410068CB91 /* AppleJSONDecoderTests.swift */,
+				C4922FFE275863410068CB91 /* CodableMultifile.swift */,
+				C4923003275863410068CB91 /* CodableTests.swift */,
+				C4923001275863410068CB91 /* JSONTests.swift */,
+				C4923000275863410068CB91 /* StdlibUnittest.swift */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				C4923002275863410068CB91 /* XCTestManifests.swift */,
+				C4922FFD275863410068CB91 /* ZippyJSONDecoderTests.swift */,
+				C4922FE6275863410068CB91 /* Models */,
+				C4923004275863410068CB91 /* StickyEncodingTests */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -168,6 +272,73 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C4922FE0275860590068CB91 /* YYJSON */ = {
+			isa = PBXGroup;
+			children = (
+				C4922FE1275860680068CB91 /* YYJSONSerialization.swift */,
+			);
+			name = YYJSON;
+			sourceTree = "<group>";
+		};
+		C4922FE6275863410068CB91 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C4922FE7275863410068CB91 /* random.swift */,
+				C4922FE8275863410068CB91 /* entities.swift */,
+				C4922FE9275863410068CB91 /* mesh.swift */,
+				C4922FEA275863410068CB91 /* marine_ik.json */,
+				C4922FEB275863410068CB91 /* github_events.json */,
+				C4922FEC275863410068CB91 /* mesh.json */,
+				C4922FED275863410068CB91 /* apache_builds.swift */,
+				C4922FEE275863410068CB91 /* twitterCamel.swift */,
+				C4922FEF275863410068CB91 /* instruments.json */,
+				C4922FF0275863410068CB91 /* twitterescaped.json */,
+				C4922FF1275863410068CB91 /* user.swift */,
+				C4922FF2275863410068CB91 /* random.json */,
+				C4922FF3275863410068CB91 /* twitter2.json */,
+				C4922FF4275863410068CB91 /* numbers.json */,
+				C4922FF5275863410068CB91 /* entities.json */,
+				C4922FF6275863410068CB91 /* twitter.swift */,
+				C4922FF7275863410068CB91 /* json_to_swift.rb */,
+				C4922FF8275863410068CB91 /* canada.swift */,
+				C4922FF9275863410068CB91 /* canada.json */,
+				C4922FFA275863410068CB91 /* github_events.swift */,
+				C4922FFB275863410068CB91 /* twitter.json */,
+				C4922FFC275863410068CB91 /* apache_builds.json */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4923004275863410068CB91 /* StickyEncodingTests */ = {
+			isa = PBXGroup;
+			children = (
+				C4923005275863410068CB91 /* BinaryEncodingKeyedContainerNegativeTests.swift */,
+				C4923006275863410068CB91 /* BinaryEncodingUnkeyedContainerNegativeTests.swift */,
+				C4923007275863410068CB91 /* BinaryEncodingStructuredTypeTests.swift */,
+				C4923008275863410068CB91 /* BinaryEncodingUnkeyedContainerTests.swift */,
+				C4923009275863410068CB91 /* TestFixtures */,
+				C492300F275863410068CB91 /* BinaryEncodingKeyedContainerTests.swift */,
+				C4923010275863410068CB91 /* DocumentationExampleTests.swift */,
+				C4923011275863410068CB91 /* BinaryEncoderNegativeTests.swift */,
+				C4923012275863410068CB91 /* BinaryEncodingSingleValueContainerNegativeTests.swift */,
+				C4923013275863410068CB91 /* BinaryDecoderNegativeTests.swift */,
+				C4923014275863410068CB91 /* EncodeDecodeTester.swift */,
+			);
+			path = StickyEncodingTests;
+			sourceTree = "<group>";
+		};
+		C4923009275863410068CB91 /* TestFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C492300A275863410068CB91 /* BasicType.swift */,
+				C492300B275863410068CB91 /* EquatableType.swift */,
+				C492300C275863410068CB91 /* ComplexSubclassClass.swift */,
+				C492300D275863410068CB91 /* CodableType.swift */,
+				C492300E275863410068CB91 /* ComplexType.swift */,
+			);
+			path = TestFixtures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -185,6 +356,10 @@
 			dependencies = (
 			);
 			name = ToolCollection_Example;
+			packageProductDependencies = (
+				C4922FDE275860170068CB91 /* yyjson */,
+				C4922FE4275862C10068CB91 /* ZippyJSON */,
+			);
 			productName = ToolCollection;
 			productReference = 607FACD01AFB9204008FA782 /* ToolCollection_Example.app */;
 			productType = "com.apple.product-type.application";
@@ -216,6 +391,10 @@
 				Base,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
+			packageReferences = (
+				C4922FDD275860170068CB91 /* XCRemoteSwiftPackageReference "yyjson" */,
+				C4922FE3275862C10068CB91 /* XCRemoteSwiftPackageReference "ZippyJSON" */,
+			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -230,8 +409,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C492301D275863410068CB91 /* instruments.json in Resources */,
+				C492301A275863410068CB91 /* mesh.json in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				C4923027275863410068CB91 /* canada.json in Resources */,
+				C4923020275863410068CB91 /* random.json in Resources */,
+				C4923029275863410068CB91 /* twitter.json in Resources */,
+				C492301E275863410068CB91 /* twitterescaped.json in Resources */,
+				C4923022275863410068CB91 /* numbers.json in Resources */,
+				C4923018275863410068CB91 /* marine_ik.json in Resources */,
+				C4923021275863410068CB91 /* twitter2.json in Resources */,
+				C4923025275863410068CB91 /* json_to_swift.rb in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				C4923019275863410068CB91 /* github_events.json in Resources */,
+				C4923023275863410068CB91 /* entities.json in Resources */,
+				C492302A275863410068CB91 /* apache_builds.json in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,11 +456,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C492302E275863410068CB91 /* StdlibUnittest.swift in Sources */,
+				C4923040275863410068CB91 /* EncodeDecodeTester.swift in Sources */,
+				C4923015275863410068CB91 /* random.swift in Sources */,
 				04EAAF6223BF8DB400E3332A /* SecondViewController.swift in Sources */,
+				C4923024275863410068CB91 /* twitter.swift in Sources */,
+				C492301B275863410068CB91 /* apache_builds.swift in Sources */,
 				025F82DB2456D549001677CB /* SettingSwitch.swift in Sources */,
+				C4923036275863410068CB91 /* BasicType.swift in Sources */,
+				C492302B275863410068CB91 /* ZippyJSONDecoderTests.swift in Sources */,
+				C4922FE2275860680068CB91 /* YYJSONSerialization.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				C492303E275863410068CB91 /* BinaryEncodingSingleValueContainerNegativeTests.swift in Sources */,
+				C4923026275863410068CB91 /* canada.swift in Sources */,
+				C4923034275863410068CB91 /* BinaryEncodingStructuredTypeTests.swift in Sources */,
+				C4923031275863410068CB91 /* CodableTests.swift in Sources */,
 				04EAAF6623BF8E0800E3332A /* ThirdViewController.swift in Sources */,
+				C4923035275863410068CB91 /* BinaryEncodingUnkeyedContainerTests.swift in Sources */,
+				C4923016275863410068CB91 /* entities.swift in Sources */,
+				C492302C275863410068CB91 /* CodableMultifile.swift in Sources */,
+				C4923028275863410068CB91 /* github_events.swift in Sources */,
+				C4923030275863410068CB91 /* XCTestManifests.swift in Sources */,
+				C492302D275863410068CB91 /* AppleJSONDecoderTests.swift in Sources */,
+				C492301F275863410068CB91 /* user.swift in Sources */,
+				C492301C275863410068CB91 /* twitterCamel.swift in Sources */,
+				C492303C275863410068CB91 /* DocumentationExampleTests.swift in Sources */,
+				C492303B275863410068CB91 /* BinaryEncodingKeyedContainerTests.swift in Sources */,
+				C4923039275863410068CB91 /* CodableType.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				C492303A275863410068CB91 /* ComplexType.swift in Sources */,
+				C492303F275863410068CB91 /* BinaryDecoderNegativeTests.swift in Sources */,
+				C4923017275863410068CB91 /* mesh.swift in Sources */,
+				C492303D275863410068CB91 /* BinaryEncoderNegativeTests.swift in Sources */,
+				C4923037275863410068CB91 /* EquatableType.swift in Sources */,
+				C4923038275863410068CB91 /* ComplexSubclassClass.swift in Sources */,
+				C4923032275863410068CB91 /* BinaryEncodingKeyedContainerNegativeTests.swift in Sources */,
+				C4923033275863410068CB91 /* BinaryEncodingUnkeyedContainerNegativeTests.swift in Sources */,
+				C492302F275863410068CB91 /* JSONTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,7 +613,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -406,7 +631,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ToolCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_MODULE_NAME = ToolCollectionExample;
@@ -430,7 +658,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ToolCollection/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_MODULE_NAME = ToolCollectionExample;
@@ -464,6 +695,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C4922FDD275860170068CB91 /* XCRemoteSwiftPackageReference "yyjson" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ibireme/yyjson";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+		C4922FE3275862C10068CB91 /* XCRemoteSwiftPackageReference "ZippyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michaeleisel/ZippyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4922FDE275860170068CB91 /* yyjson */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4922FDD275860170068CB91 /* XCRemoteSwiftPackageReference "yyjson" */;
+			productName = yyjson;
+		};
+		C4922FE4275862C10068CB91 /* ZippyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4922FE3275862C10068CB91 /* XCRemoteSwiftPackageReference "ZippyJSON" */;
+			productName = ZippyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }

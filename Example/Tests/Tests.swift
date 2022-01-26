@@ -1,4 +1,5 @@
 import XCTest
+import ZippyJSON
 
 class Tests: XCTestCase {
     
