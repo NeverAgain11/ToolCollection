@@ -119,7 +119,7 @@ public extension SKHelper {
     
     static let isIPad: Bool = {
         // [[[UIDevice currentDevice] model] isEqualToString:@"iPad"] 无法判断模拟器，改为以下方式
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad
+        return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }()
     
     static var statusBarHeight: CGFloat {
