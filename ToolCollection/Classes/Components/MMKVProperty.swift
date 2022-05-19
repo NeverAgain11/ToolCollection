@@ -173,7 +173,7 @@ extension MMKV {
     
     static private let didInitialize = false
     
-    public static var skRelativePath: String? = SKHelper.libraryPath.appending("MMKV") {
+    public static var skRelativePath: String = SKHelper.libraryPath.appending("/MMKV") {
         didSet {
             initializeMMKV()
         }
@@ -190,6 +190,7 @@ extension MMKV {
     
     static private func initializeMMKV() {
         guard !didInitialize else { return }
+        try? FileManager.default.createDirectory(atPath: skRelativePath, withIntermediateDirectories: true)
         MMKV.initialize(rootDir: nil)
     }
 }
