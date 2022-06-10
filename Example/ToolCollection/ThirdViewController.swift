@@ -57,6 +57,13 @@ private extension ThirdViewController {
         
 //        let label = UILabel()
         
+        let stack = VStackView {
+            UIView()
+            (0 ..< 10).map { _ in UIView() }
+            UIButton()
+        }
+        
+        view.addSubview(stack)
     }
 }
 

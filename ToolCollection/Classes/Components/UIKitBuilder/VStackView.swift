@@ -14,29 +14,14 @@ public class VStackView: StackView {
         alignment: UIStackView.Alignment = .fill,
         spacing: CGFloat = 0,
         layoutMargins: UIEdgeInsets = .zero,
-        @StackViewBuilder builder: () -> [UIView]) {
+        @StackViewBuilder builder: () -> StackNode) {
         super.init(
             axis: .vertical,
             distribution: distribution,
             alignment: alignment,
             spacing: spacing,
             layoutMargins: layoutMargins,
-            arrangedSubviews: builder())
-    }
-
-    public init(
-        distribution: UIStackView.Distribution = .fill,
-        alignment: UIStackView.Alignment = .fill,
-        spacing: CGFloat = 0,
-        layoutMargins: UIEdgeInsets = .zero,
-        @StackViewBuilder builder: () -> UIView) {
-        super.init(
-            axis: .vertical,
-            distribution: distribution,
-            alignment: alignment,
-            spacing: spacing,
-            layoutMargins: layoutMargins,
-            arrangedSubviews: [builder()])
+            nodes: builder)
     }
 
     public required init(coder: NSCoder) {

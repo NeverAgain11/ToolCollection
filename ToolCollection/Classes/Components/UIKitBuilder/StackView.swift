@@ -16,15 +16,17 @@ public class StackView: UIStackView {
         alignment: UIStackView.Alignment,
         spacing: CGFloat,
         layoutMargins: UIEdgeInsets,
-        arrangedSubviews: [UIView]) {
+        @StackViewBuilder nodes: () -> StackNode) {
         super.init(frame: .zero)
-        arrangedSubviews.forEach { self.addArrangedSubview($0) }
-        self.axis = axis
-        self.alignment = alignment
-        self.distribution = distribution
-        self.spacing = spacing
-        isLayoutMarginsRelativeArrangement = false
-        self.layoutMargins = layoutMargins
+            
+            nodes().subNodes.forEach { addArrangedSubview($0) }
+            
+            self.axis = axis
+            self.alignment = alignment
+            self.distribution = distribution
+            self.spacing = spacing
+            isLayoutMarginsRelativeArrangement = false
+            self.layoutMargins = layoutMargins
     }
     
     public required init(coder: NSCoder) {
@@ -53,4 +55,28 @@ public class StackView: UIStackView {
         backgroundLayer.fillColor = self.backgroundColor?.cgColor
     }
     
+}
+
+protocol StackModifier {
+    associatedtype Stack: UIStackView
+    func alignment(_ alignment: Stack.Alignment) -> Stack
+    func distribution(_ distribution: Stack.Distribution) -> Stack
+    func spacing(_ spacing: CGFloat) -> Stack
+}
+
+extension UIStackView: StackModifier {
+    func alignment(_ alignment: UIStackView.Alignment) -> UIStackView {
+        self.alignment = alignment
+        return self
+    }
+    
+    func distribution(_ distribution: UIStackView.Distribution) -> UIStackView {
+        self.distribution = distribution
+        return self
+    }
+    
+    func spacing(_ spacing: CGFloat) -> UIStackView {
+        self.spacing = spacing
+        return self
+    }
 }
