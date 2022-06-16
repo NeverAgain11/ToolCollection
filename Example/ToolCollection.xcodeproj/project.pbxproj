@@ -16,6 +16,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		71C227852859DFBE00885F9D /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 71C227842859DFBE00885F9D /* Location.gpx */; };
 		C4922FDF275860170068CB91 /* yyjson in Frameworks */ = {isa = PBXBuildFile; productRef = C4922FDE275860170068CB91 /* yyjson */; };
 		C4922FE2275860680068CB91 /* YYJSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4922FE1275860680068CB91 /* YYJSONSerialization.swift */; };
 		C4922FE5275862C10068CB91 /* ZippyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C4922FE4275862C10068CB91 /* ZippyJSON */; };
@@ -37,6 +38,7 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		641E534F8870B210A6A8FC2E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		71C227842859DFBE00885F9D /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		99CB2C5F00774048E06E56AE /* libPods-ToolCollection_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToolCollection_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B6604B6212970A0964EC3D /* ToolCollection.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ToolCollection.podspec; path = ../ToolCollection.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C4922FE1275860680068CB91 /* YYJSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYJSONSerialization.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				026E164E2431E5550035ABD3 /* ToolCollection_Example-Bridging-Header.h */,
+				71C227842859DFBE00885F9D /* Location.gpx */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				71C227852859DFBE00885F9D /* Location.gpx in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,7 +419,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ryeex.dizo;
 				PRODUCT_MODULE_NAME = ToolCollectionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ToolCollection/ToolCollection_Example-Bridging-Header.h";
@@ -442,7 +446,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ryeex.dizo;
 				PRODUCT_MODULE_NAME = ToolCollectionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ToolCollection/ToolCollection_Example-Bridging-Header.h";

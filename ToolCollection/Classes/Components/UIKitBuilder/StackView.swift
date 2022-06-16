@@ -57,25 +57,18 @@ public class StackView: UIStackView {
     
 }
 
-protocol StackModifier {
-    associatedtype Stack: UIStackView
-    func alignment(_ alignment: Stack.Alignment) -> Stack
-    func distribution(_ distribution: Stack.Distribution) -> Stack
-    func spacing(_ spacing: CGFloat) -> Stack
-}
-
-extension UIStackView: StackModifier {
-    func alignment(_ alignment: UIStackView.Alignment) -> UIStackView {
+extension UIStackView {
+    public func alignment(_ alignment: UIStackView.Alignment) -> Self {
         self.alignment = alignment
         return self
     }
     
-    func distribution(_ distribution: UIStackView.Distribution) -> UIStackView {
+    public func distribution(_ distribution: UIStackView.Distribution) -> Self {
         self.distribution = distribution
         return self
     }
     
-    func spacing(_ spacing: CGFloat) -> UIStackView {
+    public func spacing(_ spacing: CGFloat) -> Self {
         self.spacing = spacing
         return self
     }

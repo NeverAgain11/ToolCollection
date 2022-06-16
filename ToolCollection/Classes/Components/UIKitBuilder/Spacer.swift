@@ -14,6 +14,22 @@ public extension UIView {
         Spacer(length: length, isFixed: true)
     }
     
+    /// Makes a fixed space along the axis of the containing stack view.
+    static func spacer(width: CGFloat) -> UIView {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.widthAnchor.constraint(equalToConstant: width).isActive = true
+        return v
+    }
+    
+    /// Makes a fixed space along the axis of the containing stack view.
+    static func spacer(heigth: CGFloat) -> UIView {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.heightAnchor.constraint(equalToConstant: heigth).isActive = true
+        return v
+    }
+    
     /// Makes a flexible space along the axis of the containing stack view.
     static func spacer(minLength: CGFloat = 0) -> UIView {
         Spacer(length: minLength, isFixed: false)

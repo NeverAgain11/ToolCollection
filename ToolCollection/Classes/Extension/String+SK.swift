@@ -71,4 +71,35 @@ public extension String {
         )
         return ceil(boundingBox.height)
     }
+    
+    func containsChinese() -> Bool {
+        for (_, value) in self.enumerated() {
+            if ("\u{4E00}" <= value  && value <= "\u{9FA5}") {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func firstLetterIsChinese() -> Bool {
+        for (_, value) in self.enumerated() {
+            if ("\u{4E00}" <= value  && value <= "\u{9FA5}") {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
+    func transformToPinyin() -> String {
+        let stringRef = NSMutableString(string: self) as CFMutableString
+        // 转换为带音标的拼音
+        CFStringTransform(stringRef, nil, kCFStringTransformToLatin, false)
+        // 去掉音标
+        CFStringTransform(stringRef, nil, kCFStringTransformStripCombiningMarks, false)
+        let pinyin = stringRef as String
+        return pinyin
+    }
 }
+
