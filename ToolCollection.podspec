@@ -1,4 +1,6 @@
 #
+# pod trunk push ToolCollection.podspec --allow-warnings
+#
 # Be sure to run `pod lib lint ToolCollection.podspec' to ensure this is a
 # valid spec before submitting.
 #
@@ -8,7 +10,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ToolCollection'
-  s.version          = '0.6.8'
+  s.version          = '0.6.9'
   s.summary          = '工具集合'
 
 # This description is used to generate tags and improve search results.

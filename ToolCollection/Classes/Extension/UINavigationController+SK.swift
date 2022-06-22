@@ -17,7 +17,7 @@ import UIKit
 }
 
 extension UINavigationController {
-    public static func awake() {
+    @objc public static func awake() {
         let clazz = UINavigationController.self
         
         ReplaceMethod(clazz, #selector(UINavigationController.viewDidLoad), #selector(UINavigationController.qmui_viewDidLoad))

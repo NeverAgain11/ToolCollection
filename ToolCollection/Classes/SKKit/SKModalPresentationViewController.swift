@@ -683,7 +683,7 @@ open class SKModalPresentationViewController: UIViewController {
                                       height: contentViewSize.height)
         case .center:
             contentViewFrame = CGRect(x: contentViewContainerSize.width.center(contentViewSize.width),
-                                      y: contentViewContainerSize.width.center(contentViewSize.height),
+                                      y: contentViewContainerSize.height.center(contentViewSize.height),
                                       width: contentViewSize.width,
                                       height: contentViewSize.height)
         case .bottom:

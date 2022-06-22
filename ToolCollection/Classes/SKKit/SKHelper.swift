@@ -285,7 +285,7 @@ public class SKHelper: NSObject {
 }
 
 extension SKHelper {
-    public static func awake() {
+    @objc public static func awake() {
         NotificationCenter.default.addObserver(shared, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(shared, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
