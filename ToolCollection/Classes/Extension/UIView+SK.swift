@@ -58,4 +58,13 @@ public extension SKKit where Base: UIView {
         mask.path = path.cgPath
         base.layer.mask = mask
     }
+    
+    func animateWith(animated: Bool, withDuration duration: TimeInterval, delay: TimeInterval, options: UIView.AnimationOptions = [], animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) {
+        if animated {
+            UIView.animate(withDuration: duration, delay: delay, options: options, animations: animations, completion: completion)
+        } else {
+            animations()
+            completion?(true)
+        }
+    }
 }

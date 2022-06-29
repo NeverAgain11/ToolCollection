@@ -18,6 +18,18 @@ public extension SKKit where Base: UIViewController {
         base.view.addGestureRecognizer(tap)
     }
     
+    /// 某些情况下，需要跳转下一个页面的时候同时移除当前页面。
+    func popThenPush(_ controller: UIViewController, popCount: Int = 1) {
+        var controllers = base.navigationController?.viewControllers ?? []
+        var count = popCount
+        while count > 0 {
+            controllers.popLast()
+            count -= 1
+        }
+        controllers.append(controller)
+        
+        base.navigationController?.setViewControllers(controllers, animated: true)
+    }
 }
 
 extension UIViewController {
