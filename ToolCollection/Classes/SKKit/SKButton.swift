@@ -144,10 +144,6 @@ open class SKButton: UIButton {
         setTitle(title, for: .normal)
     }
     
-    public func setTitle(_ title: String?, font: UIFont, textColor: UIColor, for state: UIControl.State) {
-        setAttributedTitle(title?.attributedString().font(font).textColor(textColor), for: state)
-    }
-    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         didInitialized()
