@@ -80,11 +80,8 @@ class ViewController: UIViewController {
     }
     
     func addButtonNode() {
-        let node = SettingSwitchNode()
-        view.addSubview(node)
-        node.sizeToFit()
+       
         
-        node.center = UIScreen.main.bounds.center
     }
     
     func testButton() {
