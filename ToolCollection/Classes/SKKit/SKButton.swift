@@ -262,7 +262,10 @@ open class SKButton: UIButton {
         
         if cornerRadius == CornerRadiusAdjustsBounds {
             layer.cornerRadius = self.bounds.height / 2
+        } else {
+            layer.cornerRadius = cornerRadius
         }
+        disableBackgroundLayer.cornerRadius = layer.cornerRadius
         
         let isImageViewShowing = imageView != nil && !imageView!.isHidden
         let isTitleLabelShowing = titleLabel != nil && !titleLabel!.isHidden
