@@ -23,7 +23,7 @@ public extension SKKit where Base: UIViewController {
         var controllers = base.navigationController?.viewControllers ?? []
         var count = popCount
         while count > 0 {
-            controllers.popLast()
+            _ = controllers.popLast()
             count -= 1
         }
         controllers.append(controller)
