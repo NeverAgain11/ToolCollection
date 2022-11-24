@@ -149,10 +149,17 @@ open class SKButton: UIButton {
         didInitialized()
     }
     
-    private lazy var highlightedBackgroundLayer = CALayer()
+    private lazy var highlightedBackgroundLayer: CALayer = {
+        $0.qmui_removeDefaultAnimations()
+        return $0
+    }(CALayer())
+    
     private var originBorderColor: UIColor?
     
-    private lazy var disableBackgroundLayer = CALayer()
+    private lazy var disableBackgroundLayer: CALayer = {
+        $0.qmui_removeDefaultAnimations()
+        return $0
+    }(CALayer())
     
     func didInitialized() {
         
@@ -160,7 +167,7 @@ open class SKButton: UIButton {
         adjustsImageWhenHighlighted = false
         adjustsImageWhenDisabled = false
         adjustsButtonWhenHighlighted = true
-        adjustsButtonWhenDisabled = false
+        adjustsButtonWhenDisabled = true
         
         // 图片默认在按钮左边，与系统UIButton保持一致
         imagePosition = .left
@@ -265,7 +272,9 @@ open class SKButton: UIButton {
         } else {
             layer.cornerRadius = cornerRadius
         }
-        disableBackgroundLayer.cornerRadius = layer.cornerRadius
+        if !isEnabled {
+            adjustsButtonDisable()
+        }
         
         let isImageViewShowing = imageView != nil && !imageView!.isHidden
         let isTitleLabelShowing = titleLabel != nil && !titleLabel!.isHidden
@@ -567,8 +576,9 @@ open class SKButton: UIButton {
     fileprivate func adjustsButtonHighlighted() {
         guard let highlightedBackgroundColor = highlightedBackgroundColor else { return }
         
-        highlightedBackgroundLayer.qmui_removeDefaultAnimations()
-        layer.insertSublayer(highlightedBackgroundLayer, at: 0)
+        if highlightedBackgroundLayer.superlayer == nil {
+            layer.insertSublayer(highlightedBackgroundLayer, at: 0)
+        }
         
         highlightedBackgroundLayer.frame = bounds
         highlightedBackgroundLayer.cornerRadius = layer.cornerRadius
@@ -583,8 +593,9 @@ open class SKButton: UIButton {
     fileprivate func adjustsButtonDisable() {
         guard let disableBackgroundColor = disableBackgroundColor else { return }
         
-        disableBackgroundLayer.qmui_removeDefaultAnimations()
-        layer.insertSublayer(disableBackgroundLayer, at: 0)
+        if disableBackgroundLayer.superlayer == nil {
+            layer.insertSublayer(disableBackgroundLayer, at: 0)
+        }
         
         disableBackgroundLayer.frame = bounds
         disableBackgroundLayer.cornerRadius = layer.cornerRadius
